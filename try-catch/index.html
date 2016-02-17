@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
-    <title>The Man Who Can&#39;t Be Moved! - find-particular-port-and-kill-it</title>
+    <title>The Man Who Can&#39;t Be Moved! - try-catch</title>
     <meta name="author" content="yangfan.onion">
     <meta name="description" content="The Man Who Can&#39;t Be Moved!">
     <link rel="icon" href="/assets/images/null">
@@ -143,18 +143,18 @@
     
         <div class="post-header main-content-wrap">
     
-        <h1 class="post-title" itemprop="headline">find-particular-port-and-kill-it</h1>
+        <h1 class="post-title" itemprop="headline">try-catch</h1>
     
     <div class="post-meta">
-    <time  itemprop="datePublished" content="Sat Jan 23 2016 00:17:41 GMT+0800">
-        Jan 23, 2016
+    <time  itemprop="datePublished" content="Thu Feb 18 2016 00:25:16 GMT+0800">
+        Feb 18, 2016
     </time>
     
 </div>
 </div>
     
     <div class="post-content markdown main-content-wrap" itemprop="articleBody">
-        <p>sudo lsof -i:80<br>sudo kill -9 {PID}</p>
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;script&#62;&#10;&#9;//For init different module&#10;&#9;var arr = [&#10;&#9;&#9;function()&#123;&#10;&#9;&#9;&#9;//Uncaught ReferenceError: a is not defined&#10;&#9;&#9;&#9;a.indexOf(1);&#10;&#9;&#9;&#125;,&#10;&#9;&#9;function()&#123;&#10;&#9;&#9;&#9;alert(&#39;I\&#39;m invoked&#39;);&#10;&#9;&#9;&#125;&#10;&#9;];&#10;&#9;&#10;&#9;for(var i=0; i&#60;arr.length; i++)&#123;&#10;&#9;&#9;//arr[i]();//script will be interrupted&#10;&#9;&#9;try&#123;&#10;&#9;&#9;&#9;arr[i]();&#10;&#9;&#9;&#125;catch(e)&#123;&#10;&#9;&#9;&#9;console.log(e);&#10;&#9;&#9;&#125;&#10;&#9;&#125;&#10;&#60;/script&#62;</span><br></pre></td></tr></table></figure>
 
         
             
@@ -162,12 +162,19 @@
     </div>
     <div class="post-footer main-content-wrap">
         
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Code/">Code</a>
+
+            </div>
+        
         <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/try-catch/"  data-tooltip="try-catch">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -175,7 +182,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/高性能MySQL读书笔记/" data-tooltip="高性能MySQL读书笔记">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/find-particular-port-and-kill-it/" data-tooltip="find-particular-port-and-kill-it">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -185,17 +192,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/find-particular-port-and-kill-it/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/try-catch/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/find-particular-port-and-kill-it/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/try-catch/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/find-particular-port-and-kill-it/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/try-catch/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -230,7 +237,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/try-catch/"  data-tooltip="try-catch">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -238,7 +245,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/高性能MySQL读书笔记/" data-tooltip="高性能MySQL读书笔记">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/find-particular-port-and-kill-it/" data-tooltip="find-particular-port-and-kill-it">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -248,17 +255,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/find-particular-port-and-kill-it/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/try-catch/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/find-particular-port-and-kill-it/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/try-catch/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/find-particular-port-and-kill-it/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/try-catch/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
