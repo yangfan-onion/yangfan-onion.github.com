@@ -162,6 +162,37 @@
 <li>Toggle Element state可以查看当前元素的:active, :focus, :hover, :visited样式</li>
 </ol>
 <p>####Console</p>
+<p>####Sources</p>
+<ol>
+<li>可以在代码中添加debugger; 程序在执行时会在此断点</li>
+<li>动态加载的JS代码调试， 代码头部加入 // @sourceURL=example.js 通知DevTools</li>
+<li>Ctrl + P可以查找任意文件</li>
+<li>Ctrl + P + : + 行号跳转到文件相应行</li>
+<li>Ctrl+Shift+O可以跳转到任意方法</li>
+<li>左下角的{}可以格式化压缩的JS,CSS方便查看代码调试</li>
+<li>添加断点调试JS, 添加条件断点</li>
+<li>单步跳过，进入，跳出方法</li>
+<li>添加表达式</li>
+<li>函数的调用栈</li>
+</ol>
+<p>####Network</p>
+<ol>
+<li>Filter可以多选</li>
+<li>size/content可以进行优化判断 size:文件传输大小, content:实际大小;  size=Gzip(文件大小)+response header的大小</li>
+<li>非二进制文件的size等于content说明未开启Gzip, 需要优化</li>
+<li>size大于content, 一般是小图片，可能20B大小，size中还包含了response_headers的大小，所以切图的时候，可以把多个小图片做成一张雪碧图，一是减少网络请求，二是可以减少过多response header的传输浪费</li>
+<li>time/latency =&gt; 总时间/等待时间  开始时间到TTFB(首字节加载时间)就是等待时间</li>
+<li>initator 资源是由谁请求的， 解释器或者自定义的JS，</li>
+<li>HAR(HTTP Archive)前后台开发人员协作优化性能问题 <a href="http://ericduran.github.io/chromeHAR/" target="_blank" rel="external">http://ericduran.github.io/chromeHAR/</a></li>
+<li>DOMContent event Fire（解释完当前页面）蓝线， Load Event Fire（加载完所有资源）红线</li>
+</ol>
+<p>######Timeline<br>可以按照<br>1.Connection Setup连接建立<br>Queueing排队时间<br>7.65 ms<br>Stalled<br>1.54 ms<br>Proxy negotiation    代理协商<br>0.13 ms<br>Initial connection    初始化连接<br>686.23 ms<br>SSL             Secure Sockets Layer 安全套接层<br>413.59 ms</p>
+<p>2.Request/Response<br>Request sent    请求送达<br>0.12 ms<br>Waiting (TTFB)    Time To First Byte(首字节到达时间)<br>446.35 ms<br>Content Download    229.35 ms 文件下载时间</p>
+<p>Explanation     1.37 s 总时间<br>可以优化的点<br>TTFB 是一个可以优化的点，利用CDN, 让内容距离用户更近，分配更快的路由<br>Content Download 也是一个很重要的点，特别是在首次加载，TCP连接在开始是很慢的，window size是很小的，~14kb, 超过14kb的内容需要另外的TCP包进行传输，会增加一个round trip time(来回时间)，在来回时间很长的情况下，会拖慢首次加载的速度</p>
+<p>####Profiles<br>网页的性能问题，JS的性能问题</p>
+<p>####Resource<br>资源，cookie, localstorage</p>
+<p>####Audits<br>评审网站，cache file, remove unuse css</p>
+<p>####pagespeed plugin<br>optimize image</p>
 
         
             
