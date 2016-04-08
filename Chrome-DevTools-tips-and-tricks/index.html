@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
+    <title>The Man Who Can&#39;t Be Moved! - Chrome DevTools tips and tricks</title>
+    <meta name="author" content="yangfan.onion">
+    <meta name="description" content="The Man Who Can&#39;t Be Moved!">
+    <link rel="icon" href="/assets/images/null">
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="atom.xml">
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars "></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="http://127.0.0.1:4000">The Man Who Can&#39;t Be Moved!</a>
+    </h1>
+    
+        <a class="header-picture-link" href="/#about">
+            <img class="header-picture" src="/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name hide-md">yangfan.onion</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc hide-md">Home</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-categories">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc hide-md">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-tags">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc hide-md">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-archives">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc hide-md">Archives</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/#about">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc hide-md">About me</span>
+                    </a>
+                </li>
+            
+        </ul>
+    
+        <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="https://github.com/yangfan-onion" target="_blank">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc hide-md">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="https://www.facebook.com/onionloveorange" target="_blank">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc hide-md">Facebook</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000mailto:yangfan.onion@gmail.com">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc hide-md">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+    
+        <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/atom.xml">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc hide-md">RSS</span>
+                    </a>
+                </li>
+            
+        </ul>
+    
+</nav>
+            <div id="main">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+        <div class="post-header main-content-wrap">
+    
+        <h1 class="post-title" itemprop="headline">Chrome DevTools tips and tricks</h1>
+    
+    <div class="post-meta">
+    <time  itemprop="datePublished" content="Thu Apr 07 2016 21:00:05 GMT+0800">
+        Apr 07, 2016
+    </time>
+    
+</div>
+</div>
+    
+    <div class="post-content markdown main-content-wrap" itemprop="articleBody">
+        <h1 id="Elements">Elements</h1><ol>
+<li>选择元素按H可以显示和隐藏当前元素，省去了手动添加(display:none;)操作</li>
+<li>为元素添加Subtree modification, Attribute modification, Node removal监听</li>
+<li>Event Listeners 可以查看当前选中元素有事件，可以绑定到祖先元素上的事件，并且可以查看事件的代码</li>
+<li>Toggle Element state可以查看当前元素的:active, :focus, :hover, :visited样式</li>
+</ol>
+<h4 id="Console">Console</h4><h4 id="Sources">Sources</h4><ol>
+<li>可以在代码中添加debugger; 程序在执行时会在此断点</li>
+<li>动态加载的JS代码调试， 代码头部加入 // @sourceURL=example.js 通知DevTools</li>
+<li>Ctrl + P可以查找任意文件</li>
+<li>Ctrl + P + : + 行号跳转到文件相应行</li>
+<li>Ctrl+Shift+O可以跳转到任意方法</li>
+<li>左下角的{}可以格式化压缩的JS,CSS方便查看代码调试</li>
+<li>添加断点调试JS, 添加条件断点</li>
+<li>单步跳过，进入，跳出方法</li>
+<li>添加表达式</li>
+<li>函数的调用栈</li>
+</ol>
+<h4 id="Network">Network</h4><ol>
+<li>Filter可以多选</li>
+<li>size/content可以进行优化判断 size:文件传输大小, content:实际大小;  size=Gzip(文件大小)+response header的大小</li>
+<li>非二进制文件的size等于content说明未开启Gzip, 需要优化</li>
+<li>size大于content, 一般是小图片，可能20B大小，size中还包含了response_headers的大小，所以切图的时候，可以把多个小图片做成一张雪碧图，一是减少网络请求，二是可以减少过多response header的传输浪费</li>
+<li>time/latency =&gt; 总时间/等待时间  开始时间到TTFB(首字节加载时间)就是等待时间</li>
+<li>initator 资源是由谁请求的， 解释器或者自定义的JS，</li>
+<li>HAR(HTTP Archive)前后台开发人员协作优化性能问题 <a href="http://ericduran.github.io/chromeHAR/" target="_blank" rel="external">http://ericduran.github.io/chromeHAR/</a></li>
+<li>DOMContent event Fire（解释完当前页面）蓝线， Load Event Fire（加载完所有资源）红线</li>
+</ol>
+<h6 id="Timeline">Timeline</h6><p>可以按照<br>1.Connection Setup连接建立<br>Queueing排队时间<br>7.65 ms<br>Stalled<br>1.54 ms<br>Proxy negotiation    代理协商<br>0.13 ms<br>Initial connection    初始化连接<br>686.23 ms<br>SSL             Secure Sockets Layer 安全套接层<br>413.59 ms</p>
+<p>2.Request/Response<br>Request sent    请求送达<br>0.12 ms<br>Waiting (TTFB)    Time To First Byte(首字节到达时间)<br>446.35 ms<br>Content Download    229.35 ms 文件下载时间</p>
+<p>Explanation     1.37 s 总时间<br>可以优化的点<br>TTFB 是一个可以优化的点，利用CDN, 让内容距离用户更近，分配更快的路由<br>Content Download 也是一个很重要的点，特别是在首次加载，TCP连接在开始是很慢的，window size是很小的，~14kb, 超过14kb的内容需要另外的TCP包进行传输，会增加一个round trip time(来回时间)，在来回时间很长的情况下，会拖慢首次加载的速度</p>
+<h4 id="Profiles">Profiles</h4><p>网页的性能问题，JS的性能问题</p>
+<h4 id="Resource">Resource</h4><p>资源，cookie, localstorage</p>
+<h4 id="Audits">Audits</h4><p>评审网站，cache file, remove unuse css</p>
+<h4 id="pagespeed_plugin">pagespeed plugin</h4><p>optimize image</p>
+
+        
+            
+        
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/高性能MySQL读书笔记/" data-tooltip="高性能MySQL读书笔记">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                <i class="fa fa-comment-o"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'yangfan-onion';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        
+    </div>
+    <div class="post-bottom-bar">
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/高性能MySQL读书笔记/" data-tooltip="高性能MySQL读书笔记">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                <i class="fa fa-comment-o"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 yangfan.onion. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">yangfan.onion</h4>
+        
+            <h5 id="about-card-bio">人生太短, 只爱脚本语言, orz..</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                编程, 吃东西
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                四川-成都
+            </h5>
+        
+    </div>
+</div>
+        <div id="cover" style="background-image:url('/assets/images/cover.png');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yangfan-onion';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+</html>

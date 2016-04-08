@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
+    <title>The Man Who Can&#39;t Be Moved! - 优雅且高效的使用Chrome-Developer-Tools（下）</title>
+    <meta name="author" content="yangfan.onion">
+    <meta name="description" content="The Man Who Can&#39;t Be Moved!">
+    <link rel="icon" href="/assets/images/null">
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="atom.xml">
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars "></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="http://127.0.0.1:4000">The Man Who Can&#39;t Be Moved!</a>
+    </h1>
+    
+        <a class="header-picture-link" href="/#about">
+            <img class="header-picture" src="/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name hide-md">yangfan.onion</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc hide-md">Home</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-categories">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc hide-md">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-tags">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc hide-md">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-archives">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc hide-md">Archives</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/#about">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc hide-md">About me</span>
+                    </a>
+                </li>
+            
+        </ul>
+    
+        <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="https://github.com/yangfan-onion" target="_blank">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc hide-md">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="https://www.facebook.com/onionloveorange" target="_blank">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc hide-md">Facebook</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000mailto:yangfan.onion@gmail.com">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc hide-md">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+    
+        <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/atom.xml">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc hide-md">RSS</span>
+                    </a>
+                </li>
+            
+        </ul>
+    
+</nav>
+            <div id="main">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+        <div class="post-header main-content-wrap">
+    
+        <h1 class="post-title" itemprop="headline">优雅且高效的使用Chrome-Developer-Tools（下）</h1>
+    
+    <div class="post-meta">
+    <time  itemprop="datePublished" content="Sat May 16 2015 23:25:07 GMT+0800">
+        May 16, 2015
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Code/">Code</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown main-content-wrap" itemprop="articleBody">
+        <blockquote><p>Chrome Developer Tools是前端开发不可缺少的利器，这里介绍几个有趣的Command Line API，使得开发调试过程中，不经意的透露出那点点的优雅。</p>
+<footer><strong>微信</strong><cite><a href="http://qywx.gitcafe.io/2014/10/15/%E4%BC%98%E9%9B%85%E4%B8%94%E9%AB%98%E6%95%88%E7%9A%84%E4%BD%BF%E7%94%A8Chrome-Developer-Tools%E4%B8%8B/" target="_blank" rel="external">转自：企业微信号团队播客</a></cite></footer></blockquote>
+<p>主要内容：</p>
+<ol>
+<li>随意的文件跳转</li>
+<li>随意的方法跳转</li>
+<li>灵活的断点设置，我要你停你才停</li>
+<li>快速打开关闭Console</li>
+<li>Elements页卡中几个有用的快捷键</li>
+<li>指定的XHR断点</li>
+<li>快速模拟移动设备</li>
+</ol>
+<p>之前有分享到我们可以通过 Command Line API 来提高我们的开发效率。除此之外，还有一些比较有趣的快捷键和调试方法，也能帮助提高大家的生产效率。</p>
+<p>几个小事项：</p>
+<ol>
+<li>文中提到的快捷键 command 在WIN下都是对应Ctrl；</li>
+<li>当焦点在dev tools上时，快捷键才有效~。</li>
+</ol>
+<p>随意的文件跳转</p>
+<p>使用Sublime的同学，一定非常喜欢command + p，这种随意的文件跳转，其实dev tools中也有类似的跳转，而且快捷键也是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command + p  // &#36339;&#36716;&#21040;&#23545;&#24212;&#25991;&#20214;&#10;command + p + : + &#25968;&#23383; // &#36339;&#36716;&#21040;&#23545;&#24212;&#25991;&#20214;&#23545;&#24212;&#34892;</span><br></pre></td></tr></table></figure>
+<p><img src="commandp.gif" alt="commandp"></p>
+<p>是不是再也不用在Sources中，用鼠标一个一个找文件了。</p>
+<h1 id="随意的方法跳转">随意的方法跳转</h1><p>Sublime中，command + R是跳转到方法，漂亮的是 dev tools中也有类似的快捷键：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command + shift + o</span><br></pre></td></tr></table></figure>
+<p>来，我们先用command + p打开一个文件，然后command + shift + o,跳转到任意一个方法。</p>
+<p><img src="commando.gif" alt="commando"></p>
+<h1 id="灵活的断点设置，我要你停你才停">灵活的断点设置，我要你停你才停</h1><p>很多时候，需要在循环中打个断点，着实麻烦，不得不一次又一次的运行循环，直到我们需要的那个条件时候停止，手快的时候多按了，那就只好从头再来一次了。</p>
+<p>我们在断点的时候是可以设置一个 Breakpoint 的,满足条件的时候才停止，下图演示了一个，当消息id为所确定消息时候，断点才生效。</p>
+<p><img src="breakpoint.gif" alt="breakpoint"></p>
+<h1 id="快速打开关闭Console">快速打开关闭Console</h1><p>屏幕不是很大的时候，一般都都会关掉Console，使得代码的可视范围能大一些，然后通过点击右上角的Show/Hide drawer按钮来打开或者关闭Console。其实这时候，可以快捷的使用ESC键来打开或者关闭Console。</p>
+<p><img src="chromeesec.gif" alt="chromeesec"></p>
+<h1 id="Elements页卡中几个有用的快捷键">Elements页卡中几个有用的快捷键</h1><ol>
+<li>方向键快速选择，上下键快速导航，左右键收起展开；</li>
+<li>enter快速编辑属性；</li>
+<li>tab属性切换；</li>
+<li>H键快速隐藏dom，知道这个快捷键之前，我要么删除dom看效果，要么手工输入display:none，有H就方便多了；</li>
+</ol>
+<p><img src="123.gif" alt="image"></p>
+<h1 id="指定的XHR断点">指定的XHR断点</h1><p>有时候，我们需要在指定的xhr请求的时候，有一个断点，那可以这样：</p>
+<p><img src="xhrpoint.gif" alt="xhrpoint"></p>
+<p>然后可以通过call stack快速的找到对应的代码。</p>
+<h1 id="快速模拟移动设备">快速模拟移动设备</h1><p>打开dev tools，然后执行以下快捷键：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command + shift + M // &#20999;&#25442;&#27169;&#25311;Device&#10;command + shift + R // &#21047;&#26032;&#39029;&#38754;</span><br></pre></td></tr></table></figure>
+<p><img src="device.gif" alt="device"></p>
+<p>另外，强烈建议大家都升级到chrome 38以上版本，可以模拟网络环境，对移动开发真是在好不过了。</p>
+
+        
+            
+        
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/chrome-developer-tools/">chrome developer tools</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Mac-OS-X-10-10-Yosemite下面解决XAMPP无法开启mysql的问题/"  data-tooltip="Mac OS X 10.10 Yosemite下面解决XAMPP无法开启mysql的问题">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/About-color/" data-tooltip="About color">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://127.0.0.1:4000/优雅且高效的使用Chrome-Developer-Tools（下）/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:4000/优雅且高效的使用Chrome-Developer-Tools（下）/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://127.0.0.1:4000/优雅且高效的使用Chrome-Developer-Tools（下）/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                <i class="fa fa-comment-o"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'yangfan-onion';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        
+    </div>
+    <div class="post-bottom-bar">
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Mac-OS-X-10-10-Yosemite下面解决XAMPP无法开启mysql的问题/"  data-tooltip="Mac OS X 10.10 Yosemite下面解决XAMPP无法开启mysql的问题">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/About-color/" data-tooltip="About color">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://127.0.0.1:4000/优雅且高效的使用Chrome-Developer-Tools（下）/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:4000/优雅且高效的使用Chrome-Developer-Tools（下）/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://127.0.0.1:4000/优雅且高效的使用Chrome-Developer-Tools（下）/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                <i class="fa fa-comment-o"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 yangfan.onion. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">yangfan.onion</h4>
+        
+            <h5 id="about-card-bio">人生太短, 只爱脚本语言, orz..</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                编程, 吃东西
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                四川-成都
+            </h5>
+        
+    </div>
+</div>
+        <div id="cover" style="background-image:url('/assets/images/cover.png');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yangfan-onion';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+</html>

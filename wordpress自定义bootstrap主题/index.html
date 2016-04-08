@@ -1,252 +1,156 @@
-
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
     
 <head>
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
-    <title>wordpress自定义bootstrap主题 - The Man Who Can&#39;t Be Moved!</title>
+    <title>The Man Who Can&#39;t Be Moved! - wordpress自定义bootstrap主题</title>
     <meta name="author" content="yangfan.onion">
+    <meta name="description" content="The Man Who Can&#39;t Be Moved!">
+    <link rel="icon" href="/assets/images/null">
     
-    
-    
-        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
-    
-    <meta name="description" content="#先上一个wordpress的流程图
-#将网站的各个模板文件拆分开来
-a. style.cssb. index.phpc. header.phpd. footer.phpe. sidebar.phpf. single.phpg. page.phph. archive.php =&amp;gt; category, tag, date-based, author basedi. functions.php">
-<meta property="og:type" content="blog">
-<meta property="og:title" content="wordpress自定义bootstrap主题">
-<meta property="og:url" content="http://yangfan-onion.github.io/wordpress自定义bootstrap主题/index.html">
-<meta property="og:site_name" content="The Man Who Can't Be Moved!">
-<meta property="og:description" content="#先上一个wordpress的流程图
-#将网站的各个模板文件拆分开来
-a. style.cssb. index.phpc. header.phpd. footer.phpe. sidebar.phpf. single.phpg. page.phph. archive.php =&amp;gt; category, tag, date-based, author basedi. functions.php">
-<meta property="og:image" content="http://yangfan-onion.github.io/wordpress-infography-02.png">
-<meta property="og:image" content="http://yangfan-onion.github.io/theme.png">
-<meta property="og:image" content="http://yangfan-onion.github.io/bootstrap-init.png">
-<meta property="og:image" content="http://yangfan-onion.github.io/easy-bootstrap-shortcode.png">
-<meta property="og:image" content="http://yangfan-onion.github.io/cate-jumbotron.png">
-<meta property="og:updated_time" content="2015-10-22T09:07:51.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="wordpress自定义bootstrap主题">
-<meta name="twitter:description" content="#先上一个wordpress的流程图
-#将网站的各个模板文件拆分开来
-a. style.cssb. index.phpc. header.phpd. footer.phpe. sidebar.phpf. single.phpg. page.phph. archive.php =&amp;gt; category, tag, date-based, author basedi. functions.php">
-    
-    
-        
-    
-    
-        <meta property="og:image" content="http://yangfan-onion.github.io/assets/images/avatar.jpg"/>
-    
-    
-        <meta property="og:image" content="wordpress自定义bootstrap主题//feature.png"/>
-        <meta class="swiftype" name="image" data-type="enum" content="wordpress自定义bootstrap主题//feature.png" />
-    
-    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="atom.xml">
     
     <!--STYLES-->
-    <link rel="stylesheet" href="/assets/css/style-quwccsthbllipo6252snb2tfkddvrsp1eczkytpz3vmxpsb6nwodixemlkux.min.css" type="text/css">
+    <link rel="stylesheet" href="/assets/css/style.min.css" type="text/css">
     <!--STYLES END-->
-    
     
 </head>
 
     <body>
         <div id="blog">
-            <!-- Define author's picture -->
-
-
-    
-        
-            
-        
-    
-
-<header id="header" data-behavior="4">
-    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+            <header id="header">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars "></i>
     <h1 class="header-title">
-        <a class="header-title-link" href="/ ">The Man Who Can&#39;t Be Moved!</a>
+        <a class="header-title-link" href="http://127.0.0.1:4000">The Man Who Can&#39;t Be Moved!</a>
     </h1>
     
-        
-            <a  class="header-right-picture "
-                href="/#about">
-        
-        
+        <a class="header-picture-link" href="/#about">
             <img class="header-picture" src="/assets/images/avatar.jpg"/>
-        
         </a>
     
 </header>
-
-            <!-- Define author's picture -->
-
-
-
-        
-    
-
-<nav id="sidebar" data-behavior="4">
+            <nav id="sidebar">
     
         <div class="sidebar-profile">
             <a href="/#about">
+                
                     <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg"/>
+                
             </a>
-            <span class="sidebar-profile-name">yangfan.onion</span>
+            <span class="sidebar-profile-name hide-md">yangfan.onion</span>
         </div>
     
     
         <ul class="sidebar-buttons">
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/ "
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
-                    <span class="sidebar-button-desc">首頁</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/all-categories"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
-                    <span class="sidebar-button-desc">分類</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/all-tags"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
-                    <span class="sidebar-button-desc">標籤</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/all-archives"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
-                    <span class="sidebar-button-desc">所有文章</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link st-search-show-outputs"
-                         href="/#search"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
-                    <span class="sidebar-button-desc">搜尋</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/#about"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
-                    <span class="sidebar-button-desc">關於</span>
-                </a>
-        </li>
-        
-    </ul>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc hide-md">Home</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-categories">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc hide-md">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-tags">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc hide-md">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-archives">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc hide-md">Archives</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/#about">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc hide-md">About me</span>
+                    </a>
+                </li>
+            
+        </ul>
     
         <ul class="sidebar-buttons">
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link " href="https://github.com/yangfan-onion" target="_blank">
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
-                    <span class="sidebar-button-desc">GitHub</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link " href="https://www.facebook.com/onionloveorange" target="_blank">
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
-                    <span class="sidebar-button-desc">Facebook</span>
-                </a>
-        </li>
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link " href="mailto:yangfan.onion@gmail.com" target="_blank">
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
-                    <span class="sidebar-button-desc">Mail</span>
-                </a>
-        </li>
-        
-    </ul>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="https://github.com/yangfan-onion" target="_blank">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc hide-md">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="https://www.facebook.com/onionloveorange" target="_blank">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc hide-md">Facebook</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000mailto:yangfan.onion@gmail.com">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc hide-md">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
     
         <ul class="sidebar-buttons">
-        
-            <li class="sidebar-button">
-                
-                    <a  class="sidebar-button-link "
-                         href="/atom.xml"
-                        
-                    >
-                
-                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
-                    <span class="sidebar-button-desc">Atom</span>
-                </a>
-        </li>
-        
-    </ul>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/atom.xml">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc hide-md">RSS</span>
+                    </a>
+                </li>
+            
+        </ul>
     
 </nav>
-
-            
-            <div id="main" data-behavior="4"
-                 class="
-                        hasCoverMetaIn
-                        ">
+            <div id="main">
                 
 <article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
+        <div class="post-header main-content-wrap">
     
-        <div class="post-header main-content-wrap text-left">
-    
-        <h1 class="post-title" itemprop="headline">
-            wordpress自定义bootstrap主题
-        </h1>
+        <h1 class="post-title" itemprop="headline">wordpress自定义bootstrap主题</h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Mon Aug 03 2015 23:10:27 GMT+0800">
-	
-		    8月 03, 2015
-    	
+    <time  itemprop="datePublished" content="Mon Aug 03 2015 23:10:27 GMT+0800">
+        Aug 03, 2015
     </time>
     
-        <span>分類 </span>
+        <span>in </span>
         
     <a class="category-link" href="/categories/Code/">Code</a>
 
@@ -255,19 +159,17 @@ a. style.cssb. index.phpc. header.phpd. footer.phpe. sidebar.phpf. single.phpg. 
 </div>
 </div>
     
-    <div class="post-content markdown" itemprop="articleBody">
-        <div class="main-content-wrap">
-            <p>#先上一个wordpress的流程图<br><img src="wordpress-infography-02.png" alt="wordpress sequence"></p>
-<p>#将网站的各个模板文件拆分开来</p>
-<p>a. style.css<br>b. index.php<br>c. header.php<br>d. footer.php<br>e. sidebar.php<br>f. single.php<br>g. page.php<br>h. archive.php =&gt; category, tag, date-based, author based<br>i. functions.php =&gt; 自定义插件，方法<br>j. screenshot.png =&gt; 非必须，用于显示模板的效果图</p>
-<p>##style.css基本要素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/*&#10;Theme Name: bs3-theme&#10;Theme URI: http://www.yangfan-onion.github.com&#10;Author: yangfan&#10;Author URI: http://www.yangfan-onion.github.com&#10;Description: Bootstrap theme in wordpress;&#10;Version: 1.0&#10;License: MIT&#10;Tags: Bootstrap, Smartphone&#10;*/</span><br></pre></td></tr></table></figure></p>
-<p>##index.php基本要素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;?php get_header(); ?&#62;&#10;&#60;div class=&#34;container&#34;&#62;&#10;&#9;&#60;?php&#10;&#9;&#9;//&#32473;&#20986;&#26597;&#35810;&#26465;&#20214;&#10;&#9;&#9;query_posts(&#39;posts_per_page=1&#39;);&#10;&#9;?&#62;&#10;&#10;&#9;&#60;?php while(have_posts()):the_post();?&#62;&#10;&#9;&#9;&#60;div class=&#34;jumbotron&#34;&#62;&#10;&#9;&#9;  &#60;h1&#62;&#60;?php the_title();?&#62;&#60;/h1&#62;&#10;&#9;&#9;  &#60;p&#62;&#60;?php the_excerpt();?&#62;&#60;/p&#62;&#10;&#9;&#9;  &#60;p&#62;&#60;a class=&#34;btn btn-primary btn-lg&#34; href=&#34;#&#34; role=&#34;button&#34;&#62;Learn more&#60;/a&#62;&#60;/p&#62;&#10;&#9;&#9;&#60;/div&#62;&#10;&#9;&#60;?php endwhile; wp_reset_query();?&#62;&#10;&#60;/div&#62;&#10;&#60;?php get_footer(); ?&#62;</span><br></pre></td></tr></table></figure></p>
+    <div class="post-content markdown main-content-wrap" itemprop="articleBody">
+        <p>#先上一个wordpress的流程图<br><img src="wordpress-infography-02.png" alt="wordpress sequence"></p>
+<h1 id="将网站的各个模板文件拆分开来">将网站的各个模板文件拆分开来</h1><p>a. style.css<br>b. index.php<br>c. header.php<br>d. footer.php<br>e. sidebar.php<br>f. single.php<br>g. page.php<br>h. archive.php =&gt; category, tag, date-based, author based<br>i. functions.php =&gt; 自定义插件，方法<br>j. screenshot.png =&gt; 非必须，用于显示模板的效果图</p>
+<h2 id="style-css基本要素">style.css基本要素</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/*&#10;Theme Name: bs3-theme&#10;Theme URI: http://www.yangfan-onion.github.com&#10;Author: yangfan&#10;Author URI: http://www.yangfan-onion.github.com&#10;Description: Bootstrap theme in wordpress;&#10;Version: 1.0&#10;License: MIT&#10;Tags: Bootstrap, Smartphone&#10;*/</span><br></pre></td></tr></table></figure>
+<h2 id="index-php基本要素">index.php基本要素</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;?php get_header(); ?&#62;&#10;&#60;div class=&#34;container&#34;&#62;&#10;&#9;&#60;?php&#10;&#9;&#9;//&#32473;&#20986;&#26597;&#35810;&#26465;&#20214;&#10;&#9;&#9;query_posts(&#39;posts_per_page=1&#39;);&#10;&#9;?&#62;&#10;&#10;&#9;&#60;?php while(have_posts()):the_post();?&#62;&#10;&#9;&#9;&#60;div class=&#34;jumbotron&#34;&#62;&#10;&#9;&#9;  &#60;h1&#62;&#60;?php the_title();?&#62;&#60;/h1&#62;&#10;&#9;&#9;  &#60;p&#62;&#60;?php the_excerpt();?&#62;&#60;/p&#62;&#10;&#9;&#9;  &#60;p&#62;&#60;a class=&#34;btn btn-primary btn-lg&#34; href=&#34;#&#34; role=&#34;button&#34;&#62;Learn more&#60;/a&#62;&#60;/p&#62;&#10;&#9;&#9;&#60;/div&#62;&#10;&#9;&#60;?php endwhile; wp_reset_query();?&#62;&#10;&#60;/div&#62;&#10;&#60;?php get_footer(); ?&#62;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//the_post() method code&#10;public function the_post() &#123;&#10;    global $post;&#10;    $this-&#62;in_the_loop = true;&#10; &#10;    if ( $this-&#62;current_post == -1 ) // loop has just started&#10;        /**&#10;         * Fires once the loop is started.&#10;         *&#10;         * @since 2.0.0&#10;         *&#10;         * @param WP_Query &#38;$this The WP_Query instance (passed by reference).&#10;         */&#10;        do_action_ref_array( &#39;loop_start&#39;, array( &#38;$this ) );&#10; &#10;    $post = $this-&#62;next_post();&#10;    $this-&#62;setup_postdata( $post );&#10;&#125;</span><br></pre></td></tr></table></figure>
-<p>##functions.php基本要素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;?php&#10;// Register Custom Navigation Walker&#10;//&#24341;&#29992;bootstrap&#30340;&#23548;&#33322;&#26465;&#25554;&#20214;&#10;require_once(&#39;wp_bootstrap_navwalker.php&#39;);&#10;&#10;//&#27880;&#20876;&#33258;&#23450;&#20041;&#30340;&#33756;&#21333;&#10;register_nav_menus(array(&#10;    &#39;primary&#39; =&#62; __(&#39;Primary Menu&#39;, &#39;bs3-theme&#39;)&#10;));&#10;&#10;//&#21152;&#36733;&#33050;&#26412;&#10;function bs3_theme_scripts() &#123;&#10;&#9;//&#21152;&#36733;bootstrap.min.css&#10;&#9;wp_enqueue_style( &#39;bootstrap.min.css&#39;, get_template_directory_uri() . &#39;/css/bootstrap.min.css&#39;);&#10;&#9;//&#21152;&#36733;sytle.css&#10;&#9;wp_enqueue_style( &#39;style.css&#39;, get_stylesheet_uri() );&#10;&#10;&#9;//&#21152;&#36733;js&#10;&#9;wp_enqueue_script( &#39;jquery.min.js&#39;, get_template_directory_uri() . &#39;/js/jquery.min.js&#39; );&#10;&#9;wp_enqueue_script( &#39;bootstrap.min.js&#39;, get_template_directory_uri() . &#39;/js/bootstrap.min.js&#39; );&#10;&#125;&#10;//hook the function, &#21152;&#36733;wordpress&#30340;&#38057;&#23376;&#65292;wordpress&#21021;&#22987;&#21270;&#30340;&#26102;&#20505;&#20250;&#33258;&#21160;&#25191;&#34892;&#36825;&#20010;&#26041;&#27861;&#65292; &#20854;&#23454;&#20063;&#21487;&#20197;&#25918;&#21040;&#25991;&#20214;&#37324;&#38754;&#29992;get_template_directory_uri&#65288;&#65289;&#26041;&#27861;&#30452;&#25509;&#24341;&#29992;css&#21644;js, &#36825;&#26679;&#29992;&#30340;&#22909;&#22788;&#36824;&#27809;&#25506;&#32034;&#26126;&#30333;&#65288;`&#38656;&#35201;&#32487;&#32493;&#28145;&#20837;`&#65289;&#10;add_action( &#39;wp_enqueue_scripts&#39;, &#39;bs3_theme_scripts&#39; );&#10;?&#62;</span><br></pre></td></tr></table></figure></p>
-<p>##header.php基本要素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!DOCTYPE html&#62;&#10;&#9;&#60;html &#60;?php language_attributes(); ?&#62; class=&#34;no-js&#34;&#62;&#10;&#9;&#60;head&#62;&#10;&#9;&#9;&#60;meta charset=&#34;&#60;?php bloginfo( &#39;charset&#39; ); ?&#62;&#34;&#62;&#10;&#9;&#9;&#60;meta name=&#34;viewport&#34; content=&#34;width=device-width&#34;&#62;&#10;&#9;&#9;&#60;!--[if lt IE 9]&#62;&#10;&#9;&#9;&#60;script src=&#34;&#60;?php echo esc_url( get_template_directory_uri() ); ?&#62;/js/html5.js&#34;&#62;&#60;/script&#62;&#10;&#9;&#9;&#60;![endif]--&#62;&#10;&#9;&#9;&#60;?php wp_head(); ?&#62;&#10;&#9;&#60;/head&#62;&#10;&#10;&#9;&#60;body &#60;?php body_class(); ?&#62;&#62;&#10;&#9;&#9;&#60;nav class=&#34;navbar navbar-default header&#34;&#62;&#10;&#9;&#9;  &#60;div class=&#34;container&#34;&#62;&#10;&#9;&#9;    &#60;!-- Brand and toggle get grouped for better mobile display --&#62;&#10;&#9;&#9;    &#60;div class=&#34;navbar-header&#34;&#62;&#10;&#9;&#9;      &#60;button type=&#34;button&#34; class=&#34;navbar-toggle collapsed&#34; data-toggle=&#34;collapse&#34; data-target=&#34;#bs-example-navbar-collapse-1&#34; aria-expanded=&#34;false&#34;&#62;&#10;&#9;&#9;        &#60;span class=&#34;sr-only&#34;&#62;Toggle navigation&#60;/span&#62;&#10;&#9;&#9;        &#60;span class=&#34;icon-bar&#34;&#62;&#60;/span&#62;&#10;&#9;&#9;        &#60;span class=&#34;icon-bar&#34;&#62;&#60;/span&#62;&#10;&#9;&#9;        &#60;span class=&#34;icon-bar&#34;&#62;&#60;/span&#62;&#10;&#9;&#9;      &#60;/button&#62;&#10;&#9;&#9;      &#60;a class=&#34;navbar-brand&#34; href=&#34;#&#34;&#62;bs3-theme&#60;/a&#62;&#10;&#9;&#9;    &#60;/div&#62;&#10;&#10;&#9;&#9;    &#60;!-- Collect the nav links, forms, and other content for toggling --&#62;&#10;&#9;&#9;    &#60;?php&#10;&#9;            wp_nav_menu( array(&#10;&#9;                &#39;menu&#39;              =&#62; &#39;primary&#39;,&#10;&#9;                &#39;theme_location&#39;    =&#62; &#39;primary&#39;,&#10;&#9;                &#39;depth&#39;             =&#62; 2,&#10;&#9;                &#39;container&#39;         =&#62; &#39;div&#39;,&#10;&#9;                &#39;container_class&#39;   =&#62; &#39;collapse navbar-collapse&#39;,&#10;&#9;        &#9;&#9;&#39;container_id&#39;      =&#62; &#39;bs-example-navbar-collapse-1&#39;,&#10;&#9;                &#39;menu_class&#39;        =&#62; &#39;nav navbar-nav navbar-right&#39;,&#10;&#9;                &#39;fallback_cb&#39;       =&#62; &#39;wp_bootstrap_navwalker::fallback&#39;,&#10;&#9;                &#39;walker&#39;            =&#62; new wp_bootstrap_navwalker())&#10;&#9;            );&#10;&#9;        ?&#62;&#10;&#9;&#9;  &#60;/div&#62;&#60;!-- /.container --&#62;&#10;&#9;&#9;&#60;/nav&#62;</span><br></pre></td></tr></table></figure></p>
-<p>##footer基本要素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;nav class=&#34;navbar navbar-default navbar-fixed-bottom footer&#34;&#62;&#10;  &#60;div class=&#34;container&#34;&#62;&#10;    &#60;div class=&#34;row&#34;&#62;&#10;    &#9;&#60;div class=&#34;col-md-12 text-success text&#34;&#62;&#10;    &#9;&#9;Bootstrap 3 in wordpress!!&#9;&#9;&#10;    &#9;&#60;/div&#62;&#10;    &#60;/div&#62;&#10;    &#10;  &#60;/div&#62;&#10;&#60;/nav&#62;&#10;&#60;?php wp_footer(); ?&#62;&#10;&#10;&#60;/body&#62;&#10;&#60;/html&#62;</span><br></pre></td></tr></table></figure></p>
+<h2 id="functions-php基本要素">functions.php基本要素</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;?php&#10;// Register Custom Navigation Walker&#10;//&#24341;&#29992;bootstrap&#30340;&#23548;&#33322;&#26465;&#25554;&#20214;&#10;require_once(&#39;wp_bootstrap_navwalker.php&#39;);&#10;&#10;//&#27880;&#20876;&#33258;&#23450;&#20041;&#30340;&#33756;&#21333;&#10;register_nav_menus(array(&#10;    &#39;primary&#39; =&#62; __(&#39;Primary Menu&#39;, &#39;bs3-theme&#39;)&#10;));&#10;&#10;//&#21152;&#36733;&#33050;&#26412;&#10;function bs3_theme_scripts() &#123;&#10;&#9;//&#21152;&#36733;bootstrap.min.css&#10;&#9;wp_enqueue_style( &#39;bootstrap.min.css&#39;, get_template_directory_uri() . &#39;/css/bootstrap.min.css&#39;);&#10;&#9;//&#21152;&#36733;sytle.css&#10;&#9;wp_enqueue_style( &#39;style.css&#39;, get_stylesheet_uri() );&#10;&#10;&#9;//&#21152;&#36733;js&#10;&#9;wp_enqueue_script( &#39;jquery.min.js&#39;, get_template_directory_uri() . &#39;/js/jquery.min.js&#39; );&#10;&#9;wp_enqueue_script( &#39;bootstrap.min.js&#39;, get_template_directory_uri() . &#39;/js/bootstrap.min.js&#39; );&#10;&#125;&#10;//hook the function, &#21152;&#36733;wordpress&#30340;&#38057;&#23376;&#65292;wordpress&#21021;&#22987;&#21270;&#30340;&#26102;&#20505;&#20250;&#33258;&#21160;&#25191;&#34892;&#36825;&#20010;&#26041;&#27861;&#65292; &#20854;&#23454;&#20063;&#21487;&#20197;&#25918;&#21040;&#25991;&#20214;&#37324;&#38754;&#29992;get_template_directory_uri&#65288;&#65289;&#26041;&#27861;&#30452;&#25509;&#24341;&#29992;css&#21644;js, &#36825;&#26679;&#29992;&#30340;&#22909;&#22788;&#36824;&#27809;&#25506;&#32034;&#26126;&#30333;&#65288;`&#38656;&#35201;&#32487;&#32493;&#28145;&#20837;`&#65289;&#10;add_action( &#39;wp_enqueue_scripts&#39;, &#39;bs3_theme_scripts&#39; );&#10;?&#62;</span><br></pre></td></tr></table></figure>
+<h2 id="header-php基本要素">header.php基本要素</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!DOCTYPE html&#62;&#10;&#9;&#60;html &#60;?php language_attributes(); ?&#62; class=&#34;no-js&#34;&#62;&#10;&#9;&#60;head&#62;&#10;&#9;&#9;&#60;meta charset=&#34;&#60;?php bloginfo( &#39;charset&#39; ); ?&#62;&#34;&#62;&#10;&#9;&#9;&#60;meta name=&#34;viewport&#34; content=&#34;width=device-width&#34;&#62;&#10;&#9;&#9;&#60;!--[if lt IE 9]&#62;&#10;&#9;&#9;&#60;script src=&#34;&#60;?php echo esc_url( get_template_directory_uri() ); ?&#62;/js/html5.js&#34;&#62;&#60;/script&#62;&#10;&#9;&#9;&#60;![endif]--&#62;&#10;&#9;&#9;&#60;?php wp_head(); ?&#62;&#10;&#9;&#60;/head&#62;&#10;&#10;&#9;&#60;body &#60;?php body_class(); ?&#62;&#62;&#10;&#9;&#9;&#60;nav class=&#34;navbar navbar-default header&#34;&#62;&#10;&#9;&#9;  &#60;div class=&#34;container&#34;&#62;&#10;&#9;&#9;    &#60;!-- Brand and toggle get grouped for better mobile display --&#62;&#10;&#9;&#9;    &#60;div class=&#34;navbar-header&#34;&#62;&#10;&#9;&#9;      &#60;button type=&#34;button&#34; class=&#34;navbar-toggle collapsed&#34; data-toggle=&#34;collapse&#34; data-target=&#34;#bs-example-navbar-collapse-1&#34; aria-expanded=&#34;false&#34;&#62;&#10;&#9;&#9;        &#60;span class=&#34;sr-only&#34;&#62;Toggle navigation&#60;/span&#62;&#10;&#9;&#9;        &#60;span class=&#34;icon-bar&#34;&#62;&#60;/span&#62;&#10;&#9;&#9;        &#60;span class=&#34;icon-bar&#34;&#62;&#60;/span&#62;&#10;&#9;&#9;        &#60;span class=&#34;icon-bar&#34;&#62;&#60;/span&#62;&#10;&#9;&#9;      &#60;/button&#62;&#10;&#9;&#9;      &#60;a class=&#34;navbar-brand&#34; href=&#34;#&#34;&#62;bs3-theme&#60;/a&#62;&#10;&#9;&#9;    &#60;/div&#62;&#10;&#10;&#9;&#9;    &#60;!-- Collect the nav links, forms, and other content for toggling --&#62;&#10;&#9;&#9;    &#60;?php&#10;&#9;            wp_nav_menu( array(&#10;&#9;                &#39;menu&#39;              =&#62; &#39;primary&#39;,&#10;&#9;                &#39;theme_location&#39;    =&#62; &#39;primary&#39;,&#10;&#9;                &#39;depth&#39;             =&#62; 2,&#10;&#9;                &#39;container&#39;         =&#62; &#39;div&#39;,&#10;&#9;                &#39;container_class&#39;   =&#62; &#39;collapse navbar-collapse&#39;,&#10;&#9;        &#9;&#9;&#39;container_id&#39;      =&#62; &#39;bs-example-navbar-collapse-1&#39;,&#10;&#9;                &#39;menu_class&#39;        =&#62; &#39;nav navbar-nav navbar-right&#39;,&#10;&#9;                &#39;fallback_cb&#39;       =&#62; &#39;wp_bootstrap_navwalker::fallback&#39;,&#10;&#9;                &#39;walker&#39;            =&#62; new wp_bootstrap_navwalker())&#10;&#9;            );&#10;&#9;        ?&#62;&#10;&#9;&#9;  &#60;/div&#62;&#60;!-- /.container --&#62;&#10;&#9;&#9;&#60;/nav&#62;</span><br></pre></td></tr></table></figure>
+<h2 id="footer基本要素">footer基本要素</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;nav class=&#34;navbar navbar-default navbar-fixed-bottom footer&#34;&#62;&#10;  &#60;div class=&#34;container&#34;&#62;&#10;    &#60;div class=&#34;row&#34;&#62;&#10;    &#9;&#60;div class=&#34;col-md-12 text-success text&#34;&#62;&#10;    &#9;&#9;Bootstrap 3 in wordpress!!&#9;&#9;&#10;    &#9;&#60;/div&#62;&#10;    &#60;/div&#62;&#10;    &#10;  &#60;/div&#62;&#10;&#60;/nav&#62;&#10;&#60;?php wp_footer(); ?&#62;&#10;&#10;&#60;/body&#62;&#10;&#60;/html&#62;</span><br></pre></td></tr></table></figure>
 <hr>
-<p>##分清了主题的文件结构关系，今天用bootstrap定制了一个简陋的主题，用于公司在医院的问卷调查<br><img src="theme.png" alt="theme.png"></p>
+<h2 id="分清了主题的文件结构关系，今天用bootstrap定制了一个简陋的主题，用于公司在医院的问卷调查">分清了主题的文件结构关系，今天用bootstrap定制了一个简陋的主题，用于公司在医院的问卷调查</h2><p><img src="theme.png" alt="theme.png"></p>
 <p>步骤如下</p>
 <ol>
 <li><p>首先安装插件可以加载bootstrap的依赖文件，我是用代码自己加载到主题里面的（之前还不知道有这个插件）<br><img src="bootstrap-init.png" alt="install bootstrap library"></p>
@@ -283,13 +185,14 @@ a. style.cssb. index.phpc. header.phpd. footer.phpe. sidebar.phpf. single.phpg. 
 </li>
 </ol>
 
+        
             
-        </div>
+        
     </div>
-    <div id="post-footer" class="post-footer main-content-wrap">
+    <div class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">標籤</span><br/>
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/Bootstrap/">Bootstrap</a> <a class="tag tag--primary tag--small t-link" href="/tags/wordpress/">wordpress</a> <a class="tag tag--primary tag--small t-link" href="/tags/wordpress仿站/">wordpress仿站</a>
 
@@ -300,49 +203,41 @@ a. style.cssb. index.phpc. header.phpd. footer.phpe. sidebar.phpf. single.phpg. 
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/wordpress主题制作总结/"  data-tooltip="wordpress主题制作总结">
                 
                     <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                 </a>
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/wordpress主题文件结构/" data-tooltip="wordpress主题文件结构">
                 
-                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
                 </a>
             </li>
         </ul>
     </nav>
     <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
-                <i class="fa fa-share-alt"></i>
-            </a>
-        </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/wordpress自定义bootstrap主题/">
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://127.0.0.1:4000/wordpress自定义bootstrap主题/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/wordpress自定义bootstrap主题/">
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:4000/wordpress自定义bootstrap主题/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/wordpress自定义bootstrap主题/">
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://127.0.0.1:4000/wordpress自定义bootstrap主题/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#">
-            
-                <i class="fa fa-list"></i>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                <i class="fa fa-comment-o"></i>
             </a>
         </li>
     </ul>
@@ -350,8 +245,68 @@ a. style.cssb. index.phpc. header.phpd. footer.phpe. sidebar.phpf. single.phpg. 
 
 
         
-            
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'yangfan-onion';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
         
+    </div>
+    <div class="post-bottom-bar">
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/wordpress主题制作总结/"  data-tooltip="wordpress主题制作总结">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/wordpress主题文件结构/" data-tooltip="wordpress主题文件结构">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://127.0.0.1:4000/wordpress自定义bootstrap主题/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:4000/wordpress自定义bootstrap主题/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://127.0.0.1:4000/wordpress自定义bootstrap主题/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                <i class="fa fa-comment-o"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
     </div>
 </article>
 
@@ -364,93 +319,8 @@ a. style.cssb. index.phpc. header.phpd. footer.phpe. sidebar.phpf. single.phpg. 
 </footer>
 
             </div>
-            
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
-                    <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--disabled">
-                
-                    <i class="fa fa-angle-left"></i>
-                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
-                </a>
-            </li>
-            <li class="post-action">
-                
-                    <a class="post-action-btn btn btn--disabled">
-                
-                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
-                <i class="fa fa-share-alt"></i>
-            </a>
-        </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/wordpress自定义bootstrap主题/">
-                <i class="fa fa-google-plus"></i>
-            </a>
-        </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/wordpress自定义bootstrap主题/">
-                <i class="fa fa-facebook-official"></i>
-            </a>
-        </li>
-        <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/wordpress自定义bootstrap主题/">
-                <i class="fa fa-twitter"></i>
-            </a>
-        </li>
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#">
-            
-                <i class="fa fa-list"></i>
-            </a>
-        </li>
-    </ul>
-</div>
-
-
-                </div>
-                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
-    <ul class="share-options">
-        <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/wordpress自定义bootstrap主题/">
-                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
-            </a>
-        </li>
-        <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/wordpress自定义bootstrap主题/">
-                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
-            </a>
-        </li>
-        <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/wordpress自定义bootstrap主题/">
-                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
-            </a>
-        </li>
-    </ul>
-</div>
-<div id="share-options-mask" class="share-options-mask"></div>
-            
         </div>
-        
-
-
-    
-        
-    
-
-<div id="about">
+        <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-remove"></i>
@@ -460,15 +330,13 @@ a. style.cssb. index.phpc. header.phpd. footer.phpe. sidebar.phpf. single.phpg. 
         
             <h4 id="about-card-name">yangfan.onion</h4>
         
-            <h5 id="about-card-bio"><p>author.bio</p>
-</h5>
+            <h5 id="about-card-bio">人生太短, 只爱脚本语言, orz..</h5>
         
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
                 <br/>
-                <p>author.job</p>
-
+                编程, 吃东西
             </h5>
         
         
@@ -480,16 +348,22 @@ a. style.cssb. index.phpc. header.phpd. footer.phpe. sidebar.phpf. single.phpg. 
         
     </div>
 </div>
-
-        
-<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <div id="cover" style="background-image:url('/assets/images/cover.png');"></div>
     </body>
     <!--SCRIPTS-->
-<script src="/assets/js/scrip-rjanlllosg30d03qrddpwrs6wqf4k3v0bbo68hiifuvthyhqfefx2htcagu0.min.js" type="text/javascript"></script>
+<script src="/assets/js/script.min.js" type="text/javascript"></script>
 <!--SCRIPTS END-->
 
-    
-
+    <script type="text/javascript">
+        var disqus_shortname = 'yangfan-onion';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
 
 
 </html>
