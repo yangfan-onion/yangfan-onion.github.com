@@ -1,0 +1,999 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>The Man Who Can&#39;t Be Moved!</title>
+  <subtitle>谁把你的长发盘起,谁为你做了xxxL的嫁衣...</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yangfan-onion.github.io/"/>
+  <updated>2016-04-09T08:33:59.000Z</updated>
+  <id>http://yangfan-onion.github.io/</id>
+  
+  <author>
+    <name>yangfan.onion</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Chrome DevTools tips and tricks</title>
+    <link href="http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/"/>
+    <id>http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/</id>
+    <published>2016-04-07T13:00:05.000Z</published>
+    <updated>2016-04-09T08:33:59.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;Elements&quot;&gt;Elements&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;选择元素按H可以显示和隐藏当前元素，省去了手动添加(display:none;)操作&lt;/li&gt;
+&lt;li&gt;为元素添加Subtree modification, Attribute modification, Node removal监听&lt;/li&gt;
+&lt;li&gt;Event Listeners 可以查看当前选中元素有事件，可以绑定到祖先元素上的事件，并且可以查看事件的代码&lt;/li&gt;
+&lt;li&gt;Toggle Element state可以查看当前元素的:active, :focus, :hover, :visited样式&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;Console&quot;&gt;Console&lt;/h3&gt;&lt;h3 id=&quot;Sources&quot;&gt;Sources&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;可以在代码中添加debugger; 程序在执行时会在此断点&lt;/li&gt;
+&lt;li&gt;动态加载的JS代码调试， 代码头部加入 // @sourceURL=example.js 通知DevTools&lt;/li&gt;
+&lt;li&gt;Ctrl + P可以查找任意文件&lt;/li&gt;
+&lt;li&gt;Ctrl + P + : + 行号跳转到文件相应行&lt;/li&gt;
+&lt;li&gt;Ctrl+Shift+O可以跳转到任意方法&lt;/li&gt;
+&lt;li&gt;左下角的{}可以格式化压缩的JS,CSS方便查看代码调试&lt;/li&gt;
+&lt;li&gt;添加断点调试JS, 添加条件断点&lt;/li&gt;
+&lt;li&gt;单步跳过，进入，跳出方法&lt;/li&gt;
+&lt;li&gt;添加表达式&lt;/li&gt;
+&lt;li&gt;函数的调用栈&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;Network&quot;&gt;Network&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;Filter可以多选&lt;/li&gt;
+&lt;li&gt;size/content可以进行优化判断 size:文件传输大小, content:实际大小;  size=Gzip(文件大小)+response header的大小&lt;/li&gt;
+&lt;li&gt;非二进制文件的size等于content说明未开启Gzip, 需要优化&lt;/li&gt;
+&lt;li&gt;size大于content, 一般是小图片，可能20B大小，size中还包含了response_headers的大小，所以切图的时候，可以把多个小图片做成一张雪碧图，一是减少网络请求，二是可以减少过多response header的传输浪费&lt;/li&gt;
+&lt;li&gt;time/latency =&amp;gt; 总时间/等待时间  开始时间到TTFB(首字节加载时间)就是等待时间&lt;/li&gt;
+&lt;li&gt;initator 资源是由谁请求的， 解释器或者自定义的JS，由JS发起的会存在一些延迟&lt;/li&gt;
+&lt;li&gt;HAR(HTTP Archive)前后台开发人员协作优化性能问题 &lt;a href=&quot;http://ericduran.github.io/chromeHAR/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://ericduran.github.io/chromeHAR/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;DOMContent event Fire（解释完当前页面）蓝线， Load Event Fire（加载完所有资源）红线&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h6 id=&quot;浏览器并发请求数&quot;&gt;浏览器并发请求数&lt;/h6&gt;&lt;p&gt;为了复用已存在在的连接，浏览器对同一域名的并发请求是有限的, 以下是各种浏览器的并发数量&lt;br&gt;&lt;img src=&quot;screenshot1.jpg&quot; alt=&quot;浏览器请求并发数&quot;&gt;&lt;/p&gt;
+&lt;h6 id=&quot;zhihu-com的网络请求截屏&quot;&gt;zhihu.com的网络请求截屏&lt;/h6&gt;&lt;p&gt;&lt;img src=&quot;screenshot.jpg&quot; alt=&quot;domain&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如图，有的请求会持续很长时间，如果把 img, css, js… 都放到 &lt;a href=&quot;http://zhihu.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://zhihu.com&lt;/a&gt; 一个域名下面，其他请求就迟迟无法完成，浏览者看来就是『卡住了』。而把图片放到 &lt;a href=&quot;http://zhimg.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://zhimg.com&lt;/a&gt; 之后，css和图片就可以并发请求了。知乎使用了pic1.zhimg.com | pic2.zhimg.com | pic3.zhimg.com | pic3.zhimg.com&lt;br&gt;而且这4个域名是cookie free的&lt;/p&gt;
+&lt;p&gt;可以参考下图&lt;br&gt;&lt;img src=&quot;cookie_free.png&quot; alt=&quot;cookie free&quot;&gt;&lt;br&gt;&lt;img src=&quot;cookie_free1.png&quot; alt=&quot;cookie free&quot;&gt;&lt;/p&gt;
+&lt;h6 id=&quot;Capture_Filmstrip_以订货宝官网为例&quot;&gt;Capture Filmstrip 以订货宝官网为例&lt;/h6&gt;&lt;p&gt;&lt;img src=&quot;first-screen.png&quot; alt=&quot;首屏优化&quot;&gt;&lt;br&gt;844ms呈现出来的首屏，这时html+js+css下载完成&lt;br&gt;DOM+Javascript+CSSOM =&amp;gt; Render Tree&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;first-screen-1.png&quot; alt=&quot;首屏优化&quot;&gt;&lt;br&gt;1.80s的首屏截图， 此时订货宝的Logo还未加载出来，为什么？？&lt;br&gt;&lt;img src=&quot;frist-screen-2.png&quot; alt=&quot;首屏优化&quot;&gt;&lt;br&gt;仔细看logo.png的网络请求， Queueing: 521ms，TTFB: 1.17s， Content Download: 32ms&lt;/p&gt;
+&lt;h6 id=&quot;如何优化Queueing，_Stalled&quot;&gt;如何优化Queueing， Stalled&lt;/h6&gt;&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;资源优先级&lt;/em&gt; 图片的优先级一般是低于html, css, js的，可以在Network的选项卡里调出优先级一列&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;同一域名网络请求并发数&lt;/em&gt; chrome 6个&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;排队时间高就是因为并发的6个链接正在处理优先级高的资源，要等到优先级高的资源处理完了，在复用这些链接请求优先级更低的资源&lt;br&gt;这个时候我们将图片换到另外的域名下，在同一优先级的图片下面，logo.png是会优先排队的，这样就可以避免排队时间的过多的消耗，&lt;/p&gt;
+&lt;p&gt;鱼与熊掌不可兼得，放到另外的域名下，DNS查询也是会增加消耗的，一般2～4个为宜&lt;/p&gt;
+&lt;h6 id=&quot;如何优化TTFB&quot;&gt;如何优化TTFB&lt;/h6&gt;&lt;p&gt;TTFB 是一个可以优化的点，利用CDN, 让内容距离用户更近，更快的服务器响应&lt;/p&gt;
+&lt;h6 id=&quot;如何优化Content_Download&quot;&gt;如何优化Content Download&lt;/h6&gt;&lt;p&gt;减小内容大小；&lt;br&gt;特别是在首次加载，TCP连接在开始是很慢的，window size是很小的，~14kb, 超过14kb的内容需要另外的TCP包进行传输，会增加一个round trip time(来回时间)，在来回时间很长的情况下，会拖慢首次加载的速度&lt;/p&gt;
+&lt;h4 id=&quot;Profiles&quot;&gt;Profiles&lt;/h4&gt;&lt;p&gt;网页的性能问题，JS的性能问题&lt;/p&gt;
+&lt;h4 id=&quot;Resource&quot;&gt;Resource&lt;/h4&gt;&lt;p&gt;资源，cookie, localstorage&lt;/p&gt;
+&lt;h4 id=&quot;Audits&quot;&gt;Audits&lt;/h4&gt;&lt;p&gt;评审网站，cache file, remove unuse css&lt;/p&gt;
+&lt;h4 id=&quot;pagespeed_plugin&quot;&gt;pagespeed plugin&lt;/h4&gt;&lt;p&gt;optimize image&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Elements&quot;&gt;Elements&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;选择元素按H可以显示和隐藏当前元素，省去了手动添加(display:none;)操作&lt;/li&gt;
+&lt;li&gt;为元素添加Subtree modification, Attribute modificatio
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>高性能MySQL读书笔记</title>
+    <link href="http://yangfan-onion.github.io/%E9%AB%98%E6%80%A7%E8%83%BDMySQL%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yangfan-onion.github.io/高性能MySQL读书笔记/</id>
+    <published>2015-11-30T12:32:51.000Z</published>
+    <updated>2016-04-08T12:57:35.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;MySQL存储引擎&quot;&gt;MySQL存储引擎&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;MyISAM：不支持外键，不支持事务&lt;/li&gt;
+&lt;li&gt;InnoDB：支持外键，支持事务&lt;/li&gt;
+&lt;li&gt;Archive：压缩存储，存储的空间比MyISAM更小，Select操作需要全表扫描，适合存放系统日志&lt;/li&gt;
+&lt;li&gt;Memory：存放在内存中，速度比MyISAM快一个数量级&lt;/li&gt;
+&lt;li&gt;Blackhole&lt;/li&gt;
+&lt;li&gt;CSV：可以直接将CSV导入到数据库&lt;/li&gt;
+&lt;li&gt;Federated&lt;/li&gt;
+&lt;li&gt;NDB集群&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;选择合适的存储引擎&quot;&gt;选择合适的存储引擎&lt;/h2&gt;&lt;p&gt;除非需要某些InnoDB不支持的特性，并且没有替代方案，否则首先考虑InnoDB&lt;br&gt;如果需要使用全文索引，优先考虑使用MyISAM＋Sphinx&lt;/p&gt;
+&lt;p&gt;－ 事务&lt;br&gt;－ 备份：如果可以容忍停机备份，那么MyISAM就可以，如果不能忍受，那么InnoDB会更好&lt;br&gt;－ 崩溃恢复：MyISAM恢复需要更长的时间，崩溃后数据损坏的可能性比InnoDB大的多&lt;br&gt;－ 特有特性：例如：MyISAM才支持地理范围搜索&lt;/p&gt;
+&lt;h2 id=&quot;日志应用&quot;&gt;日志应用&lt;/h2&gt;&lt;p&gt;如果需要将应用的日志记录到MySQL，那么MyISAM和Archive引擎就非常适合这种应用场景，而且速度非常快，但是如果需要同时分析日志，同时进行读写，会导致MySQL效率降低，可以采用主从备份的方式，将日志备份到从库再进行分析&lt;br&gt;另一种办法是，将日志切分到较小时间维度，t_log_20150906，t_log_20150907，这样在空闲的表上进行日志分析，就可以达到一个高效率了。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;MySQL存储引擎&quot;&gt;MySQL存储引擎&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;MyISAM：不支持外键，不支持事务&lt;/li&gt;
+&lt;li&gt;InnoDB：支持外键，支持事务&lt;/li&gt;
+&lt;li&gt;Archive：压缩存储，存储的空间比MyISAM更小，Select操作需要全表扫描，适
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="MySQL" scheme="http://yangfan-onion.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Markdown相关</title>
+    <link href="http://yangfan-onion.github.io/Markdown%E7%9B%B8%E5%85%B3/"/>
+    <id>http://yangfan-onion.github.io/Markdown相关/</id>
+    <published>2015-10-24T12:53:43.000Z</published>
+    <updated>2016-04-08T12:59:59.000Z</updated>
+    
+    <content type="html">&lt;p&gt;#Markdown的应用场景&lt;/p&gt;
+&lt;h3 id=&quot;什么是Markdown:_https://zh-wikipedia-org/wiki/Markdown&quot;&gt;什么是Markdown: &lt;a href=&quot;https://zh.wikipedia.org/wiki/Markdown&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://zh.wikipedia.org/wiki/Markdown&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;Markdown可以用来干什么:&quot;&gt;Markdown可以用来干什么:&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;博客写作， &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;，&lt;/li&gt;
+&lt;li&gt;文档写作， GitHub README.md, API document&lt;/li&gt;
+&lt;li&gt;笔记记录， 结合印象笔记的&lt;a href=&quot;https://maxiang.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;马克飞象&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;博客写作&quot;&gt;博客写作&lt;/h3&gt;&lt;p&gt;Hexo是一个使用NodeJS的静态文本生成器，比较Geek，Github提供了静态文件托管的功能，Git Page应运而生。我们可以将Hexo生成的静态文件托管到Github，搭建一个属于自己的博客，&lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;教程链接戳我&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;文档写作&quot;&gt;文档写作&lt;/h3&gt;&lt;p&gt;Github对*.md有自己的&lt;a href=&quot;https://gist.github.com/tuzz/3331384&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;解析样式&lt;/a&gt;,可以参考一下。Github将Markdown解析成对应的Html,然后用前面的样式进行渲染，我们也可以在此基础上面进行二次开发，例如增加对代码片段的不同语言的语法支持，Javascript, Java, CSS等等&lt;/p&gt;
+&lt;p&gt;我们团队开发API的时候也可以用到Markdown&lt;br&gt;先分目录，WEB-API, APP-API&lt;br&gt;再分别写API目录， web-api-summary.md, app-api-summary.md，这两个markdown文件里面全是对子markdown的链接，方便查找&lt;br&gt;最后再写API详情， F0010.md， F0020.md， F0030.md，每个文档之间留够10个空隙，以备日后新增API&lt;/p&gt;
+&lt;p&gt;这样项目开发人员可以通过GitHub在线共享开发文档，可以很直观的进行编辑。Markdown的语法对于程序员们来说应该是很亲切的了。&lt;/p&gt;
+&lt;h3 id=&quot;笔记记录&quot;&gt;笔记记录&lt;/h3&gt;&lt;p&gt;印象笔记唯一不爽的我觉得是对Markdown的支持，其他的简直完美无缺。有了马克飞象，对于程序员们来说真的就是飞了起来的感觉。&lt;/p&gt;
+&lt;h3 id=&quot;Markdown_plugin_&amp;amp;_Markdown_App&quot;&gt;Markdown plugin &amp;amp; Markdown App&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;宇宙最好编辑器Sublime Text 的&lt;a href=&quot;https://github.com/revolunet/sublimetext-markdown-preview&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;sublimetext-markdown-preview插件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://25.io/mou/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Mou&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#Markdown的应用场景&lt;/p&gt;
+&lt;h3 id=&quot;什么是Markdown:_https://zh-wikipedia-org/wiki/Markdown&quot;&gt;什么是Markdown: &lt;a href=&quot;https://zh.wikipedia.org/wiki/Markd
+    
+    </summary>
+    
+    
+      <category term="Markdown" scheme="http://yangfan-onion.github.io/tags/Markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis Mass Insertion</title>
+    <link href="http://yangfan-onion.github.io/Redis-Mass-Insertion/"/>
+    <id>http://yangfan-onion.github.io/Redis-Mass-Insertion/</id>
+    <published>2015-10-22T07:59:27.000Z</published>
+    <updated>2015-10-22T09:07:27.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Sometimes Redis instances needs to be loaded with big amount of preexisting or user generated data in a short amount of time, so that millions of keys will be created as fast as possible.&lt;br&gt;This is called a mass insertion, and the goal of this document is to provide information about how to feed Redis with data as fast as possible.&lt;br&gt;Use the protocol, Luke&lt;br&gt;Using a normal Redis client to perform mass insertion is not a good idea for a few reasons: the naive approach of sending one command after the other is slow because you have to pay for the round trip time for every command. It is possible to use pipelining, but for mass insertion of many records you need to write new commands while you read replies at the same time to make sure you are inserting as fast as possible.&lt;br&gt;Only a small percentage of clients support non-blocking I/O, and not all the clients are able to parse the replies in an efficient way in order to maximize throughput. For all this reasons the preferred way to mass import data into Redis is to generate a text file containing the Redis protocol, in raw format, in order to call the commands needed to insert the required data.&lt;br&gt;For instance if I need to generate a large data set where there are billions of keys in the form: `keyN -&amp;gt; ValueN’ I will create a file containing the following commands in the Redis protocol format:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;SET Key0 Value0&amp;#10;SET Key1 Value1&amp;#10;...&amp;#10;SET KeyN ValueN&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;Once this file is created, the remaining action is to feed it to Redis as fast as possible. In the past the way to do this was to use the netcat with the following command:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;(cat data.txt; sleep 10) | nc localhost 6379 &amp;#62; /dev/null&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;br&gt;However this is not a very reliable way to perform mass import because netcat does not really know when all the data was transferred and can’t check for errors. In 2.6 or later versions of Redis the redis-cli utility supports a new mode called pipe mode that was designed in order to perform mass insertion.&lt;br&gt;Using the pipe mode the command to run looks like the following:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cat data.txt | redis-cli --pipe&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;br&gt;That will produce an output similar to this:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;All data transferred. Waiting for the last reply...&amp;#10;Last reply received from server.&amp;#10;errors: 0, replies: 1000000&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;br&gt;The redis-cli utility will also make sure to only redirect errors received from the Redis instance to the standard output.&lt;br&gt;Generating Redis Protocol&lt;br&gt;The Redis protocol is extremely simple to generate and parse, and is Documented here. However in order to generate protocol for the goal of mass insertion you don’t need to understand every detail of the protocol, but just that every command is represented in the following way:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;*&amp;#60;args&amp;#62;&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&amp;#10;$&amp;#60;len&amp;#62;&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&amp;#10;&amp;#60;arg0&amp;#62;&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&amp;#10;&amp;#60;arg1&amp;#62;&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&amp;#10;...&amp;#10;&amp;#60;argN&amp;#62;&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;br&gt;Where &lt;cr&gt; means “\r” (or ASCII character 13) and &lt;lf&gt; means “\n” (or ASCII character 10).&lt;br&gt;For instance the command SET key value is represented by the following protocol:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;*3&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&amp;#10;$3&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&amp;#10;SET&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&amp;#10;$3&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&amp;#10;key&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&amp;#10;$5&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&amp;#10;value&amp;#60;cr&amp;#62;&amp;#60;lf&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;br&gt;Or represented as a quoted string:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#34;*3\r\n$3\r\nSET\r\n$3\r\nkey\r\n$5\r\nvalue\r\n&amp;#34;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;br&gt;The file you need to generate for mass insertion is just composed of commands represented in the above way, one after the other.&lt;br&gt;The following Ruby function generates valid protocol:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;def gen_redis_proto(*cmd)&amp;#10;    proto = &amp;#34;&amp;#34;&amp;#10;    proto &amp;#60;&amp;#60; &amp;#34;*&amp;#34;+cmd.length.to_s+&amp;#34;\r\n&amp;#34;&amp;#10;    cmd.each&amp;#123;|arg|&amp;#10;        proto &amp;#60;&amp;#60; &amp;#34;$&amp;#34;+arg.to_s.bytesize.to_s+&amp;#34;\r\n&amp;#34;&amp;#10;       &amp;#9;proto &amp;#60;&amp;#60; arg.to_s+&amp;#34;\r\n&amp;#34;&amp;#10;    &amp;#125;&amp;#10;&amp;#9;proto&amp;#10;end&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;br&gt;puts gen_redis_proto(“SET”,”mykey”,”Hello World!”).inspect&lt;br&gt;Using the above function it is possible to easily generate the key value pairs in the above example, with this program:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;(0...1000).each&amp;#123;|n|&amp;#10;    STDOUT.write(gen_redis_proto(&amp;#34;SET&amp;#34;,&amp;#34;Key#&amp;#123;n&amp;#125;&amp;#34;,&amp;#34;Value#&amp;#123;n&amp;#125;&amp;#34;))&amp;#10;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;br&gt;We can run the program directly in pipe to redis-cli in order to perform our first mass import session.&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ ruby proto.rb | redis-cli --pipe&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;br&gt;All data transferred. Waiting for the last reply…&lt;br&gt;Last reply received from server.&lt;br&gt;errors: 0, replies: 1000&lt;br&gt;How the pipe mode works under the hoods&lt;br&gt;The magic needed inside the pipe mode of redis-cli is to be as fast as netcat and still be able to understand when the last reply was sent by the server at the same time.&lt;br&gt;This is obtained in the following way:&lt;/lf&gt;&lt;/cr&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;redis-cli –pipe tries to send data as fast as possible to the server.&lt;/li&gt;
+&lt;li&gt;At the same time it reads data when available, trying to parse it.&lt;/li&gt;
+&lt;li&gt;Once there is no more data to read from stdin, it sends a special ECHO command with a random 20 bytes string: we are sure this is the latest command sent, and we are sure we can match the reply checking if we receive the same 20 bytes as a bulk reply.&lt;/li&gt;
+&lt;li&gt;Once this special final command is sent, the code receiving replies starts to match replies with this 20 bytes. When the matching reply is reached it can exit with success.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Using this trick we don’t need to parse the protocol we send to the server in order to understand how many commands we are sending, but just the replies.&lt;br&gt;However while parsing the replies we take a counter of all the replies parsed so that at the end we are able to tell the user the amount of commands transferred to the server by the mass insert session.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Sometimes Redis instances needs to be loaded with big amount of preexisting or user generated data in a short amount of time, so that mil
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="redis" scheme="http://yangfan-onion.github.io/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mysql海量数据存储和解决方案之分布式DB方案</title>
+    <link href="http://yangfan-onion.github.io/Mysql%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E4%B9%8B%E5%88%86%E5%B8%83%E5%BC%8FDB%E6%96%B9%E6%A1%88/"/>
+    <id>http://yangfan-onion.github.io/Mysql海量数据存储和解决方案之分布式DB方案/</id>
+    <published>2015-10-21T08:46:55.000Z</published>
+    <updated>2016-04-08T13:05:12.000Z</updated>
+    
+    <content type="html">&lt;ol&gt;
+&lt;li&gt;分布式DB水平切分中用到的主要关键技术：分库，分表，M-S,集群，负载均衡&lt;/li&gt;
+&lt;li&gt;需求分析：一个大型互联网应用每天几十亿的PV对DB造成了相当高的负载，对系统的稳定性的扩展性带来极大挑战。&lt;/li&gt;
+&lt;li&gt;现有解决方式：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;通过数据切分提高网站性能，横向扩展数据层水平切分DB，有效降低了单台机器的负载，也减小了宕机的可能性。&lt;/li&gt;
+&lt;li&gt;集群方案：解决DB宕机带来的单点DB不能访问问题。&lt;/li&gt;
+&lt;li&gt;读写分离策略：极大限度提高了应用中Read数据的速度和并发量。&lt;/li&gt;
+&lt;li&gt;典型例子：Taobao,Alibaba,Tencent，它们大都实现了自己的分布式数据访问层（DDAL）。Taobao的基于ibatis和Spring的的分布式数据访问层，已有多年的应用，运行效率和生产实效性得到了开发人员和用户的肯定。&lt;/li&gt;
+&lt;li&gt;水平切分需要考虑的后续问题：分库后路由规则的选择和制定，以及后期扩展。如，如何以最少的数据迁移达到最大容量的扩展。因些路由表分规则以及负载均衡的考虑很重要。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;对于DB切分，实质上就是数据切分。下面从What, Why, How三个方面来讲述。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;What？什么是数据切分？&quot;&gt;What？什么是数据切分？&lt;/h3&gt;&lt;p&gt;具体将有什么样的切分方式呢和路由方式呢？举个简单的例子：我们针对一个Blog应用中的日志来说明，比如日志文章（article）表有如下字段：article_id(int),title(varchar(128)),content(varchar(1024)),user_id(int)&lt;br&gt;面对这样的一个表，我们怎样切分呢？怎样将这样的数据分布到不同的数据库中的表中去呢？其实分析blog的应用，我们不难得出这样的结论：blog的应用中，用户分为两种：浏览者和blog的主人。浏览者浏览某个blog，实际上是在一个特定的用户的blog下进行浏览的，而blog的主人管理自己的blog，也同样是在特定的用户blog下进行操作的（在自己的空间下）。所谓的特定的用户，用数据库的字段表示就是“user_id”。就是这个“user_id”，它就是我们需要的分库的依据和规则的基础。我们可以这样做，将user_id为1～10000的所有的文章信息放入DB1中的article表中，将user_id为10001～20000的所有文章信息放入DB2中的article表中，以此类推，一直到DBn。这样一来，文章数据就很自然的被分到了各个数据库中，达到了数据切分的目的。接下来要解决的问题就是怎样找到具体的数据库呢？其实问题也是简单明显的，既然分库的时候我们用到了区分字段user_id，那么很自然，数据库路由的过程当然还是少不了user_id的。考虑一下我们刚才呈现的blog应用，不管是访问别人的blog还是管理自己的blog，总之我都要知道这个blog的用户是谁吧，也就是我们知道了这个blog的user_id，就利用这个user_id，利用分库时候的规则，反过来定位具体的数据库，比如user_id是234，利用该才的规则，就应该定位到DB1，假如user_id是12343，利用该才的规则，就应该定位到DB2。以此类推，利用分库的规则，反向的路由到具体的DB，这个过程我们称之为“DB路由”。&lt;/p&gt;
+&lt;p&gt;当然考虑到数据切分的DB设计必然是非常规，不正统的DB设计。那么什么样的DB设计是正统的DB设计呢？&lt;/p&gt;
+&lt;p&gt;我们平常规规矩矩用的基本都是。平常我们会自觉的按照范式来设计我们的数据库，负载高点可能考虑使用相关的Replication机制来提高读写的吞吐和性能，这可能已经可以满足很多需求，但这套机制自身的缺陷还是比较显而易见的。上面提到的“自觉的按照范式设计”。考虑到数据切分的DB设计，将违背这个通常的规矩和约束，为了切分，我们不得不在数据库的表中出现冗余字段，用作区分字段或者叫做分库的标记字段，比如上面的article的例子中的user_id这样的字段（当然，刚才的例子并没有很好的体现出user_id的冗余性，因为user_id这个字段即使就是不分库，也是要出现的，算是我们捡了便宜吧）。当然冗余字段的出现并不只是在分库的场景下才出现的，在很多大型应用中，冗余也是必须的，这个涉及到高效DB的设计。&lt;/p&gt;
+&lt;h3 id=&quot;Why?为什么要切分数据？&quot;&gt;Why?为什么要切分数据？&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;像Oracle这样成熟稳定的DB可以支撑海量数据的存储和查询，但是价格不是所有人都承受得起。&lt;/li&gt;
+&lt;li&gt;负载高点时，Master-Slaver模式中存在瓶颈。现有技术中，在负载高点时使用相关的Replication机制来实现相关的读写的吞吐性能。这种机制存在两个瓶颈：一是有效性依赖于读操作的比例，这里Master往往会成为瓶颈所在，写操作时需要一个顺序队列来执行，过载时Master会承受不住，Slaver的数据同步延迟也会很大，同时还会消耗CPU的计算能力，为write操作在Master上执行以后还是需要在每台slave机器上都跑一次。而Sharding可以轻松的将计算，存储，I/O并行分发到多台机器上，这样可以充分利用多台机器各种处理能力，同时可以避免单点失败，提供系统的可用性，进行很好的错误隔离。&lt;/li&gt;
+&lt;li&gt;用免费的MySQL和廉价的Server甚至是PC做集群，达到小型机+大型商业DB的效果，减少大量的资金投入，降低运营成本，何乐而不为呢？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;How？如何切分数据？&quot;&gt;How？如何切分数据？&lt;/h3&gt;&lt;p&gt;先对数据切分的方法和形式进行比较详细的阐述和说明。&lt;/p&gt;
+&lt;p&gt;数据切分可以是物理上的，对数据通过一系列的切分规则将数据分布到不同的DB服务器上，通过路由规则路由访问特定的数据库，这样一来每次访问面对的就不是单台服务器了，而是N台服务器，这样就可以降低单台机器的负载压力。&lt;br&gt;数据切分也可以是数据库内的，对数据通过一系列的切分规则，将数据分布到一个数据库的不同表中，比如将article分为article_001,article_002等子表，若干个子表水平拼合有组成了逻辑上一个完整的article表，这样做的目的其实也是很简单的。举个例子说明，比如article表中现在有5000w条数据，此时我们需要在这个表中增加（insert）一条新的数据，insert完毕后，数据库会针对这张表重新建立索引，5000w行数据建立索引的系统开销还是不容忽视的。但是反过来，假如我们将这个表分成100个table呢，从article_001一直到article_100，5000w行数据平均下来，每个子表里边就只有50万行数据，这时候我们向一张只有50w行数据的table中insert数据后建立索引的时间就会呈数量级的下降，极大了提高了DB的运行时效率，提高了DB的并发量。当然分表的好处还不知这些，还有诸如写操作的锁操作等，都会带来很多显然的好处。&lt;br&gt;综上，分库降低了单点机器的负载；分表，提高了数据操作的效率，尤其是Write操作的效率。&lt;/p&gt;
+&lt;p&gt;上文中提到，要想做到数据的水平切分，在每一个表中都要有相冗余字符作为切分依据和标记字段，通常的应用中我们选用user_id作为区分字段，基于此就有如下三种分库的方式和规则：（当然还可以有其他的方式）&lt;br&gt;按号段分：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;user_id为区分，1～1000的对应DB1，1001～2000的对应DB2，以此类推；&lt;br&gt;优点：可部分迁移&lt;br&gt;缺点：数据分布不均&lt;/li&gt;
+&lt;li&gt;hash取模分：&lt;br&gt;对user_id进行hash（或者如果user_id是数值型的话直接使用user_id的值也可），然后用一个特定的数字，比如应用中需要将一个数据库切分成4个数据库的话，我们就用4这个数字对user_id的hash值进行取模运算，也就是user_id%4,这样的话每次运算就有四种可能：结果为1的时候对应DB1；结果为2的时候对应DB2；结果为3的时候对应DB3；结果为0的时候对应DB4，这样一来就非常均匀的将数据分配到4个DB中。&lt;br&gt;优点：数据分布均匀&lt;br&gt;缺点：数据迁移的时候麻烦，不能按照机器性能分摊数据&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在认证库中保存数据库配置&lt;br&gt;就是建立一个DB，这个DB单独保存user_id到DB的映射关系，每次访问数据库的时候都要先查询一次这个数据库，以得到具体的DB信息，然后才能进行我们需要的查询操作。&lt;br&gt;优点：灵活性强，一对一关系&lt;br&gt;缺点：每次查询之前都要多一次查询，性能大打折扣&lt;br&gt;以上就是通常的开发中我们选择的三种方式，有些复杂的项目中可能会混合使用这三种方式。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;接下来对分布式数据库解决海量数据的存访问题做进一步介绍&lt;br&gt;分布式数据方案提供功能如下：&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;提供分库规则和路由规则（RouteRule简称RR），将上面的说明中提到的三中切分规则直接内嵌入本系统，具体的嵌入方式在接下来的内容中进行详细的说明和论述；&lt;/li&gt;
+&lt;li&gt;引入集群（Group）的概念，解决容错性的问题，保证数据的高可用性；&lt;/li&gt;
+&lt;li&gt;引入负载均衡策略（LoadBalancePolicy简称LB）；&lt;/li&gt;
+&lt;li&gt;引入集群节点可用性探测机制，对单点机器的可用性进行定时的侦测，以保证LB策略的正确实施，以确保系统的高度稳定性；&lt;/li&gt;
+&lt;li&gt;引入读/写分离，提高数据的查询速度；&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;分布式DB水平切分中用到的主要关键技术：分库，分表，M-S,集群，负载均衡&lt;/li&gt;
+&lt;li&gt;需求分析：一个大型互联网应用每天几十亿的PV对DB造成了相当高的负载，对系统的稳定性的扩展性带来极大挑战。&lt;/li&gt;
+&lt;li&gt;现有解决方式：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;u
+    
+    </summary>
+    
+      <category term="性能&优化" scheme="http://yangfan-onion.github.io/categories/%E6%80%A7%E8%83%BD-%E4%BC%98%E5%8C%96/"/>
+    
+    
+      <category term="MySQL" scheme="http://yangfan-onion.github.io/tags/MySQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>The most used built-in functions in php</title>
+    <link href="http://yangfan-onion.github.io/The-most-used-built-in-functions-in-php/"/>
+    <id>http://yangfan-onion.github.io/The-most-used-built-in-functions-in-php/</id>
+    <published>2015-10-19T06:26:08.000Z</published>
+    <updated>2016-04-08T13:01:08.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;PHP常用&quot;&gt;PHP常用&lt;/h1&gt;&lt;h2 id=&quot;Variables&quot;&gt;Variables&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;$_COOKIE - $HTTP_COOKIE_VARS [deprecated] — HTTP Cookies&lt;/li&gt;
+&lt;li&gt;$_ENV - $HTTP_ENV_VARS [deprecated] — Environment variables&lt;/li&gt;
+&lt;li&gt;$_SERVER - $HTTP_SERVER_VARS [removed] — Server and execution environment information&lt;/li&gt;
+&lt;li&gt;$GLOBALS —  References all variables available in global scope&lt;/li&gt;
+&lt;li&gt;$_SESSION - $HTTP_SESSION_VARS [deprecated] — Session variables&lt;/li&gt;
+&lt;li&gt;$_FILES - $HTTP_POST_FILES [deprecated] — HTTP File Upload variables&lt;/li&gt;
+&lt;li&gt;$argc — The number of arguments passed to script&lt;/li&gt;
+&lt;li&gt;$argv — Array of arguments passed to script&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;Function&quot;&gt;Function&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;explode() — Split a string by string&lt;/li&gt;
+&lt;li&gt;implode() - Join array elements with a string&lt;/li&gt;
+&lt;li&gt;trim() - Strip whitespace (or other characters) from the beginning and end of a string&lt;/li&gt;
+&lt;li&gt;basename() - Returns trailing name component of path&lt;/li&gt;
+&lt;li&gt;dirname() - Returns a parent directory’s path&lt;/li&gt;
+&lt;li&gt;set_time_limit() -  Limits the maximum execution time&lt;/li&gt;
+&lt;li&gt;time() - Return current Unix timestamp&lt;/li&gt;
+&lt;li&gt;is_bool() - Finds out whether a variable is a boolean&lt;/li&gt;
+&lt;li&gt;is_int() - Find whether the type of a variable is integer&lt;/li&gt;
+&lt;li&gt;is_float() - Finds whether the type of a variable is float&lt;/li&gt;
+&lt;li&gt;strtotime() - Parse about any English textual datetime description into a Unix timestamp&lt;/li&gt;
+&lt;li&gt;fopen() - Opens file or URL &lt;/li&gt;
+&lt;li&gt;fgets() - Gets line from file pointer&lt;/li&gt;
+&lt;li&gt;feof() - Tests for end-of-file on a file pointer&lt;/li&gt;
+&lt;li&gt;strlen() - Get string length&lt;/li&gt;
+&lt;li&gt;str_replace() - Replace all occurrences of the search string with the replacement string&lt;/li&gt;
+&lt;li&gt;isset() - Determine if a variable is set and is not NULL&lt;/li&gt;
+&lt;li&gt;strpo() - Find the position of the first occurrence of a substring in a string&lt;/li&gt;
+&lt;li&gt;DIRECTORY_SEPARATOR - windows(\ or /), unix(/)&lt;/li&gt;
+&lt;li&gt;PATH_SEPARATOR - windows(;), unix(:)&lt;/li&gt;
+&lt;li&gt;count() - Count all elements in an array, &lt;code&gt;or something in an object&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;substr() - Return part of string, &lt;code&gt;string substr ( string $string , int $start [, int $length ] )&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;memory_get_usage() -  Returns the amount of memory allocated to PHP&lt;/li&gt;
+&lt;li&gt;ceil() - Round fractions up, &lt;code&gt;ceil(3.1) =&amp;gt; 4&lt;/code&gt; &lt;code&gt;ceil(-3.14) =&amp;gt; -3&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;floor() - Round fractions down&lt;/li&gt;
+&lt;li&gt;round() - Rounds a float &lt;code&gt;round(3.4) =&amp;gt; 3&lt;/code&gt; &lt;code&gt;round(3.5) =&amp;gt; 4&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;preg_match() - Perform a regular expression match &lt;code&gt;int preg_match ( string $pattern , string $subject [, array &amp;amp;$matches [, int $flags = 0 [, int $offset = 0 ]]] )&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;preg_replace()&lt;/li&gt;
+&lt;li&gt;php_strip_whitespace() - Return source with stripped comments and whitespace&lt;/li&gt;
+&lt;li&gt;array_chunk() - Split an array into chunks&lt;/li&gt;
+&lt;li&gt;array_column() - Return the values from a single column in the input array&lt;/li&gt;
+&lt;li&gt;array_combine() -  Creates an array by using one array for keys and another for its values&lt;/li&gt;
+&lt;li&gt;array_count_values() — Counts all the values of an array&lt;/li&gt;
+&lt;li&gt;array_keys() — Return all the keys or a subset of the keys of an array&lt;/li&gt;
+&lt;li&gt;array_map() — Applies the callback to the elements of the given arrays&lt;/li&gt;
+&lt;li&gt;array_shift() — Shift an element off the beginning of array&lt;/li&gt;
+&lt;li&gt;array_pop() — Pop the element off the end of array&lt;/li&gt;
+&lt;li&gt;array_intersect() — Computes the intersection of arrays&lt;/li&gt;
+&lt;li&gt;array_key_exists() — Checks if the given key or index exists in the array&lt;/li&gt;
+&lt;li&gt;array_unique() — Removes duplicate values from an array&lt;/li&gt;
+&lt;li&gt;array_unshift() — Prepend one or more elements to the beginning of an array&lt;/li&gt;
+&lt;li&gt;array_values() — Return all the values of an array&lt;/li&gt;
+&lt;li&gt;zlib:// – bzip2:// – zip:// — Compression Streams&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;$_SERVER&quot;&gt;$_SERVER&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Just a PHP file to put on your local server (as I don&amp;#39;t have enough memory) &amp;#10;&amp;#10;&amp;#60;?php &amp;#10;&amp;#9;$indicesServer = array(&amp;#39;PHP_SELF&amp;#39;, &amp;#10;&amp;#9;&amp;#39;argv&amp;#39;, &amp;#10;&amp;#9;&amp;#39;argc&amp;#39;, &amp;#10;&amp;#9;&amp;#39;GATEWAY_INTERFACE&amp;#39;, &amp;#10;&amp;#9;&amp;#39;SERVER_ADDR&amp;#39;, &amp;#10;&amp;#9;&amp;#39;SERVER_NAME&amp;#39;, &amp;#10;&amp;#9;&amp;#39;SERVER_SOFTWARE&amp;#39;, &amp;#10;&amp;#9;&amp;#39;SERVER_PROTOCOL&amp;#39;, &amp;#10;&amp;#9;&amp;#39;REQUEST_METHOD&amp;#39;, &amp;#10;&amp;#9;&amp;#39;REQUEST_TIME&amp;#39;, &amp;#10;&amp;#9;&amp;#39;REQUEST_TIME_FLOAT&amp;#39;, &amp;#10;&amp;#9;&amp;#39;QUERY_STRING&amp;#39;, &amp;#10;&amp;#9;&amp;#39;DOCUMENT_ROOT&amp;#39;, &amp;#10;&amp;#9;&amp;#39;HTTP_ACCEPT&amp;#39;, &amp;#10;&amp;#9;&amp;#39;HTTP_ACCEPT_CHARSET&amp;#39;, &amp;#10;&amp;#9;&amp;#39;HTTP_ACCEPT_ENCODING&amp;#39;, &amp;#10;&amp;#9;&amp;#39;HTTP_ACCEPT_LANGUAGE&amp;#39;, &amp;#10;&amp;#9;&amp;#39;HTTP_CONNECTION&amp;#39;, &amp;#10;&amp;#9;&amp;#39;HTTP_HOST&amp;#39;, &amp;#10;&amp;#9;&amp;#39;HTTP_REFERER&amp;#39;, &amp;#10;&amp;#9;&amp;#39;HTTP_USER_AGENT&amp;#39;, &amp;#10;&amp;#9;&amp;#39;HTTPS&amp;#39;, &amp;#10;&amp;#9;&amp;#39;REMOTE_ADDR&amp;#39;, &amp;#10;&amp;#9;&amp;#39;REMOTE_HOST&amp;#39;, &amp;#10;&amp;#9;&amp;#39;REMOTE_PORT&amp;#39;, &amp;#10;&amp;#9;&amp;#39;REMOTE_USER&amp;#39;, &amp;#10;&amp;#9;&amp;#39;REDIRECT_REMOTE_USER&amp;#39;, &amp;#10;&amp;#9;&amp;#39;SCRIPT_FILENAME&amp;#39;, &amp;#10;&amp;#9;&amp;#39;SERVER_ADMIN&amp;#39;, &amp;#10;&amp;#9;&amp;#39;SERVER_PORT&amp;#39;, &amp;#10;&amp;#9;&amp;#39;SERVER_SIGNATURE&amp;#39;, &amp;#10;&amp;#9;&amp;#39;PATH_TRANSLATED&amp;#39;, &amp;#10;&amp;#9;&amp;#39;SCRIPT_NAME&amp;#39;, &amp;#10;&amp;#9;&amp;#39;REQUEST_URI&amp;#39;, &amp;#10;&amp;#9;&amp;#39;PHP_AUTH_DIGEST&amp;#39;, &amp;#10;&amp;#9;&amp;#39;PHP_AUTH_USER&amp;#39;, &amp;#10;&amp;#9;&amp;#39;PHP_AUTH_PW&amp;#39;, &amp;#10;&amp;#9;&amp;#39;AUTH_TYPE&amp;#39;, &amp;#10;&amp;#9;&amp;#39;PATH_INFO&amp;#39;, &amp;#10;&amp;#9;&amp;#39;ORIG_PATH_INFO&amp;#39;) ; &amp;#10;&amp;#10;&amp;#9;echo &amp;#39;&amp;#60;table cellpadding=&amp;#34;10&amp;#34;&amp;#62;&amp;#39; ; &amp;#10;&amp;#9;foreach ($indicesServer as $arg) &amp;#123; &amp;#10;&amp;#9;    if (isset($_SERVER[$arg])) &amp;#123; &amp;#10;&amp;#9;        echo &amp;#39;&amp;#60;tr&amp;#62;&amp;#60;td&amp;#62;&amp;#39;.$arg.&amp;#39;&amp;#60;/td&amp;#62;&amp;#60;td&amp;#62;&amp;#39; . $_SERVER[$arg] . &amp;#39;&amp;#60;/td&amp;#62;&amp;#60;/tr&amp;#62;&amp;#39; ; &amp;#10;&amp;#9;    &amp;#125; &amp;#10;&amp;#9;    else &amp;#123; &amp;#10;&amp;#9;        echo &amp;#39;&amp;#60;tr&amp;#62;&amp;#60;td&amp;#62;&amp;#39;.$arg.&amp;#39;&amp;#60;/td&amp;#62;&amp;#60;td&amp;#62;-&amp;#60;/td&amp;#62;&amp;#60;/tr&amp;#62;&amp;#39; ; &amp;#10;&amp;#9;    &amp;#125; &amp;#10;&amp;#9;&amp;#125; &amp;#10;&amp;#9;echo &amp;#39;&amp;#60;/table&amp;#62;&amp;#39; ; &amp;#10;&amp;#10;&amp;#9;/* &amp;#10;&amp;#10;&amp;#9;That will give you the result of each variable like (if the file is server_indices.php at the root and Apache Web directory is in E:\web) : &amp;#10;&amp;#10;&amp;#9;PHP_SELF    /server_indices.php &amp;#10;&amp;#9;argv    - &amp;#10;&amp;#9;argc    - &amp;#10;&amp;#9;GATEWAY_INTERFACE    CGI/1.1 &amp;#10;&amp;#9;SERVER_ADDR    127.0.0.1 &amp;#10;&amp;#9;SERVER_NAME    localhost &amp;#10;&amp;#9;SERVER_SOFTWARE    Apache/2.2.22 (Win64) PHP/5.3.13 &amp;#10;&amp;#9;SERVER_PROTOCOL    HTTP/1.1 &amp;#10;&amp;#9;REQUEST_METHOD    GET &amp;#10;&amp;#9;REQUEST_TIME    1361542579 &amp;#10;&amp;#9;REQUEST_TIME_FLOAT    - &amp;#10;&amp;#9;QUERY_STRING    &amp;#10;&amp;#9;DOCUMENT_ROOT    E:/web/ &amp;#10;&amp;#9;HTTP_ACCEPT    text/html,application/xhtml+xml,application/xml;q=0.9,*;q=0.8 &amp;#10;&amp;#9;HTTP_ACCEPT_CHARSET    ISO-8859-1,utf-8;q=0.7,*;q=0.3 &amp;#10;&amp;#9;HTTP_ACCEPT_ENCODING    gzip,deflate,sdch &amp;#10;&amp;#9;HTTP_ACCEPT_LANGUAGE    fr-FR,fr;q=0.8,en-US;q=0.6,en;q=0.4 &amp;#10;&amp;#9;HTTP_CONNECTION    keep-alive &amp;#10;&amp;#9;HTTP_HOST    localhost &amp;#10;&amp;#9;HTTP_REFERER    http://localhost/ &amp;#10;&amp;#9;HTTP_USER_AGENT    Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.57 Safari/537.17 &amp;#10;&amp;#9;HTTPS    - &amp;#10;&amp;#9;REMOTE_ADDR    127.0.0.1 &amp;#10;&amp;#9;REMOTE_HOST    - &amp;#10;&amp;#9;REMOTE_PORT    65037 &amp;#10;&amp;#9;REMOTE_USER    - &amp;#10;&amp;#9;REDIRECT_REMOTE_USER    - &amp;#10;&amp;#9;SCRIPT_FILENAME    E:/web/server_indices.php &amp;#10;&amp;#9;SERVER_ADMIN    myemail@personal.us &amp;#10;&amp;#9;SERVER_PORT    80 &amp;#10;&amp;#9;SERVER_SIGNATURE    &amp;#10;&amp;#9;PATH_TRANSLATED    - &amp;#10;&amp;#9;SCRIPT_NAME    /server_indices.php &amp;#10;&amp;#9;REQUEST_URI    /server_indices.php &amp;#10;&amp;#9;PHP_AUTH_DIGEST    - &amp;#10;&amp;#9;PHP_AUTH_USER    - &amp;#10;&amp;#9;PHP_AUTH_PW    - &amp;#10;&amp;#9;AUTH_TYPE    - &amp;#10;&amp;#9;PATH_INFO    - &amp;#10;&amp;#9;ORIG_PATH_INFO    - &amp;#10;&amp;#10;&amp;#9;*/ &amp;#10;?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;fopen()&quot;&gt;fopen()&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;fopen ( string $filename , string $mode [, bool $use_include_path = false [, resource $context ]] )&amp;#10;&amp;#10;&amp;#10;&amp;#60;?php&amp;#10;&amp;#9;$handle = fopen(&amp;#34;/home/rasmus/file.txt&amp;#34;, &amp;#34;r&amp;#34;);&amp;#10;&amp;#9;$handle = fopen(&amp;#34;/home/rasmus/file.gif&amp;#34;, &amp;#34;wb&amp;#34;);&amp;#10;&amp;#9;$handle = fopen(&amp;#34;http://www.example.com/&amp;#34;, &amp;#34;r&amp;#34;);&amp;#10;&amp;#9;$handle = fopen(&amp;#34;ftp://user:password@example.com/somefile.txt&amp;#34;, &amp;#34;w&amp;#34;);&amp;#10;?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;    
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;mode&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;‘r’&lt;/td&gt;
+&lt;td&gt;Open for reading only; place the file pointer at the beginning of the file.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;‘r+’&lt;/td&gt;
+&lt;td&gt;Open for reading and writing; place the file pointer at the beginning of the file.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;‘w’&lt;/td&gt;
+&lt;td&gt;Open for writing only; place the file pointer at the beginning of the file and truncate the file to zero length. If the file does not exist, attempt to create it.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;‘w+’&lt;/td&gt;
+&lt;td&gt;Open for reading and writing; place the file pointer at the beginning of the file and truncate the file to zero length. If the file does not exist, attempt to create it.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;‘a’&lt;/td&gt;
+&lt;td&gt;Open for writing only; place the file pointer at the end of the file. If the file does not exist, attempt to create it. In this mode, fseek() only affects the reading position, writes are always appended.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;‘a+’&lt;/td&gt;
+&lt;td&gt;Open for reading and writing; place the file pointer at the end of the file. If the file does not exist, attempt to create it. In this mode, fseek() only affects the reading position, writes are always appended.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;‘x’&lt;/td&gt;
+&lt;td&gt;Create and open for writing only; place the file pointer at the beginning of the file. If the file already exists, the fopen() call will fail by returning FALSE and generating an error of level E_WARNING. If the file does not exist, attempt to create it.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;‘x+’&lt;/td&gt;
+&lt;td&gt;Create and open for reading and writing; otherwise it has the same behavior as ‘x’.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;‘c’&lt;/td&gt;
+&lt;td&gt;Open the file for writing only. If the file does not exist, it is created. If it exists, it is neither truncated (as opposed to ‘w’), nor the call to this function fails (as is the case with ‘x’). The file pointer is positioned on the beginning of the file. This may be useful if it’s desired to get an advisory lock (see flock()) before attempting to modify the file, as using ‘w’ could truncate the file before the lock was obtained (if truncation is desired, ftruncate() can be used after the lock is requested).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;‘c+’&lt;/td&gt;
+&lt;td&gt;Open the file for reading and writing; otherwise it has the same behavior as ‘c’.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;###p hp_strip_whitespace()&lt;/p&gt;
+&lt;h6 id=&quot;usage:&quot;&gt;usage:&lt;/h6&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php&amp;#10;&amp;#9;// PHP comment here&amp;#10;&amp;#10;&amp;#9;/*&amp;#10;&amp;#9; * Another PHP comment&amp;#10;&amp;#9; */&amp;#10;&amp;#10;&amp;#9;echo        php_strip_whitespace(__FILE__);&amp;#10;&amp;#9;// Newlines are considered whitespace, and are removed too:&amp;#10;&amp;#9;do_nothing();&amp;#10;?&amp;#62;&amp;#10;###### The output:&amp;#10;&amp;#60;?php&amp;#10;&amp;#9;&amp;#9;echo php_strip_whitespace(__FILE__); do_nothing();&amp;#10;&amp;#9;?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;     
+&lt;p&gt;###array_map()&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php&amp;#10;&amp;#9;function cube($n)&amp;#10;&amp;#9;&amp;#123;&amp;#10;&amp;#9;    return($n * $n * $n);&amp;#10;&amp;#9;&amp;#125;&amp;#10;&amp;#10;&amp;#9;$a = array(1, 2, 3, 4, 5);&amp;#10;&amp;#9;$b = array_map(&amp;#34;cube&amp;#34;, $a);&amp;#10;&amp;#9;print_r($b);&amp;#10;?&amp;#62;&amp;#10;&amp;#10;//output:&amp;#10;Array&amp;#10;(&amp;#10;&amp;#9;[0] =&amp;#62; 1&amp;#10;    [1] =&amp;#62; 8&amp;#10;    [2] =&amp;#62; 27&amp;#10;&amp;#9;[3] =&amp;#62; 64&amp;#10;    [4] =&amp;#62; 125&amp;#10;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;h3 id=&quot;zip&quot;&gt;zip&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Example on how to read an entry from a ZIP archive (file &amp;#34;bar.txt&amp;#34; inside &amp;#34;./foo.zip&amp;#34;): &amp;#10;&amp;#60;?php &amp;#10;&amp;#10;$fp = fopen(&amp;#39;zip://./foo.zip#bar.txt&amp;#39;, &amp;#39;r&amp;#39;); &amp;#10;if( $fp )&amp;#123; &amp;#10;&amp;#9;while( !feof($fp) )&amp;#123; &amp;#10;    &amp;#9;echo fread($fp, 8192); &amp;#10;    &amp;#125; &amp;#10;    fclose($fp); &amp;#10;&amp;#125; &amp;#10;&amp;#10;?&amp;#62; &amp;#10;&amp;#10;Also, apparently, the &amp;#34;zip:&amp;#34; wrapper does not allow writing as of PHP/5.3.6. &amp;#9;You can read http://php.net/ziparchive-getstream for further reference since the underlying code is probably the same.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;A_few_“magical”_PHP_constants&quot;&gt;A few “magical” PHP constants&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;LINE&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;The current line number of the file.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;FILE&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;The full path and filename of the file with symlinks resolved. If used inside an include, the name of the included file is returned.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;DIR&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;The directory of the file. If used inside an include, the directory of the included file is returned. This is equivalent to dirname(&lt;strong&gt;FILE&lt;/strong&gt;). This directory name does not have a trailing slash unless it is the root directory.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;FUNCTION&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;The function name.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;CLASS&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;The class name. The class name includes the namespace it was declared in (e.g. Foo\Bar). Note that as of PHP 5.4 &lt;strong&gt;CLASS&lt;/strong&gt; works also in traits. When used in a trait method, &lt;strong&gt;CLASS&lt;/strong&gt; is the name of the class the trait is used in.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;TRAIT&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;The trait name. The trait name includes the namespace it was declared in (e.g. Foo\Bar).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;METHOD&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;The class method name.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;NAMESPACE&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;The name of the current namespace.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;PHP常用&quot;&gt;PHP常用&lt;/h1&gt;&lt;h2 id=&quot;Variables&quot;&gt;Variables&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;$_COOKIE - $HTTP_COOKIE_VARS [deprecated] — HTTP Cookies&lt;/li&gt;
+&lt;li&gt;$_ENV -
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>wordpress后期优化</title>
+    <link href="http://yangfan-onion.github.io/Wordpress%E5%90%8E%E6%9C%9F%E4%BC%98%E5%8C%96/"/>
+    <id>http://yangfan-onion.github.io/Wordpress后期优化/</id>
+    <published>2015-10-09T03:19:25.000Z</published>
+    <updated>2016-04-08T13:11:50.000Z</updated>
+    
+    <content type="html">&lt;p&gt;前段时间用到的一个google的网站优化检测工具&lt;a href=&quot;https://developers.google.com/speed/pagespeed/insights/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;PageSpeed Insights&lt;/a&gt;主要是用来优化网站用&lt;/p&gt;
+&lt;p&gt;我刚搭建好的&lt;a href=&quot;http://www.bofeng.com.cn&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;公司官网&lt;/a&gt;使用的是wordpress定制开发，主题开发好了之后，最后再来做性能优化，总结了一下几点&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;wordpress生成缓存使用的是&lt;a href=&quot;https://wordpress.org/plugins/wp-super-cache/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;WP Super Cache&lt;/a&gt;可以将php页面缓存起来，用户请求页面后，不会每次都去执行php脚本&lt;/li&gt;
+&lt;li&gt;静态资源去除无意义cookie，子域名或者另行购置域名设置无cookie，当浏览器在请求中同时请求一张静态的图片和发送cookie时，服务器对于这些cookie不会做任何地使用，因此他们只是因为某些负面因素而创建的网络传输。所有你应该确定对于静态内容的请求是无cookie的请求，创建一个子域名并用他来存放所有静态内容。如果你的域名是www.example.org，你可以在static.example.org上存在静态内容。但是，如果你不是在www.example.org上而是在顶级域名example.org设置了cookie，那么所有对于static.example.org的请求都包含cookie。在这种情况下，你可以再重新购买一个新的域名来存在静态内容，并且要保持这个域名是无cookie的。Yahoo!使用的是ymig.com，YouTube使用的是ytimg.com，Amazon使用的是images-anazon.com等等。使用无cookie域名存在静态内容的另外一个好处就是一些代理（服务器）可能会拒绝对cookie的内容请求进行缓存。一个相关的建议就是，如果你想确定应该使用example.org还是www.example.org作为你的一主页，你要考虑到cookie带来的影响。忽略掉www会使你除了把cookie设置到*.example.org外没有其它选择，因此出于性能方面的考虑最好是使用带有www的子域名并且在它上面设置cookie。&lt;/li&gt;
+&lt;li&gt;静态资源加过期时间，nginx自行配置&lt;/li&gt;
+&lt;li&gt;css合并和压缩,使用插件&lt;a href=&quot;https://wordpress.org/plugins/autoptimize/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Autoptimize&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;html压缩和去comment，使用插件&lt;a href=&quot;https://wordpress.org/plugins/autoptimize/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Autoptimize&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;js放到标签前，这个是靠&lt;code&gt;wp_enqueue_script( $handle, $src, $deps, $ver, $in_footer );&lt;/code&gt;来规范&lt;/li&gt;
+&lt;li&gt;SEO: &lt;a href=&quot;https://wordpress.org/plugins/all-in-one-seo-pack/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;All in One SEO&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;em&gt;*&lt;/em&gt;更多参考&lt;a href=&quot;https://developer.yahoo.com/performance/rules.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;yahoo网页优化&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前段时间用到的一个google的网站优化检测工具&lt;a href=&quot;https://developers.google.com/speed/pagespeed/insights/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;PageSpeed Insigh
+    
+    </summary>
+    
+      <category term="性能&优化" scheme="http://yangfan-onion.github.io/categories/%E6%80%A7%E8%83%BD-%E4%BC%98%E5%8C%96/"/>
+    
+    
+      <category term="wordpress" scheme="http://yangfan-onion.github.io/tags/wordpress/"/>
+    
+      <category term="优化" scheme="http://yangfan-onion.github.io/tags/%E4%BC%98%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常见的突破和技巧晃过防守</title>
+    <link href="http://yangfan-onion.github.io/%E5%B8%B8%E8%A7%81%E7%9A%84%E7%AA%81%E7%A0%B4%E5%92%8C%E6%8A%80%E5%B7%A7%E6%99%83%E8%BF%87%E9%98%B2%E5%AE%88/"/>
+    <id>http://yangfan-onion.github.io/常见的突破和技巧晃过防守/</id>
+    <published>2015-08-20T13:40:12.000Z</published>
+    <updated>2016-04-08T13:01:19.000Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;好久没有好好练运球突破了，技能包急需更新。&quot;&gt;好久没有好好练运球突破了，技能包急需更新。&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;9b755a13gif.gif&quot; alt=&quot;9b755a13gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;48c4d9d1gif.gif&quot; alt=&quot;48c4d9d1gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;58cf8bf1gif.gif&quot; alt=&quot;58cf8bf1gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;7106ed2cgif.gif&quot; alt=&quot;7106ed2cgif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;7983a625gif.gif&quot; alt=&quot;7983a625gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;911882b5gif.gif&quot; alt=&quot;911882b5gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;a1d817c3gif.gif&quot; alt=&quot;a1d817c3gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;be3d9ac0gif.gif&quot; alt=&quot;be3d9ac0gif.gif&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;好久没有好好练运球突破了，技能包急需更新。&quot;&gt;好久没有好好练运球突破了，技能包急需更新。&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;9b755a13gif.gif&quot; alt=&quot;9b755a13gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;48c4d9d1gif.gif&quot; 
+    
+    </summary>
+    
+      <category term="篮球" scheme="http://yangfan-onion.github.io/categories/%E7%AF%AE%E7%90%83/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>强化弱侧手</title>
+    <link href="http://yangfan-onion.github.io/%E5%BC%BA%E5%8C%96%E5%BC%B1%E4%BE%A7%E6%89%8B/"/>
+    <id>http://yangfan-onion.github.io/强化弱侧手/</id>
+    <published>2015-08-20T05:11:22.000Z</published>
+    <updated>2016-04-07T16:14:28.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;img src=&quot;2f7576b2gif.gif&quot; alt=&quot;2f7576b2gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;3e0cc719gif.gif&quot; alt=&quot;3e0cc719gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;4c9f0d59gif.gif&quot; alt=&quot;4c9f0d59gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;660ac532gif.gif&quot; alt=&quot;660ac532gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;240077a0gif.gif&quot; alt=&quot;240077a0gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;b8f12a31gif.gif&quot; alt=&quot;b8f12a31gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;d5e7993agif.gif&quot; alt=&quot;d5e7993agif.gif&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;2f7576b2gif.gif&quot; alt=&quot;2f7576b2gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;3e0cc719gif.gif&quot; alt=&quot;3e0cc719gif.gif&quot;&gt;&lt;br&gt;&lt;img src=&quot;4c9f0d59gif.gif&quot; alt=
+    
+    </summary>
+    
+      <category term="篮球" scheme="http://yangfan-onion.github.io/categories/%E7%AF%AE%E7%90%83/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>PHP sprintf</title>
+    <link href="http://yangfan-onion.github.io/PHP-sprintf/"/>
+    <id>http://yangfan-onion.github.io/PHP-sprintf/</id>
+    <published>2015-08-13T03:16:22.000Z</published>
+    <updated>2015-10-22T09:07:13.000Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;img src=&quot;sample.png&quot; alt=&quot;PHP sprintf&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;sample.png&quot; alt=&quot;PHP sprintf&quot;&gt;&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="PHP" scheme="http://yangfan-onion.github.io/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wordpress add_filter,apply_filters,add_action,do_action用法和区别</title>
+    <link href="http://yangfan-onion.github.io/wordpress-add-filter-apply-filters-add-action-do-action%E7%94%A8%E6%B3%95%E5%92%8C%E5%8C%BA%E5%88%AB/"/>
+    <id>http://yangfan-onion.github.io/wordpress-add-filter-apply-filters-add-action-do-action用法和区别/</id>
+    <published>2015-08-09T15:04:53.000Z</published>
+    <updated>2016-04-08T13:07:03.000Z</updated>
+    
+    <content type="html">&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;add_filter&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;apply_filter&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;add_action&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;do_action&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;add_filter&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;apply_filter&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;add_action&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;do_action&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="wp hook" scheme="http://yangfan-onion.github.io/tags/wp-hook/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wordpress主题制作总结</title>
+    <link href="http://yangfan-onion.github.io/wordpress%E4%B8%BB%E9%A2%98%E5%88%B6%E4%BD%9C%E6%80%BB%E7%BB%93/"/>
+    <id>http://yangfan-onion.github.io/wordpress主题制作总结/</id>
+    <published>2015-08-07T07:38:07.000Z</published>
+    <updated>2015-10-22T09:07:37.000Z</updated>
+    
+    <content type="html">&lt;ol&gt;
+&lt;li&gt;网站名字 &lt;code&gt;&amp;lt;?php bloginfo(&amp;#39;name&amp;#39;);?&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;网站描述 &lt;code&gt;&amp;lt;?php bloginfo(&amp;#39;description&amp;#39;);?&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;查询Post的主循环:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;// The Query is overly simplistic and problematic way to modify main query of a page by replacing it with new instance of the query&amp;#10;// don&amp;#39;t use query_posts() ever; &amp;#25152;&amp;#20197;&amp;#21442;&amp;#32771;&amp;#19979;&amp;#38754;&amp;#30340;get_posts()&amp;#21644;WP_Query()&amp;#10;&amp;#60;?php&amp;#10;&amp;#9;//option 1: bad choice&amp;#10;&amp;#9;query_posts( &amp;#39;posts_per_page=5&amp;#39; );&amp;#10;&amp;#9;//option 2: good choice&amp;#10;&amp;#9;get_posts(&amp;#10;&amp;#9;&amp;#9;array(&amp;#10;&amp;#9;&amp;#9;&amp;#9;&amp;#39;posts_per_page&amp;#39; =&amp;#62; 5&amp;#10;&amp;#9;&amp;#9;)&amp;#10;&amp;#9;);&amp;#10;&amp;#9;//option 3: complex but powerful&amp;#10;&amp;#9;$the_query = new WP_Query(&amp;#10;&amp;#9;&amp;#9;array(&amp;#10;&amp;#9;&amp;#9;&amp;#9;&amp;#39;posts_per_page&amp;#39; =&amp;#62; 5&amp;#10;&amp;#9;&amp;#9;)&amp;#10;&amp;#9;);&amp;#10;?&amp;#62;&amp;#10;&amp;#10;&amp;#10;&amp;#60;?php if(have_posts()): ?&amp;#62;&amp;#10;&amp;#9;&amp;#60;?php while(have_posts()): the_post(); ?&amp;#62;&amp;#10;&amp;#10;&amp;#9;&amp;#60;?php endwhile; ?&amp;#62;&amp;#10;&amp;#60;?php endif; ?&amp;#62;&amp;#10;&amp;#60;?php else: ?&amp;#62;&amp;#10;&amp;#9;&amp;#60;div class=&amp;#34;post&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;h2&amp;#62;&amp;#60;?php _e(&amp;#39;Not Found&amp;#39;); ?&amp;#62;&amp;#60;/h2&amp;#62;&amp;#10;&amp;#9;&amp;#60;/div&amp;#62;&amp;#10;&amp;#60;?php endif; ?&amp;#62;&amp;#10;&amp;#10;// Reset Query&amp;#10;wp_reset_query();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php $args = array(&amp;#10;&amp;#9;&amp;#39;posts_per_page&amp;#39;   =&amp;#62; 5,&amp;#10;&amp;#9;&amp;#39;offset&amp;#39;           =&amp;#62; 0,&amp;#10;&amp;#9;&amp;#39;category&amp;#39;         =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;category_name&amp;#39;    =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;orderby&amp;#39;          =&amp;#62; &amp;#39;date&amp;#39;,&amp;#10;&amp;#9;&amp;#39;order&amp;#39;            =&amp;#62; &amp;#39;DESC&amp;#39;,&amp;#10;&amp;#9;&amp;#39;include&amp;#39;          =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;exclude&amp;#39;          =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;meta_key&amp;#39;         =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;meta_value&amp;#39;       =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;post_type&amp;#39;        =&amp;#62; &amp;#39;post&amp;#39;,&amp;#10;&amp;#9;&amp;#39;post_mime_type&amp;#39;   =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;post_parent&amp;#39;      =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;author&amp;#39;&amp;#9;   =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;post_status&amp;#39;      =&amp;#62; &amp;#39;publish&amp;#39;,&amp;#10;&amp;#9;&amp;#39;suppress_filters&amp;#39; =&amp;#62; true &amp;#10;);&amp;#10;$posts_array = get_posts( $args ); ?&amp;#62;&amp;#10;&amp;#10;$the_query = new WP_Query($args);&amp;#10;&amp;#10;// The Loop&amp;#10;if ($the_query-&amp;#62;have_posts())&amp;#123;&amp;#10;&amp;#10;&amp;#125;&amp;#10;&amp;#10;WP_Query Object&amp;#10;(&amp;#10;    [query_vars] =&amp;#62; Array&amp;#10;        (&amp;#10;            [page] =&amp;#62; &amp;#10;            [pagename] =&amp;#62; blog&amp;#10;            [error] =&amp;#62; &amp;#10;            [m] =&amp;#62; 0&amp;#10;            [p] =&amp;#62; 0&amp;#10;            [post_parent] =&amp;#62; &amp;#10;            [post_type] =&amp;#62;&amp;#10;            [subpost] =&amp;#62; &amp;#10;            [subpost_id] =&amp;#62; &amp;#10;            [attachment] =&amp;#62; &amp;#10;            [attachment_id] =&amp;#62; 0&amp;#10;            [name] =&amp;#62; &amp;#10;            [static] =&amp;#62; &amp;#10;            [page_id] =&amp;#62; 0&amp;#10;            [second] =&amp;#62; &amp;#10;            [minute] =&amp;#62; &amp;#10;            [hour] =&amp;#62; &amp;#10;            [day] =&amp;#62; 0&amp;#10;            [monthnum] =&amp;#62; 0&amp;#10;            [year] =&amp;#62; 0&amp;#10;            [w] =&amp;#62; 0&amp;#10;            [category_name] =&amp;#62; &amp;#10;            [tag] =&amp;#62; &amp;#10;            [cat] =&amp;#62; &amp;#10;            [tag_id] =&amp;#62; &amp;#10;            [author_name] =&amp;#62; &amp;#10;            [feed] =&amp;#62; &amp;#10;            [tb] =&amp;#62; &amp;#10;            [paged] =&amp;#62; 0&amp;#10;            [comments_popup] =&amp;#62; &amp;#10;            [meta_key] =&amp;#62; &amp;#10;            [meta_value] =&amp;#62; &amp;#10;            [preview] =&amp;#62; &amp;#10;            [s] =&amp;#62; &amp;#10;            [sentence] =&amp;#62; &amp;#10;            [fields] =&amp;#62; &amp;#10;            [category__in] =&amp;#62; Array&amp;#10;                (&amp;#10;                )&amp;#10;&amp;#10;            [category__not_in] =&amp;#62; Array&amp;#10;                (&amp;#10;                )&amp;#10;&amp;#10;            [category__and] =&amp;#62; Array&amp;#10;                (&amp;#10;                )&amp;#10;&amp;#10;            [post__in] =&amp;#62; Array&amp;#10;                (&amp;#10;                )&amp;#10;&amp;#10;            [post__not_in] =&amp;#62; Array&amp;#10;                (&amp;#10;                )&amp;#10;&amp;#10;            [tag__in] =&amp;#62; Array&amp;#10;                (&amp;#10;                )&amp;#10;&amp;#10;            [tag__not_in] =&amp;#62; Array&amp;#10;                (&amp;#10;                )&amp;#10;&amp;#10;            [tag__and] =&amp;#62; Array&amp;#10;                (&amp;#10;                )&amp;#10;&amp;#10;            [tag_slug__in] =&amp;#62; Array&amp;#10;                (&amp;#10;                )&amp;#10;&amp;#10;            [tag_slug__and] =&amp;#62; Array&amp;#10;                (&amp;#10;                )&amp;#10;&amp;#10;        )&amp;#10;&amp;#10;    [tax_query] =&amp;#62; &amp;#10;    [meta_query] =&amp;#62; &amp;#10;    [post_count] =&amp;#62; 0&amp;#10;    [current_post] =&amp;#62; -1&amp;#10;    [in_the_loop] =&amp;#62; &amp;#10;    [comment_count] =&amp;#62; 0&amp;#10;    [current_comment] =&amp;#62; -1&amp;#10;    [found_posts] =&amp;#62; 0&amp;#10;    [max_num_pages] =&amp;#62; 0&amp;#10;    [max_num_comment_pages] =&amp;#62; 0&amp;#10;    [is_single] =&amp;#62; &amp;#10;    [is_preview] =&amp;#62; &amp;#10;    [is_page] =&amp;#62; &amp;#10;    [is_archive] =&amp;#62; &amp;#10;    [is_date] =&amp;#62; &amp;#10;    [is_year] =&amp;#62; &amp;#10;    [is_month] =&amp;#62; &amp;#10;    [is_day] =&amp;#62; &amp;#10;    [is_time] =&amp;#62; &amp;#10;    [is_author] =&amp;#62; &amp;#10;    [is_category] =&amp;#62; &amp;#10;    [is_tag] =&amp;#62; &amp;#10;    [is_tax] =&amp;#62; &amp;#10;    [is_search] =&amp;#62; &amp;#10;    [is_feed] =&amp;#62; &amp;#10;    [is_comment_feed] =&amp;#62; &amp;#10;    [is_trackback] =&amp;#62; &amp;#10;    [is_home] =&amp;#62; 1&amp;#10;    [is_404] =&amp;#62; &amp;#10;    [is_comments_popup] =&amp;#62; &amp;#10;    [is_paged] =&amp;#62; &amp;#10;    [is_admin] =&amp;#62; &amp;#10;    [is_attachment] =&amp;#62; &amp;#10;    [is_singular] =&amp;#62; &amp;#10;    [is_robots] =&amp;#62; &amp;#10;    [is_posts_page] =&amp;#62; 1&amp;#10;    [is_post_type_archive] =&amp;#62; &amp;#10;    [query_vars_hash] =&amp;#62; 41032f87127fba65fb6743b1e97d8662&amp;#10;    [query_vars_changed] =&amp;#62; &amp;#10;    [thumbnails_cached] =&amp;#62; &amp;#10;    [query] =&amp;#62; Array&amp;#10;        (&amp;#10;            [page] =&amp;#62; &amp;#10;            [pagename] =&amp;#62; blog&amp;#10;        )&amp;#10;&amp;#10;    [queried_object] =&amp;#62; stdClass Object&amp;#10;        (&amp;#10;            [ID] =&amp;#62; 16&amp;#10;            [post_author] =&amp;#62; 1&amp;#10;            [post_date] =&amp;#62; 2012-01-31 17:23:57&amp;#10;            [post_date_gmt] =&amp;#62; 2012-01-31 17:23:57&amp;#10;            [post_content] =&amp;#62; &amp;#10;            [post_title] =&amp;#62; Blog&amp;#10;            [post_excerpt] =&amp;#62; &amp;#10;            [post_status] =&amp;#62; publish&amp;#10;            [comment_status] =&amp;#62; open&amp;#10;            [ping_status] =&amp;#62; open&amp;#10;            [post_password] =&amp;#62; &amp;#10;            [post_name] =&amp;#62; blog&amp;#10;            [to_ping] =&amp;#62; &amp;#10;            [pinged] =&amp;#62; &amp;#10;            [post_modified] =&amp;#62; 2012-01-31 17:23:57&amp;#10;            [post_modified_gmt] =&amp;#62; 2012-01-31 17:23:57&amp;#10;            [post_content_filtered] =&amp;#62; &amp;#10;            [post_parent] =&amp;#62; 0&amp;#10;            [guid] =&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;多语言支持: &amp;lt;?php _e(‘需要翻译的文字’);?&amp;gt; 这里放上_e()为后续的多语言支持提供入口&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;Post的名字: &amp;lt;?php the_title();?&amp;gt;&lt;/li&gt;
+&lt;li&gt;Post的链接: &amp;lt;?php the_permalink();?&amp;gt;&lt;/li&gt;
+&lt;li&gt;Post的缩略内容: &amp;lt;?php the_excerpt();?&amp;gt;&lt;/li&gt;
+&lt;li&gt;Post的详细内容: &amp;lt;?php the_content();?&amp;gt;&lt;/li&gt;
+&lt;li&gt;Post的作者: &amp;lt;?php the_author();?&amp;gt;&lt;/li&gt;
+&lt;li&gt;Post的日期: &amp;lt;?php the_time(‘Y-m-d’);?&amp;gt;&lt;/li&gt;
+&lt;li&gt;Post的ID: &amp;lt;?php the_ID(); ?&amp;gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;div class=&amp;#34;post&amp;#34; id=&amp;#34;post-&amp;#60;?php the_ID()?&amp;#62;&amp;#34;&amp;#62;&amp;#60;/div&amp;#62;&amp;#10;&amp;#60;!-- &amp;#36890;&amp;#36807;&amp;#28155;&amp;#21152;Post&amp;#30340;ID&amp;#65292;&amp;#22312;style.css&amp;#37324;&amp;#38754;&amp;#21487;&amp;#20197;&amp;#20026;&amp;#27599;&amp;#19968;&amp;#31687;&amp;#25991;&amp;#31456;&amp;#21333;&amp;#29420;&amp;#23450;&amp;#21046;css&amp;#9;--&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;Post的metadata: &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;p class=&amp;#34;postmetadata&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#60;!-- &amp;#24403;&amp;#24377;&amp;#20986;&amp;#30041;&amp;#35328;&amp;#30340;&amp;#21151;&amp;#33021;&amp;#28608;&amp;#27963;&amp;#30340;&amp;#35805;&amp;#65292;comments_popup_link() &amp;#35843;&amp;#29992;&amp;#19968;&amp;#20010;&amp;#24377;&amp;#20986;&amp;#30340;&amp;#30041;&amp;#35328;&amp;#31383;&amp;#21475;&amp;#65292;&amp;#22914;&amp;#26524;&amp;#27809;&amp;#26377;&amp;#28608;&amp;#27963;&amp;#65292;comments_popup_link() &amp;#21017;&amp;#21482;&amp;#26159;&amp;#31616;&amp;#21333;&amp;#30340;&amp;#26174;&amp;#31034;&amp;#30041;&amp;#35328;&amp;#21015;&amp;#34920;&amp;#12290;No Comments &amp;#187; &amp;#26159;&amp;#22312;&amp;#27809;&amp;#26377;&amp;#30041;&amp;#35328;&amp;#30340;&amp;#26102;&amp;#20505;&amp;#26174;&amp;#31034;&amp;#30340;&amp;#12290;1 Comment &amp;#187; &amp;#26159;&amp;#29992;&amp;#20110;&amp;#24403;&amp;#21018;&amp;#22909;&amp;#21482;&amp;#26377;1&amp;#26465;&amp;#30041;&amp;#35328;&amp;#26102;&amp;#20505;&amp;#12290;% Comments &amp;#38;187; &amp;#26159;&amp;#29992;&amp;#20110;&amp;#24403;&amp;#26377;&amp;#22810;&amp;#20110;&amp;#19968;&amp;#26465;&amp;#30041;&amp;#35328;&amp;#30340;&amp;#26102;&amp;#20505;&amp;#12290;&amp;#27604;&amp;#22914;&amp;#65306;8 Comments &amp;#187;&amp;#12290;&amp;#30334;&amp;#20998;&amp;#21495; % &amp;#29992;&amp;#26469;&amp;#26174;&amp;#31034;&amp;#25968;&amp;#23383;&amp;#12290;&amp;#187; &amp;#26159;&amp;#29992;&amp;#26469;&amp;#26174;&amp;#31034;&amp;#19968;&amp;#20010;&amp;#21452;&amp;#23618;&amp;#31661;&amp;#22836; &amp;#187;&amp;#12290;--&amp;#62;&amp;#10;&amp;#9;&amp;#60;?php _e(&amp;#39;Tag:&amp;#39;);?&amp;#62; &amp;#60;?php the_category(&amp;#39;,&amp;#39;);?&amp;#62; &amp;#60;?php comments_popup_link(&amp;#39;No Comments &amp;#187;&amp;#39;, &amp;#39;1 Comment &amp;#187;&amp;#39;, &amp;#39;% Comments &amp;#187;&amp;#39;); ?&amp;#62;&amp;#10;&amp;#9;&amp;#60;!-- &amp;#36825;&amp;#20010;&amp;#21482;&amp;#26377;&amp;#24403;&amp;#25105;&amp;#20204;&amp;#20197;&amp;#31649;&amp;#29702;&amp;#21592;&amp;#25110;&amp;#32773;&amp;#20316;&amp;#32773;&amp;#36523;&amp;#20221;&amp;#30331;&amp;#24405;&amp;#30340;&amp;#30340;&amp;#26102;&amp;#20505;&amp;#25165;&amp;#21487;&amp;#35265;&amp;#12290; edit_post_link() &amp;#21482;&amp;#26159;&amp;#31616;&amp;#21333;&amp;#26174;&amp;#31034;&amp;#19968;&amp;#20010;&amp;#21487;&amp;#20197;&amp;#29992;&amp;#26469;&amp;#32534;&amp;#36753;&amp;#24403;&amp;#21069;&amp;#26085;&amp;#24535;&amp;#30340;&amp;#32534;&amp;#36753;&amp;#38142;&amp;#25509; --&amp;#62;&amp;#10;&amp;#9;&amp;#60;?php edit_post_link(&amp;#8216;Edit&amp;#8217;, &amp;#8216; | &amp;#8216;, &amp;#8221;); ?&amp;#62;&amp;#10;&amp;#60;/p&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;Post下面生成上一页和下一页链接的函数&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;div class=&amp;#34;navigation&amp;#34;&amp;#62;&amp;#10;      &amp;#60;?php posts_nav_link(); ?&amp;#62;&amp;#10;      &amp;#60;?php &amp;#10;      &amp;#9;//posts_nav_link( $sep, $prelabel, $nextlabel );&amp;#10;      &amp;#9;/*&amp;#10;&amp;#9;$sep &amp;#10;&amp;#9;&amp;#9;(string) Text displayed between the links.&amp;#10;&amp;#9;&amp;#9;Defaults to &amp;#39; :: &amp;#39; in 1.2.x.&amp;#10;&amp;#9;&amp;#9;Defaults to &amp;#39; &amp;#8212; &amp;#39; in 1.5.&amp;#10;&amp;#9;$prelabel &amp;#10;&amp;#9;&amp;#9;(string) Link text for the previous page.&amp;#10;&amp;#9;&amp;#9;Defaults to &amp;#39;&amp;#60;&amp;#60; Previous Page&amp;#39; in 1.2.x.&amp;#10;&amp;#9;&amp;#9;Defaults to &amp;#39;&amp;#171; Previous Page&amp;#39; in 1.5.&amp;#10;&amp;#9;$nxtlabel &amp;#10;&amp;#9;&amp;#9;(string) Link text for the next page.&amp;#10;&amp;#9;&amp;#9;Defaults to &amp;#39;Next Page &amp;#62;&amp;#62;&amp;#39; in 1.2.x.&amp;#10;&amp;#9;&amp;#9;Defaults to &amp;#39;Next Page &amp;#187;&amp;#39; in 1.5&amp;#10;      &amp;#9;*/&amp;#10;      ?&amp;#62; &amp;#10;&amp;#60;/div&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;sidebar的category列表: &amp;lt;?php wp_list_categories($args); ?&amp;gt; &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php &amp;#10;    $args = array(&amp;#10;&amp;#9;&amp;#9;&amp;#39;show_option_all&amp;#39;    =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;orderby&amp;#39;            =&amp;#62; &amp;#39;name&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;order&amp;#39;              =&amp;#62; &amp;#39;ASC&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;style&amp;#39;              =&amp;#62; &amp;#39;list&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;show_count&amp;#39;         =&amp;#62; 0,&amp;#10;&amp;#9;&amp;#9;&amp;#39;hide_empty&amp;#39;         =&amp;#62; 1,&amp;#10;&amp;#9;&amp;#9;&amp;#39;use_desc_for_title&amp;#39; =&amp;#62; 1,&amp;#10;&amp;#9;&amp;#9;&amp;#39;child_of&amp;#39;           =&amp;#62; 0,&amp;#10;&amp;#9;&amp;#9;&amp;#39;feed&amp;#39;               =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;feed_type&amp;#39;          =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;feed_image&amp;#39;         =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;exclude&amp;#39;            =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;exclude_tree&amp;#39;       =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;include&amp;#39;            =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;hierarchical&amp;#39;       =&amp;#62; 1,&amp;#10;&amp;#9;&amp;#9;&amp;#39;title_li&amp;#39;           =&amp;#62; __( &amp;#39;Categories&amp;#39; ),&amp;#10;&amp;#9;&amp;#9;&amp;#39;show_option_none&amp;#39;   =&amp;#62; __( &amp;#39;&amp;#39; ),&amp;#10;&amp;#9;&amp;#9;&amp;#39;number&amp;#39;             =&amp;#62; null,&amp;#10;&amp;#9;&amp;#9;&amp;#39;echo&amp;#39;               =&amp;#62; 1,&amp;#10;&amp;#9;&amp;#9;&amp;#39;depth&amp;#39;              =&amp;#62; 0,&amp;#10;&amp;#9;&amp;#9;&amp;#39;current_category&amp;#39;   =&amp;#62; 0,&amp;#10;&amp;#9;&amp;#9;&amp;#39;pad_counts&amp;#39;         =&amp;#62; 0,&amp;#10;&amp;#9;&amp;#9;&amp;#39;taxonomy&amp;#39;           =&amp;#62; &amp;#39;category&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;walker&amp;#39;             =&amp;#62; null&amp;#10;    );&amp;#10;    wp_list_categories( $args ); &amp;#10;?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;sidebar的页面列表: &amp;lt;?php wp_list_pages( $args ); ?&amp;gt; &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php $args = array(&amp;#10;&amp;#9;&amp;#39;authors&amp;#39;      =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;child_of&amp;#39;     =&amp;#62; 0,&amp;#10;&amp;#9;&amp;#39;date_format&amp;#39;  =&amp;#62; get_option(&amp;#39;date_format&amp;#39;),&amp;#10;&amp;#9;&amp;#39;depth&amp;#39;        =&amp;#62; 0,&amp;#10;&amp;#9;&amp;#39;echo&amp;#39;         =&amp;#62; 1,&amp;#10;&amp;#9;&amp;#39;exclude&amp;#39;      =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;include&amp;#39;      =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;link_after&amp;#39;   =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;link_before&amp;#39;  =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;post_type&amp;#39;    =&amp;#62; &amp;#39;page&amp;#39;,&amp;#10;&amp;#9;&amp;#39;post_status&amp;#39;  =&amp;#62; &amp;#39;publish&amp;#39;,&amp;#10;&amp;#9;&amp;#39;show_date&amp;#39;    =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;sort_column&amp;#39;  =&amp;#62; &amp;#39;menu_order, post_title&amp;#39;,&amp;#10;        &amp;#39;sort_order&amp;#39;   =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;title_li&amp;#39;     =&amp;#62; __(&amp;#39;Pages&amp;#39;), &amp;#10;&amp;#9;&amp;#39;walker&amp;#39;       =&amp;#62; new Walker_Page&amp;#10;); ?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;sidebar的archive列表: &amp;lt;?php wp_get_archives( $args ); ?&amp;gt; &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php $args = array(&amp;#10;&amp;#9;&amp;#39;type&amp;#39;            =&amp;#62; &amp;#39;monthly&amp;#39;,&amp;#10;&amp;#9;&amp;#39;limit&amp;#39;           =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;format&amp;#39;          =&amp;#62; &amp;#39;html&amp;#39;, &amp;#10;&amp;#9;&amp;#39;before&amp;#39;          =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;after&amp;#39;           =&amp;#62; &amp;#39;&amp;#39;,&amp;#10;&amp;#9;&amp;#39;show_post_count&amp;#39; =&amp;#62; false,&amp;#10;&amp;#9;&amp;#39;echo&amp;#39;            =&amp;#62; 1,&amp;#10;&amp;#9;&amp;#39;order&amp;#39;           =&amp;#62; &amp;#39;DESC&amp;#39;&amp;#10;);&amp;#10;wp_get_archives( $args ); ?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;sidebar的友情链接:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;编辑functions.php, 加入如下代码&lt;br&gt;add_filter(‘pre_option_link_manager_enabled’,’__return_true’);&lt;/li&gt;
+&lt;li&gt;后台会出现链接编辑的页面,还可以将链接设为图片，这样就可以用友链的网站logo来表示友链了&lt;br&gt;&lt;img src=&quot;bookmark.png&quot; alt=&quot;友情链接&quot;&gt;&lt;/li&gt;
+&lt;li&gt;在需要显示的地方添加如下代码，args是可选&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php $args = array(&amp;#10;    &amp;#39;orderby&amp;#39;          =&amp;#62; &amp;#39;name&amp;#39;,&amp;#10;    &amp;#39;order&amp;#39;            =&amp;#62; &amp;#39;ASC&amp;#39;,&amp;#10;    &amp;#39;limit&amp;#39;            =&amp;#62; -1,&amp;#10;    &amp;#39;category&amp;#39;         =&amp;#62; &amp;#39; &amp;#39;,&amp;#10;    &amp;#39;exclude_category&amp;#39; =&amp;#62; &amp;#39; &amp;#39;,&amp;#10;    &amp;#39;category_name&amp;#39;    =&amp;#62; &amp;#39; &amp;#39;,&amp;#10;    &amp;#39;hide_invisible&amp;#39;   =&amp;#62; 1,&amp;#10;    &amp;#39;show_updated&amp;#39;     =&amp;#62; 0,&amp;#10;    &amp;#39;echo&amp;#39;             =&amp;#62; 1,&amp;#10;    &amp;#39;categorize&amp;#39;       =&amp;#62; 1,&amp;#10;    &amp;#39;title_li&amp;#39;         =&amp;#62; __(&amp;#39;Bookmarks&amp;#39;),&amp;#10;    &amp;#39;title_before&amp;#39;     =&amp;#62; &amp;#39;&amp;#60;h2&amp;#62;&amp;#39;,&amp;#10;    &amp;#39;title_after&amp;#39;      =&amp;#62; &amp;#39;&amp;#60;/h2&amp;#62;&amp;#39;,&amp;#10;    &amp;#39;category_orderby&amp;#39; =&amp;#62; &amp;#39;name&amp;#39;,&amp;#10;    &amp;#39;category_order&amp;#39;   =&amp;#62; &amp;#39;ASC&amp;#39;,&amp;#10;    &amp;#39;class&amp;#39;            =&amp;#62; &amp;#39;linkcat&amp;#39;,&amp;#10;    &amp;#39;category_before&amp;#39;  =&amp;#62; &amp;#39;&amp;#60;li id=%id class=%class&amp;#62;&amp;#39;,&amp;#10;    &amp;#39;category_after&amp;#39;   =&amp;#62; &amp;#39;&amp;#60;/li&amp;#62;&amp;#39; );&amp;#10;&amp;#9;wp_list_bookmarks($args);&amp;#10;?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;sidebar的搜索控件: &amp;lt;?php get_search_form( $echo ); ?&amp;gt; &lt;code&gt;$echo=TRUE 表示echo表单字符串，$echo=FALSE表示return表单字符串&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;sidebar的日历控件: &amp;lt;?php get_calendar( $initial, $echo ); ?&amp;gt; &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php get_calendar( $initial, $echo ); ?&amp;#62; &amp;#10;$initial&amp;#10;    (boolean) (optional) If true, the day will be displayed using a one-letter initial; if false, an abbreviation based on your localization will be used.&amp;#10;&amp;#9;Default: True&amp;#10;&amp;#9;False - causes &amp;#34;Sunday&amp;#34; to be displayed as &amp;#34;Sun&amp;#34;&amp;#10;&amp;#9;True - causes it to be &amp;#34;S&amp;#34;&amp;#10;$echo&amp;#10;&amp;#9;(boolean) (optional) Determines whether or not the calendar should be displayed.&amp;#10;&amp;#9;Default: True&amp;#10;&amp;#9;False - Returns calendar, but does not echo it to screen&amp;#10;&amp;#9;True - Echos calendar, but does not return it to a variable&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;sidebar的登录控件: &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php wp_register(); ?&amp;#62;&amp;#10;&amp;#60;?php wp_loginout(); ?&amp;#62;&amp;#10;&amp;#60;?php wp_meta(); ?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;sidebar窗体化: &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//&amp;#23558;widgets&amp;#31383;&amp;#20307;&amp;#21270;&amp;#65292;&amp;#21464;&amp;#25104;&amp;#21487;&amp;#20197;&amp;#25302;&amp;#25341;&amp;#30340;&amp;#25511;&amp;#20214;&amp;#10;function bs3_theme_widgets_init() &amp;#123;&amp;#10;&amp;#9;register_sidebar( array(&amp;#10;&amp;#9;&amp;#9;&amp;#39;name&amp;#39;          =&amp;#62; __( &amp;#39;Widget Area&amp;#39;, &amp;#39;bs3-theme&amp;#39; ),&amp;#10;&amp;#9;&amp;#9;&amp;#39;id&amp;#39;            =&amp;#62; &amp;#39;sidebar-1&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;description&amp;#39;   =&amp;#62; __( &amp;#39;Add widgets here to appear in your sidebar.&amp;#39;, &amp;#39;bs3-theme&amp;#39; ),&amp;#10;&amp;#9;&amp;#9;&amp;#39;before_widget&amp;#39; =&amp;#62; &amp;#39;&amp;#60;aside id=&amp;#34;%1$s&amp;#34; class=&amp;#34;widget %2$s&amp;#34;&amp;#62;&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;after_widget&amp;#39;  =&amp;#62; &amp;#39;&amp;#60;/aside&amp;#62;&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;before_title&amp;#39;  =&amp;#62; &amp;#39;&amp;#60;h2 class=&amp;#34;widget-title&amp;#34;&amp;#62;&amp;#39;,&amp;#10;&amp;#9;&amp;#9;&amp;#39;after_title&amp;#39;   =&amp;#62; &amp;#39;&amp;#60;/h2&amp;#62;&amp;#39;,&amp;#10;&amp;#9;) );&amp;#10;&amp;#125;&amp;#10;add_action( &amp;#39;widgets_init&amp;#39;, &amp;#39;bs3_theme_widgets_init&amp;#39; );&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/li&gt;
+&lt;li&gt;footer相关，可以放入友情链接的&amp;lt;?php wp_list_bookmarks($args);?&amp;gt;&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;网站名字 &lt;code&gt;&amp;lt;?php bloginfo(&amp;#39;name&amp;#39;);?&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;网站描述 &lt;code&gt;&amp;lt;?php bloginfo(&amp;#39;description&amp;#39;);?&amp;gt;&lt;/code&gt;
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="wordpress主题" scheme="http://yangfan-onion.github.io/tags/wordpress%E4%B8%BB%E9%A2%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wordpress自定义bootstrap主题</title>
+    <link href="http://yangfan-onion.github.io/wordpress%E8%87%AA%E5%AE%9A%E4%B9%89bootstrap%E4%B8%BB%E9%A2%98/"/>
+    <id>http://yangfan-onion.github.io/wordpress自定义bootstrap主题/</id>
+    <published>2015-08-03T15:10:27.000Z</published>
+    <updated>2016-04-08T13:07:01.000Z</updated>
+    
+    <content type="html">&lt;p&gt;#先上一个wordpress的流程图&lt;br&gt;&lt;img src=&quot;wordpress-infography-02.png&quot; alt=&quot;wordpress sequence&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;将网站的各个模板文件拆分开来&quot;&gt;将网站的各个模板文件拆分开来&lt;/h1&gt;&lt;p&gt;a. style.css&lt;br&gt;b. index.php&lt;br&gt;c. header.php&lt;br&gt;d. footer.php&lt;br&gt;e. sidebar.php&lt;br&gt;f. single.php&lt;br&gt;g. page.php&lt;br&gt;h. archive.php =&amp;gt; category, tag, date-based, author based&lt;br&gt;i. functions.php =&amp;gt; 自定义插件，方法&lt;br&gt;j. screenshot.png =&amp;gt; 非必须，用于显示模板的效果图&lt;/p&gt;
+&lt;h2 id=&quot;style-css基本要素&quot;&gt;style.css基本要素&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/*&amp;#10;Theme Name: bs3-theme&amp;#10;Theme URI: http://www.yangfan-onion.github.com&amp;#10;Author: yangfan&amp;#10;Author URI: http://www.yangfan-onion.github.com&amp;#10;Description: Bootstrap theme in wordpress;&amp;#10;Version: 1.0&amp;#10;License: MIT&amp;#10;Tags: Bootstrap, Smartphone&amp;#10;*/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;index-php基本要素&quot;&gt;index.php基本要素&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php get_header(); ?&amp;#62;&amp;#10;&amp;#60;div class=&amp;#34;container&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#60;?php&amp;#10;&amp;#9;&amp;#9;//&amp;#32473;&amp;#20986;&amp;#26597;&amp;#35810;&amp;#26465;&amp;#20214;&amp;#10;&amp;#9;&amp;#9;query_posts(&amp;#39;posts_per_page=1&amp;#39;);&amp;#10;&amp;#9;?&amp;#62;&amp;#10;&amp;#10;&amp;#9;&amp;#60;?php while(have_posts()):the_post();?&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;div class=&amp;#34;jumbotron&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#9;  &amp;#60;h1&amp;#62;&amp;#60;?php the_title();?&amp;#62;&amp;#60;/h1&amp;#62;&amp;#10;&amp;#9;&amp;#9;  &amp;#60;p&amp;#62;&amp;#60;?php the_excerpt();?&amp;#62;&amp;#60;/p&amp;#62;&amp;#10;&amp;#9;&amp;#9;  &amp;#60;p&amp;#62;&amp;#60;a class=&amp;#34;btn btn-primary btn-lg&amp;#34; href=&amp;#34;#&amp;#34; role=&amp;#34;button&amp;#34;&amp;#62;Learn more&amp;#60;/a&amp;#62;&amp;#60;/p&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;/div&amp;#62;&amp;#10;&amp;#9;&amp;#60;?php endwhile; wp_reset_query();?&amp;#62;&amp;#10;&amp;#60;/div&amp;#62;&amp;#10;&amp;#60;?php get_footer(); ?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//the_post() method code&amp;#10;public function the_post() &amp;#123;&amp;#10;    global $post;&amp;#10;    $this-&amp;#62;in_the_loop = true;&amp;#10; &amp;#10;    if ( $this-&amp;#62;current_post == -1 ) // loop has just started&amp;#10;        /**&amp;#10;         * Fires once the loop is started.&amp;#10;         *&amp;#10;         * @since 2.0.0&amp;#10;         *&amp;#10;         * @param WP_Query &amp;#38;$this The WP_Query instance (passed by reference).&amp;#10;         */&amp;#10;        do_action_ref_array( &amp;#39;loop_start&amp;#39;, array( &amp;#38;$this ) );&amp;#10; &amp;#10;    $post = $this-&amp;#62;next_post();&amp;#10;    $this-&amp;#62;setup_postdata( $post );&amp;#10;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;functions-php基本要素&quot;&gt;functions.php基本要素&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php&amp;#10;// Register Custom Navigation Walker&amp;#10;//&amp;#24341;&amp;#29992;bootstrap&amp;#30340;&amp;#23548;&amp;#33322;&amp;#26465;&amp;#25554;&amp;#20214;&amp;#10;require_once(&amp;#39;wp_bootstrap_navwalker.php&amp;#39;);&amp;#10;&amp;#10;//&amp;#27880;&amp;#20876;&amp;#33258;&amp;#23450;&amp;#20041;&amp;#30340;&amp;#33756;&amp;#21333;&amp;#10;register_nav_menus(array(&amp;#10;    &amp;#39;primary&amp;#39; =&amp;#62; __(&amp;#39;Primary Menu&amp;#39;, &amp;#39;bs3-theme&amp;#39;)&amp;#10;));&amp;#10;&amp;#10;//&amp;#21152;&amp;#36733;&amp;#33050;&amp;#26412;&amp;#10;function bs3_theme_scripts() &amp;#123;&amp;#10;&amp;#9;//&amp;#21152;&amp;#36733;bootstrap.min.css&amp;#10;&amp;#9;wp_enqueue_style( &amp;#39;bootstrap.min.css&amp;#39;, get_template_directory_uri() . &amp;#39;/css/bootstrap.min.css&amp;#39;);&amp;#10;&amp;#9;//&amp;#21152;&amp;#36733;sytle.css&amp;#10;&amp;#9;wp_enqueue_style( &amp;#39;style.css&amp;#39;, get_stylesheet_uri() );&amp;#10;&amp;#10;&amp;#9;//&amp;#21152;&amp;#36733;js&amp;#10;&amp;#9;wp_enqueue_script( &amp;#39;jquery.min.js&amp;#39;, get_template_directory_uri() . &amp;#39;/js/jquery.min.js&amp;#39; );&amp;#10;&amp;#9;wp_enqueue_script( &amp;#39;bootstrap.min.js&amp;#39;, get_template_directory_uri() . &amp;#39;/js/bootstrap.min.js&amp;#39; );&amp;#10;&amp;#125;&amp;#10;//hook the function, &amp;#21152;&amp;#36733;wordpress&amp;#30340;&amp;#38057;&amp;#23376;&amp;#65292;wordpress&amp;#21021;&amp;#22987;&amp;#21270;&amp;#30340;&amp;#26102;&amp;#20505;&amp;#20250;&amp;#33258;&amp;#21160;&amp;#25191;&amp;#34892;&amp;#36825;&amp;#20010;&amp;#26041;&amp;#27861;&amp;#65292; &amp;#20854;&amp;#23454;&amp;#20063;&amp;#21487;&amp;#20197;&amp;#25918;&amp;#21040;&amp;#25991;&amp;#20214;&amp;#37324;&amp;#38754;&amp;#29992;get_template_directory_uri&amp;#65288;&amp;#65289;&amp;#26041;&amp;#27861;&amp;#30452;&amp;#25509;&amp;#24341;&amp;#29992;css&amp;#21644;js, &amp;#36825;&amp;#26679;&amp;#29992;&amp;#30340;&amp;#22909;&amp;#22788;&amp;#36824;&amp;#27809;&amp;#25506;&amp;#32034;&amp;#26126;&amp;#30333;&amp;#65288;`&amp;#38656;&amp;#35201;&amp;#32487;&amp;#32493;&amp;#28145;&amp;#20837;`&amp;#65289;&amp;#10;add_action( &amp;#39;wp_enqueue_scripts&amp;#39;, &amp;#39;bs3_theme_scripts&amp;#39; );&amp;#10;?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;header-php基本要素&quot;&gt;header.php基本要素&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;!DOCTYPE html&amp;#62;&amp;#10;&amp;#9;&amp;#60;html &amp;#60;?php language_attributes(); ?&amp;#62; class=&amp;#34;no-js&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#60;head&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;meta charset=&amp;#34;&amp;#60;?php bloginfo( &amp;#39;charset&amp;#39; ); ?&amp;#62;&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;meta name=&amp;#34;viewport&amp;#34; content=&amp;#34;width=device-width&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;!--[if lt IE 9]&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;script src=&amp;#34;&amp;#60;?php echo esc_url( get_template_directory_uri() ); ?&amp;#62;/js/html5.js&amp;#34;&amp;#62;&amp;#60;/script&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;![endif]--&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;?php wp_head(); ?&amp;#62;&amp;#10;&amp;#9;&amp;#60;/head&amp;#62;&amp;#10;&amp;#10;&amp;#9;&amp;#60;body &amp;#60;?php body_class(); ?&amp;#62;&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;nav class=&amp;#34;navbar navbar-default header&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#9;  &amp;#60;div class=&amp;#34;container&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#9;    &amp;#60;!-- Brand and toggle get grouped for better mobile display --&amp;#62;&amp;#10;&amp;#9;&amp;#9;    &amp;#60;div class=&amp;#34;navbar-header&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#9;      &amp;#60;button type=&amp;#34;button&amp;#34; class=&amp;#34;navbar-toggle collapsed&amp;#34; data-toggle=&amp;#34;collapse&amp;#34; data-target=&amp;#34;#bs-example-navbar-collapse-1&amp;#34; aria-expanded=&amp;#34;false&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#9;        &amp;#60;span class=&amp;#34;sr-only&amp;#34;&amp;#62;Toggle navigation&amp;#60;/span&amp;#62;&amp;#10;&amp;#9;&amp;#9;        &amp;#60;span class=&amp;#34;icon-bar&amp;#34;&amp;#62;&amp;#60;/span&amp;#62;&amp;#10;&amp;#9;&amp;#9;        &amp;#60;span class=&amp;#34;icon-bar&amp;#34;&amp;#62;&amp;#60;/span&amp;#62;&amp;#10;&amp;#9;&amp;#9;        &amp;#60;span class=&amp;#34;icon-bar&amp;#34;&amp;#62;&amp;#60;/span&amp;#62;&amp;#10;&amp;#9;&amp;#9;      &amp;#60;/button&amp;#62;&amp;#10;&amp;#9;&amp;#9;      &amp;#60;a class=&amp;#34;navbar-brand&amp;#34; href=&amp;#34;#&amp;#34;&amp;#62;bs3-theme&amp;#60;/a&amp;#62;&amp;#10;&amp;#9;&amp;#9;    &amp;#60;/div&amp;#62;&amp;#10;&amp;#10;&amp;#9;&amp;#9;    &amp;#60;!-- Collect the nav links, forms, and other content for toggling --&amp;#62;&amp;#10;&amp;#9;&amp;#9;    &amp;#60;?php&amp;#10;&amp;#9;            wp_nav_menu( array(&amp;#10;&amp;#9;                &amp;#39;menu&amp;#39;              =&amp;#62; &amp;#39;primary&amp;#39;,&amp;#10;&amp;#9;                &amp;#39;theme_location&amp;#39;    =&amp;#62; &amp;#39;primary&amp;#39;,&amp;#10;&amp;#9;                &amp;#39;depth&amp;#39;             =&amp;#62; 2,&amp;#10;&amp;#9;                &amp;#39;container&amp;#39;         =&amp;#62; &amp;#39;div&amp;#39;,&amp;#10;&amp;#9;                &amp;#39;container_class&amp;#39;   =&amp;#62; &amp;#39;collapse navbar-collapse&amp;#39;,&amp;#10;&amp;#9;        &amp;#9;&amp;#9;&amp;#39;container_id&amp;#39;      =&amp;#62; &amp;#39;bs-example-navbar-collapse-1&amp;#39;,&amp;#10;&amp;#9;                &amp;#39;menu_class&amp;#39;        =&amp;#62; &amp;#39;nav navbar-nav navbar-right&amp;#39;,&amp;#10;&amp;#9;                &amp;#39;fallback_cb&amp;#39;       =&amp;#62; &amp;#39;wp_bootstrap_navwalker::fallback&amp;#39;,&amp;#10;&amp;#9;                &amp;#39;walker&amp;#39;            =&amp;#62; new wp_bootstrap_navwalker())&amp;#10;&amp;#9;            );&amp;#10;&amp;#9;        ?&amp;#62;&amp;#10;&amp;#9;&amp;#9;  &amp;#60;/div&amp;#62;&amp;#60;!-- /.container --&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;/nav&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;footer基本要素&quot;&gt;footer基本要素&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;nav class=&amp;#34;navbar navbar-default navbar-fixed-bottom footer&amp;#34;&amp;#62;&amp;#10;  &amp;#60;div class=&amp;#34;container&amp;#34;&amp;#62;&amp;#10;    &amp;#60;div class=&amp;#34;row&amp;#34;&amp;#62;&amp;#10;    &amp;#9;&amp;#60;div class=&amp;#34;col-md-12 text-success text&amp;#34;&amp;#62;&amp;#10;    &amp;#9;&amp;#9;Bootstrap 3 in wordpress!!&amp;#9;&amp;#9;&amp;#10;    &amp;#9;&amp;#60;/div&amp;#62;&amp;#10;    &amp;#60;/div&amp;#62;&amp;#10;    &amp;#10;  &amp;#60;/div&amp;#62;&amp;#10;&amp;#60;/nav&amp;#62;&amp;#10;&amp;#60;?php wp_footer(); ?&amp;#62;&amp;#10;&amp;#10;&amp;#60;/body&amp;#62;&amp;#10;&amp;#60;/html&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;分清了主题的文件结构关系，今天用bootstrap定制了一个简陋的主题，用于公司在医院的问卷调查&quot;&gt;分清了主题的文件结构关系，今天用bootstrap定制了一个简陋的主题，用于公司在医院的问卷调查&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;theme.png&quot; alt=&quot;theme.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;步骤如下&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先安装插件可以加载bootstrap的依赖文件，我是用代码自己加载到主题里面的（之前还不知道有这个插件）&lt;br&gt;&lt;img src=&quot;bootstrap-init.png&quot; alt=&quot;install bootstrap library&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;第二个必须是&lt;a href=&quot;https://wordpress.org/plugins/easy-bootstrap-shortcodes/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Easy Bootstrap Shortcode&lt;/a&gt;, 这个插件可以帮你定制一些bootstrap的组件，当然使用工具和纯手写都可以啦！&lt;br&gt;&lt;img src=&quot;easy-bootstrap-shortcode.png&quot; alt=&quot;Easy Bootstrap Shortcode&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;我将主页设为一个Jumbotron，这个Jumbotron是一个用上面插件写出来的页面，这个Jumbotron是用来导航的，我将网站分成了四个目录&lt;br&gt; a. 患者需求&lt;br&gt; b. 医院需求&lt;br&gt; c. 医护需求&lt;br&gt; d. 其他需求&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;为每一个分类目录定制顶部的Jumbotron&lt;br&gt;&lt;img src=&quot;cate-jumbotron.png&quot; alt=&quot;Category Jumbotron&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;为Post定制single.php页面，至于comment.php，里面有一句&lt;code&gt;&amp;lt;?php wp_list_comments();?&amp;gt;&lt;/code&gt;，这句会生成已有的评论列表，好像是一个固定格式，我暂时能想到的就是为这个固定格式去写一份css去render它，应该这里也是可以定制的&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#60;?php get_header(); ?&amp;#62;&amp;#10;&amp;#60;div class=&amp;#34;container&amp;#34;&amp;#62;&amp;#10;&amp;#60;?php&amp;#10;// Start the loop.&amp;#10;while ( have_posts() ) : the_post();&amp;#10;&amp;#10;&amp;#9;/*&amp;#10;&amp;#9; * Include the post format-specific template for the content. If you want to&amp;#10;&amp;#9; * use this in a child theme, then include a file called called content-___.php&amp;#10;&amp;#9; * (where ___ is the post format) and that will be used instead.&amp;#10;&amp;#9; */&amp;#10;&amp;#9;//&amp;#37325;&amp;#29992;&amp;#27169;&amp;#26495;&amp;#65292;&amp;#21518;&amp;#38754;&amp;#25105;&amp;#20063;&amp;#38656;&amp;#35201;&amp;#23558;&amp;#25152;&amp;#26377;post&amp;#30340;&amp;#23637;&amp;#29616;&amp;#25918;&amp;#21040;&amp;#19968;&amp;#20010;&amp;#27169;&amp;#26495;&amp;#37324;&amp;#38754;&amp;#25552;&amp;#39640;&amp;#37325;&amp;#29992;&amp;#24615;&amp;#10;&amp;#9;// get_template_part( &amp;#39;content&amp;#39;, get_post_format() );&amp;#10;?&amp;#62;&amp;#10;&amp;#60;div class=&amp;#34;post&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#60;h1&amp;#62;&amp;#60;?php echo the_title();?&amp;#62;&amp;#60;/h1&amp;#62;&amp;#10;&amp;#9;&amp;#60;i class=&amp;#34;text-muted&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#30001; &amp;#60;?php the_author();?&amp;#62; &amp;#21019;&amp;#24314;&amp;#20110; &amp;#60;?php the_time(&amp;#39;Y-m-d a g:i&amp;#39;); ?&amp;#62;&amp;#10;&amp;#9;&amp;#60;/i&amp;#62;&amp;#10;&amp;#9;&amp;#38;nbsp;&amp;#10;&amp;#9;&amp;#60;strong&amp;#62;Tag: &amp;#60;?php the_category(&amp;#39;| &amp;#39;); ?&amp;#62;&amp;#60;/strong&amp;#62;&amp;#10;&amp;#10;&amp;#9;&amp;#60;p&amp;#62;&amp;#60;?php echo the_content();?&amp;#62;&amp;#60;/p&amp;#62;&amp;#10;&amp;#60;/div&amp;#62;&amp;#10;&amp;#10;&amp;#60;?php&amp;#10;&amp;#9;// If comments are open or we have at least one comment, load up the comment template.&amp;#10;&amp;#9;if ( comments_open() || get_comments_number() ) :&amp;#10;&amp;#9;&amp;#9;//&amp;#36825;&amp;#37324;&amp;#20250;&amp;#35843;&amp;#29992;comment.php,&amp;#25105;&amp;#20204;&amp;#21487;&amp;#20197;&amp;#22312;&amp;#36825;&amp;#37324;&amp;#33258;&amp;#23450;&amp;#20041;comment.php&amp;#30340;&amp;#26679;&amp;#24335;&amp;#10;&amp;#9;&amp;#9;comments_template();&amp;#10;&amp;#9;endif;&amp;#10;&amp;#10;// End the loop.&amp;#10;endwhile;&amp;#10;?&amp;#62;&amp;#10;&amp;#60;/div&amp;#62;&amp;#10;&amp;#60;?php get_footer(); ?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;#先上一个wordpress的流程图&lt;br&gt;&lt;img src=&quot;wordpress-infography-02.png&quot; alt=&quot;wordpress sequence&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;将网站的各个模板文件拆分开来&quot;&gt;将网站的各个模板文件拆分开来&lt;/h1&gt;&lt;p&gt;
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="Bootstrap" scheme="http://yangfan-onion.github.io/tags/Bootstrap/"/>
+    
+      <category term="wordpress" scheme="http://yangfan-onion.github.io/tags/wordpress/"/>
+    
+      <category term="wordpress仿站" scheme="http://yangfan-onion.github.io/tags/wordpress%E4%BB%BF%E7%AB%99/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wordpress主题文件结构</title>
+    <link href="http://yangfan-onion.github.io/wordpress%E4%B8%BB%E9%A2%98%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/"/>
+    <id>http://yangfan-onion.github.io/wordpress主题文件结构/</id>
+    <published>2015-08-03T14:20:48.000Z</published>
+    <updated>2016-04-08T13:06:27.000Z</updated>
+    
+    <content type="html">&lt;p&gt;今天复习了一下wordpress主题的制作，结合Bootstrap，做一个总结&lt;/p&gt;
+&lt;p&gt;#首先是bootstrap主题的文件结构&lt;/p&gt;
+&lt;p&gt;a. style.css主题的css&lt;code&gt;必要文件&lt;/code&gt;&lt;br&gt;b. index.php主题的必要的php文件&lt;code&gt;必要文件&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&quot;主页:&quot;&gt;主页:&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;home.php&lt;/li&gt;
+&lt;li&gt;index.php&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;文章页：&quot;&gt;文章页：&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;single-{post_type}.php – 如果文章类型是videos（即视频），WordPress就会去查找single-videos.php（WordPress 3.0及以上版本支持）&lt;/li&gt;
+&lt;li&gt;single.php&lt;/li&gt;
+&lt;li&gt;index.php&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;页面:&quot;&gt;页面:&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;自定义模板 – 在WordPress后台创建页面的地方，右侧边栏可以选择页面的自定义模板&lt;/li&gt;
+&lt;li&gt;page-{slug}.php – 如果页面的缩略名是news，WordPress将会查找 page-news.php（WordPress 2.9及以上版本支持）&lt;/li&gt;
+&lt;li&gt;page-{id}.php – 如果页面ID是6，WordPress将会查找page-6.php&lt;/li&gt;
+&lt;li&gt;还可以指定special-page.php模板，就是新建一个page的模板，添加page时可以选择这个special-page.php&lt;/li&gt;
+&lt;li&gt;page.php&lt;/li&gt;
+&lt;li&gt;index.php&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/*&amp;#10;Template Name: Special Layout&amp;#10;*/&amp;#10;&amp;#60;?php get_header(); ?&amp;#62;&amp;#10;&amp;#60;div class=&amp;#34;container&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#60;?php&amp;#10;&amp;#9;&amp;#9;//&amp;#26597;&amp;#35810;&amp;#26465;&amp;#20214;&amp;#10;&amp;#9;&amp;#9;query_posts(&amp;#39;posts_per_page=1&amp;#39;);&amp;#10;&amp;#9;?&amp;#62;&amp;#10;&amp;#10;&amp;#9;&amp;#60;?php while(have_posts()):the_post();?&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;div class=&amp;#34;jumbotron&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#9;  &amp;#60;h1&amp;#62;&amp;#60;?php the_title();?&amp;#62;&amp;#60;/h1&amp;#62;&amp;#10;&amp;#9;&amp;#9;  &amp;#60;p&amp;#62;&amp;#60;?php the_excerpt();?&amp;#62;&amp;#60;/p&amp;#62;&amp;#10;&amp;#9;&amp;#9;  &amp;#60;p&amp;#62;&amp;#60;a class=&amp;#34;btn btn-primary btn-lg&amp;#34; href=&amp;#34;#&amp;#34; role=&amp;#34;button&amp;#34;&amp;#62;Learn more&amp;#60;/a&amp;#62;&amp;#60;/p&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;/div&amp;#62;&amp;#10;&amp;#9;&amp;#60;?php endwhile; wp_reset_query();?&amp;#62;&amp;#10;&amp;#60;/div&amp;#62;&amp;#10;&amp;#60;?php get_footer(); ?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;分类：&quot;&gt;分类：&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;category-{slug}.php – 如果分类的缩略名为news，WordPress将会查找category-news.php(WordPress 2.9及以上版本支持)&lt;/li&gt;
+&lt;li&gt;category-{id}.php -如果分类ID为6，WordPress将会查找category-6.php&lt;/li&gt;
+&lt;li&gt;category.php&lt;/li&gt;
+&lt;li&gt;archive.php&lt;/li&gt;
+&lt;li&gt;index.php&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;标签&quot;&gt;标签&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;tag-{slug}.php – 如果标签缩略名为sometag，WordPress将会查找tag-sometag.php&lt;/li&gt;
+&lt;li&gt;tag-{id}.php – 如果标签ID为6，WordPress将会查找tag-6.php（WordPress 2.9及以上版本支持）&lt;/li&gt;
+&lt;li&gt;tag.php&lt;/li&gt;
+&lt;li&gt;archive.php&lt;/li&gt;
+&lt;li&gt;index.php&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;作者：&quot;&gt;作者：&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;author-{nicename}.php – 如果作者的昵称为rami，WordPress将会查找author-rami.php（WordPress 3.0及以上版本支持）&lt;/li&gt;
+&lt;li&gt;author-{id}.php – 如果作者ID为6，WordPress将会查找author-6.php（WordPress 3.0及以上版本支持）&lt;/li&gt;
+&lt;li&gt;author.php&lt;/li&gt;
+&lt;li&gt;archive.php&lt;/li&gt;
+&lt;li&gt;index.php&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;日期页面：&quot;&gt;日期页面：&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;date.php&lt;/li&gt;
+&lt;li&gt;archive.php&lt;/li&gt;
+&lt;li&gt;index.php&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;搜索结果&quot;&gt;搜索结果&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;search.php&lt;/li&gt;
+&lt;li&gt;index.php&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;(未找到)页面&quot;&gt;(未找到)页面&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;404.php&lt;/li&gt;
+&lt;li&gt;index.php&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;附件页面&quot;&gt;附件页面&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;MIME_type.php – 可以是任何MIME类型 (image.php, video.php, audio.php, application.php 或者其他).&lt;/li&gt;
+&lt;li&gt;attachment.php&lt;/li&gt;
+&lt;li&gt;single.php&lt;/li&gt;
+&lt;li&gt;index.php&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天复习了一下wordpress主题的制作，结合Bootstrap，做一个总结&lt;/p&gt;
+&lt;p&gt;#首先是bootstrap主题的文件结构&lt;/p&gt;
+&lt;p&gt;a. style.css主题的css&lt;code&gt;必要文件&lt;/code&gt;&lt;br&gt;b. index.php主题的必要的php文件
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="wordpress" scheme="http://yangfan-onion.github.io/tags/wordpress/"/>
+    
+      <category term="wordpress仿站" scheme="http://yangfan-onion.github.io/tags/wordpress%E4%BB%BF%E7%AB%99/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>卧槽，无意间发现的新大陆</title>
+    <link href="http://yangfan-onion.github.io/%E5%8D%A7%E6%A7%BD%EF%BC%8C%E6%97%A0%E6%84%8F%E9%97%B4%E5%8F%91%E7%8E%B0%E7%9A%84%E6%96%B0%E5%A4%A7%E9%99%86/"/>
+    <id>http://yangfan-onion.github.io/卧槽，无意间发现的新大陆/</id>
+    <published>2015-07-29T06:57:55.000Z</published>
+    <updated>2016-04-08T11:26:48.000Z</updated>
+    
+    <content type="html">&lt;p&gt;今天公司网络有问题后，打了一会儿盹. 半醒的状态下按了一下空格，发现了Chrome里面的小恐龙居然动起来了，卧槽，仔细看了一下，差点被感动哭了。&lt;/p&gt;
+&lt;!-- 按方向键下，还可以做点什么。Google真算是良心企业啊！ --&gt;
+&lt;p&gt;&lt;img src=&quot;start.png&quot; alt=&quot;start&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;end.png&quot; alt=&quot;end&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天公司网络有问题后，打了一会儿盹. 半醒的状态下按了一下空格，发现了Chrome里面的小恐龙居然动起来了，卧槽，仔细看了一下，差点被感动哭了。&lt;/p&gt;
+&lt;!-- 按方向键下，还可以做点什么。Google真算是良心企业啊！ --&gt;
+&lt;p&gt;&lt;img src=&quot;start.pn
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>前端学习总结(07.01~07.21)</title>
+    <link href="http://yangfan-onion.github.io/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93-07-01-07-21/"/>
+    <id>http://yangfan-onion.github.io/前端学习总结-07-01-07-21/</id>
+    <published>2015-07-21T13:41:46.000Z</published>
+    <updated>2016-04-08T13:03:07.000Z</updated>
+    
+    <content type="html">&lt;p&gt;一直想学习大前端，最近在做公司官网，涉及到了一些切图，动画效果的任务，总结如下：&lt;/p&gt;
+&lt;h1 id=&quot;先从Bootstrap开始&quot;&gt;先从&lt;a href=&quot;http://getbootstrap.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Bootstrap&lt;/a&gt;开始&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;首先学习的时候有一点没有学习到，就是如何定制Bootstrap，使用&lt;code&gt;less&lt;/code&gt;或者&lt;code&gt;sass&lt;/code&gt;重新编译Bootstrap以达到定制的效果&lt;br&gt;我使用的方法是在main.css文件中覆盖bootstrap.min.css文件里面的css&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;学习到了一些之前没有注意到的，就是针对移动端的定制，hidden-xs 和 visible-xs， 团队成员一致同意，直接用bootstrap搭起来的pc网站在smartphone上面的导航和用户体验比较差，所以针对移动端的优化是必要的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;针对移动端重新设计header，pc端的header在smartphone上面会被折叠，收拢在一个小的按钮里面，用户点击2级菜单需要点击屏幕三次，致命缺点&lt;/li&gt;
+&lt;li&gt;针对移动端重新设计footer，pc端的footer可能会过大，过长，不够精简，在移动端会占据一整个屏幕，抢占了用户关注的重心&lt;/li&gt;
+&lt;li&gt;移动端的文字不宜太长，大小16px较好&lt;/li&gt;
+&lt;li&gt;充分利用modal组件，可以在点击元素的时候触发modal,展示更多信息，比如联系方式，地址，邮箱等等，还有登录和注册的表单&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;学习的过程中，了解到了一个第三方库&lt;a href=&quot;https://github.com/alvarotrigo/fullPage.js&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;fullpage.js&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;img1.png&quot; alt=&quot;fullpage&quot;&gt;&lt;br&gt;Demo: &lt;a href=&quot;http://alvarotrigo.com/fullPage/examples/apple.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Apple Demo&lt;/a&gt;&lt;br&gt;很好的第三方库，可以把屏幕分成一整屏，一整屏的。就像一张张PPT，很简单&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;还有一个叫&lt;a href=&quot;https://daneden.github.io/animate.css/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;animate.css&lt;/a&gt;的第三方css动画库。简单易上手&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;关于photoshop导出图片的问题&lt;br&gt;&lt;img src=&quot;option.jpg&quot; alt=&quot;图片格式选择&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果需要透明图片，导出png格式的，Mac端可以选择&lt;a href=&quot;https://imageoptim.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Imageoption&lt;/a&gt;,进行图片压缩，相当优秀的一款批处理图片的软件&lt;/li&gt;
+&lt;li&gt;如果不需要透明的可以选择导出jpg格式的，降低图片的品质，可以将图片大小缩减的比较小，通常比同质量的png图片大小小&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;关于photoshop制作黑色蒙版效果&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在原始图片上面新建一个图层&lt;/li&gt;
+&lt;li&gt;用油漆桶倒一层黑色的在上面，如果不够，继续倒&lt;/li&gt;
+&lt;li&gt;选择图层的情况下，按数字键可以调整图层透明度，然后调整到满意的地步，就可以导出图片了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用CDN对图片自动进行优化，我在国外的CDN提供商处很少见到这类服务，倒是国内的两大新秀CDN七牛和又拍在这方面都做了大量工作。其工作方式为，向CDN请求图片的URL参数中包含了图片处理的参数（格式、宽高等），CDN服务器根据请求生成所需的图片，发送到用户浏览器。&lt;br&gt;七牛云存储的图片处理接口极其丰富，覆盖了图片的大部分基本操作，例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;图片裁剪，支持多种裁剪方式（如按长边、短边、填充、拉伸等）&lt;/li&gt;
+&lt;li&gt;图片格式转换，支持JPG, GIF, PNG, WebP等，支持不同的图片压缩率&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;图片处理，支持图片水印、高斯模糊、重心处理等&lt;br&gt;七牛云存储的图片处理接口使用并不复杂，例如下面这张原图：&lt;br&gt;&lt;img src=&quot;qiniu.jpg&quot; alt=&quot;七牛&quot;&gt;&lt;br&gt;我们通过如下URL请求，裁剪正中部分，等比缩小生成200x200缩略图：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://qiniuphotos.qiniudn.com/gogopher.jpg?imageView2/1/w/200/h/200&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://qiniuphotos.qiniudn.com/gogopher.jpg?imageView2/1/w/200/h/200&lt;/a&gt;&lt;br&gt;&lt;img src=&quot;thumb.jpg&quot; alt=&quot;七牛缩略图&quot;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;使用grunt/glup进行压缩， 可以参考&lt;a href=&quot;https://github.com/1000ch/grunt-image&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;grunt-image&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以上就是这个月的前端学习总结&lt;br&gt;需要改进：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;css各种属性的进一步学习, opacity, animation等等&lt;/li&gt;
+&lt;li&gt;学习Bootstrap的定制，形成自己的css和html的snippet, 以后可以直接使用snippet搭建网站&lt;/li&gt;
+&lt;li&gt;photoshop的进一步学习，可以脱离photoshop, 直接学习&lt;a href=&quot;http://bohemiancoding.com/sketch/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Sketch 3&lt;/a&gt;,专门为移动端设计的Mac软件&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一直想学习大前端，最近在做公司官网，涉及到了一些切图，动画效果的任务，总结如下：&lt;/p&gt;
+&lt;h1 id=&quot;先从Bootstrap开始&quot;&gt;先从&lt;a href=&quot;http://getbootstrap.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;B
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="Bootstrap" scheme="http://yangfan-onion.github.io/tags/Bootstrap/"/>
+    
+      <category term="animate.css" scheme="http://yangfan-onion.github.io/tags/animate-css/"/>
+    
+      <category term="fullpage.js" scheme="http://yangfan-onion.github.io/tags/fullpage-js/"/>
+    
+      <category term="photoshop" scheme="http://yangfan-onion.github.io/tags/photoshop/"/>
+    
+      <category term="图片优化" scheme="http://yangfan-onion.github.io/tags/%E5%9B%BE%E7%89%87%E4%BC%98%E5%8C%96/"/>
+    
+      <category term="移动设计" scheme="http://yangfan-onion.github.io/tags/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E8%AE%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Grunt常用脚本</title>
+    <link href="http://yangfan-onion.github.io/Grunt%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/"/>
+    <id>http://yangfan-onion.github.io/Grunt常用脚本/</id>
+    <published>2015-07-21T12:55:41.000Z</published>
+    <updated>2015-10-22T09:06:45.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Grunt用到的组件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;connect&lt;/li&gt;
+&lt;li&gt;grunt-connect&lt;/li&gt;
+&lt;li&gt;grunt-contrib-clean 目录和文件管理,可以用于清除临时文件和目录&lt;/li&gt;
+&lt;li&gt;grunt-contrib-concat 合并文件，可以合并多个css或者js文件&lt;/li&gt;
+&lt;li&gt;grunt-contrib-connect sorry,忘记了,后面补起&lt;/li&gt;
+&lt;li&gt;grunt-contrib-copy 复制文件到指定目录&lt;/li&gt;
+&lt;li&gt;grunt-contrib-cssmin 压缩css&lt;/li&gt;
+&lt;li&gt;grunt-contrib-htmlmin 压缩html&lt;/li&gt;
+&lt;li&gt;grunt-contrib-imagemin 压缩html&lt;/li&gt;
+&lt;li&gt;grunt-contrib-uglify 压缩js&lt;/li&gt;
+&lt;li&gt;grunt-filerev 文件重命名，比如js，css文件修改了，可以自动在文件名后面加md5后缀，配合grunt-filerev-replace和grunt-usemin可以将所有html中的js,css,image后缀全部替换，我觉得最有用的一组脚本&lt;/li&gt;
+&lt;li&gt;grunt-filerev-replace&lt;/li&gt;
+&lt;li&gt;grunt-shell 执行shell脚本啦，可以用这个直接讲代码部署到服务器，也很省事的脚本&lt;/li&gt;
+&lt;li&gt;grunt-usemin&lt;/li&gt;
+&lt;li&gt;load-grunt-tasks 自动加载组件,不用一个个加载组件了&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;npm中的版本^1.0.0意义，^表示1.x.x满足，2.x.x以上就不满足了&lt;br&gt;npm中的版本~1.0.0意义，~表示1.0.x满足，1.1.x以上就不满足了&lt;/p&gt;
+&lt;p&gt;In the simplest terms, the tilde matches the most recent minor version (the middle number). ~1.2.3 will match all 1.2.x versions but will miss 1.3.0.&lt;/p&gt;
+&lt;p&gt;The caret, on the other hand, is more relaxed. It will update you to the most recent major version (the first number). ^1.2.3 will match any 1.x.x release including 1.3.0, but will hold off on 2.0.0.&lt;/p&gt;
+&lt;hr&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;module.exports = function(grunt) &amp;#123;&amp;#10;    require(&amp;#39;load-grunt-tasks&amp;#39;)(grunt);&amp;#10;&amp;#10;    var path = &amp;#123;&amp;#10;        src : &amp;#39;src&amp;#39;,&amp;#10;        dest : &amp;#39;dist&amp;#39;,&amp;#10;        tmp : &amp;#39;.tmp&amp;#39;&amp;#10;    &amp;#125;&amp;#10;&amp;#10;    grunt.initConfig(&amp;#123;&amp;#10;        path : path,&amp;#10;        pkg: grunt.file.readJSON(&amp;#39;package.json&amp;#39;),&amp;#10;        connect: &amp;#123;&amp;#10;            test: &amp;#123;&amp;#10;                port: 1337,&amp;#10;                base: &amp;#39;&amp;#60;%= path.src %&amp;#62;/&amp;#39;&amp;#10;            &amp;#125;,&amp;#10;            dist: &amp;#123;&amp;#10;                port: 1337,&amp;#10;                base: &amp;#39;&amp;#60;%= path.dest %&amp;#62;/&amp;#39;&amp;#10;            &amp;#125;&amp;#10;        &amp;#125;,&amp;#10;        clean : &amp;#123;&amp;#10;            beforebuild : &amp;#123;&amp;#10;                files : [&amp;#123;&amp;#10;                        src : [&amp;#39;&amp;#60;%= path.dest %&amp;#62;/&amp;#39;, &amp;#39;&amp;#60;%= path.tmp %&amp;#62;/&amp;#39;]&amp;#10;                    &amp;#125;&amp;#10;                ]&amp;#10;            &amp;#125;&amp;#10;        &amp;#125;,&amp;#10;        htmlmin: &amp;#123;&amp;#10;            dist: &amp;#123;&amp;#10;                options: &amp;#123;&amp;#10;                    removeComments: true,&amp;#10;                    collapseWhitespace: true&amp;#10;                &amp;#125;,&amp;#10;                files: [&amp;#123;&amp;#10;                    expand: true,&amp;#10;                    cwd: &amp;#39;&amp;#60;%= path.dest %&amp;#62;/&amp;#39;,&amp;#10;                    src: &amp;#39;**/*.html&amp;#39;,&amp;#10;                    dest: &amp;#39;&amp;#60;%= path.dest %&amp;#62;/&amp;#39;&amp;#10;                &amp;#125;]&amp;#10;            &amp;#125;&amp;#10;        &amp;#125;,&amp;#10;        imagemin: &amp;#123;&amp;#10;            dist: &amp;#123;&amp;#10;                options: &amp;#123;&amp;#10;                    optimizationLevel: 5&amp;#10;                &amp;#125;,&amp;#10;                files: [&amp;#123;&amp;#10;                    expand: true,&amp;#10;                    cwd: &amp;#39;&amp;#60;%= path.src %&amp;#62;/image/&amp;#39;,&amp;#10;                    src: [&amp;#39;**/*.&amp;#123;png,jpg,gif&amp;#125;&amp;#39;],&amp;#10;                    dest: &amp;#39;&amp;#60;%= path.dest %&amp;#62;/image/&amp;#39;,&amp;#10;                &amp;#125;]&amp;#10;            &amp;#125;&amp;#10;        &amp;#125;,&amp;#10;        filerev : &amp;#123;&amp;#10;            build : &amp;#123;&amp;#10;                files: [&amp;#123;&amp;#10;                        src : [&amp;#39;&amp;#60;%= path.dest %&amp;#62;/**/*.css&amp;#39;, &amp;#39;&amp;#60;%= path.dest %&amp;#62;/**/*.js&amp;#39;, &amp;#39;&amp;#60;%= path.dest %&amp;#62;/image/**/*.&amp;#123;png,jpg&amp;#125;&amp;#39;]&amp;#10;                        // src : [&amp;#39;&amp;#60;%= path.dest %&amp;#62;/**/*.css&amp;#39;, &amp;#39;&amp;#60;%= path.dest %&amp;#62;/**/*.js&amp;#39;]&amp;#10;                    &amp;#125;&amp;#10;                ]&amp;#10;            &amp;#125;&amp;#10;        &amp;#125;,&amp;#10;        filerev_replace: &amp;#123;&amp;#10;            options: &amp;#123;&amp;#10;                assets_root: &amp;#39;&amp;#60;%= path.dest %&amp;#62;&amp;#39;&amp;#10;            &amp;#125;,&amp;#10;            compiled_assets: &amp;#123;&amp;#10;                src: &amp;#39;&amp;#60;%= path.dest %&amp;#62;/*.&amp;#123;css,js&amp;#125;&amp;#39;&amp;#10;            &amp;#125;,&amp;#10;            views: &amp;#123;&amp;#10;                options: &amp;#123;&amp;#10;                    views_root: &amp;#39;&amp;#60;%= path.dest %&amp;#62;&amp;#39;&amp;#10;                &amp;#125;,&amp;#10;                src: &amp;#39;&amp;#60;%= path.dest %&amp;#62;/*.html&amp;#39;&amp;#10;            &amp;#125;&amp;#10;        &amp;#125;,&amp;#10;        useminPrepare : &amp;#123;&amp;#10;            build : &amp;#123;&amp;#10;                files : [&amp;#123;&amp;#10;                        src : [&amp;#39;&amp;#60;%= path.src %&amp;#62;/*.html&amp;#39;]&amp;#10;                    &amp;#125;&amp;#10;                ]&amp;#10;            &amp;#125;&amp;#10;        &amp;#125;,&amp;#10;        usemin : &amp;#123;&amp;#10;            html: &amp;#123;&amp;#10;                files: [&amp;#123;&amp;#10;                        src: &amp;#39;&amp;#60;%= path.dest %&amp;#62;/*.html&amp;#39;&amp;#10;                    &amp;#125;&amp;#10;                ]&amp;#10;            &amp;#125;,&amp;#10;            css: &amp;#123;&amp;#10;                files: [&amp;#123;&amp;#10;                        src : &amp;#39;&amp;#60;%= path.dest %&amp;#62;/css/*.css&amp;#39;&amp;#10;                    &amp;#125;&amp;#10;                ]&amp;#10;            &amp;#125;&amp;#10;        &amp;#125;,&amp;#10;        copy : &amp;#123;&amp;#10;            build : &amp;#123;&amp;#10;                files : [&amp;#10;                    &amp;#123;&amp;#10;                        expand : true,&amp;#10;                        cwd : &amp;#39;&amp;#60;%= path.src %&amp;#62;&amp;#39;,&amp;#10;                        src: [&amp;#10;                            &amp;#39;*.&amp;#123;ico,png,txt&amp;#125;&amp;#39;,&amp;#10;                            &amp;#39;*.html&amp;#39;&amp;#10;                        ],&amp;#10;                        dest : &amp;#39;&amp;#60;%= path.dest %&amp;#62;&amp;#39;&amp;#10;                    &amp;#125;,&amp;#10;                    &amp;#123;&amp;#10;                        //for bootstrap fonts&amp;#10;                        expand: true,&amp;#10;                        dot: true,&amp;#10;                        cwd: &amp;#39;bower_components/bootstrap/dist&amp;#39;,&amp;#10;                        src: [&amp;#39;fonts/*.*&amp;#39;],&amp;#10;                        dest: &amp;#39;&amp;#60;%= path.dest %&amp;#62;/&amp;#39;&amp;#10;                    &amp;#125;&amp;#10;                ]&amp;#10;            &amp;#125;&amp;#10;        &amp;#125;,&amp;#10;        shell: &amp;#123;&amp;#10;            deploy: &amp;#123;&amp;#10;                command: &amp;#39;ssh root@xxx.xxx.xxx.xxx sh /home/update-website.sh&amp;#39;&amp;#10;            &amp;#125;&amp;#10;        &amp;#125;&amp;#10;    &amp;#125;);&amp;#10;&amp;#10;    grunt.loadNpmTasks(&amp;#39;grunt-connect&amp;#39;);&amp;#10;&amp;#10;    grunt.registerTask(&amp;#39;serve&amp;#39;, &amp;#39;connect:test&amp;#39;);&amp;#10;    grunt.registerTask(&amp;#39;dist-serve&amp;#39;, &amp;#39;connect:dist&amp;#39;);&amp;#10;&amp;#10;    grunt.registerTask(&amp;#39;default&amp;#39;, [&amp;#39;clean:beforebuild&amp;#39;, &amp;#39;copy&amp;#39;, &amp;#39;imagemin&amp;#39;, &amp;#39;useminPrepare&amp;#39;, &amp;#39;concat&amp;#39;, &amp;#39;cssmin&amp;#39;, &amp;#39;uglify&amp;#39;, &amp;#39;filerev&amp;#39;, &amp;#39;usemin&amp;#39;, &amp;#39;htmlmin&amp;#39;]);&amp;#10;&amp;#10;    grunt.registerTask(&amp;#39;deploy&amp;#39;, &amp;#39;shell:deploy&amp;#39;);&amp;#10;&amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;服务端的shell脚本:update-website.sh&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd /the-repo-dir&amp;#10;git pull origin your-branch&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Grunt用到的组件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;connect&lt;/li&gt;
+&lt;li&gt;grunt-connect&lt;/li&gt;
+&lt;li&gt;grunt-contrib-clean 目录和文件管理,可以用于清除临时文件和目录&lt;/li&gt;
+&lt;li&gt;grunt-contrib-concat 合
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="Grunt" scheme="http://yangfan-onion.github.io/tags/Grunt/"/>
+    
+      <category term="npm ^ and ~" scheme="http://yangfan-onion.github.io/tags/npm-and/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>安装Shadowsocks</title>
+    <link href="http://yangfan-onion.github.io/%E5%AE%89%E8%A3%85Shadowsocks/"/>
+    <id>http://yangfan-onion.github.io/安装Shadowsocks/</id>
+    <published>2015-07-21T11:55:08.000Z</published>
+    <updated>2016-04-08T13:03:28.000Z</updated>
+    
+    <content type="html">&lt;p&gt;很久没写博客了，最近学了一些Bootstrap，网页切图，设计心理学的知识，还有微信运营的东西，很杂&lt;/p&gt;
+&lt;h1 id=&quot;Goagent的完美替代者Shadowsocks&quot;&gt;Goagent的完美替代者&lt;a href=&quot;https://shadowsocks.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Shadowsocks&lt;/a&gt;&lt;/h1&gt;&lt;h3 id=&quot;然后去网上找了一个一键安装包：CentOS下shadowsocks-libev一键安装脚本；在vps上面一步搞定服务端的部署&quot;&gt;然后去网上找了一个一键安装包：&lt;a href=&quot;http://teddysun.com/357.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CentOS下shadowsocks-libev一键安装脚本&lt;/a&gt;；在vps上面一步搞定服务端的部署&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;result.png&quot; alt=&quot;安装结果&quot;&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//&amp;#26597;&amp;#30475;shadowsocks&amp;#36816;&amp;#34892;&amp;#29366;&amp;#24577;&amp;#10;ps -ef | grep ss-server | grep -v ps | grep -v grep&amp;#10;//&amp;#20351;&amp;#29992;&amp;#21629;&amp;#20196;&amp;#65306;&amp;#10;&amp;#21551;&amp;#21160;&amp;#65306;/etc/init.d/shadowsocks start&amp;#10;&amp;#20572;&amp;#27490;&amp;#65306;/etc/init.d/shadowsocks stop&amp;#10;&amp;#37325;&amp;#21551;&amp;#65306;/etc/init.d/shadowsocks restart&amp;#10;&amp;#26597;&amp;#30475;&amp;#29366;&amp;#24577;&amp;#65306;/etc/init.d/shadowsocks status&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;Shadowsocks客户端,Mac端推荐：Shadowsocks_for_Mac_-_Shadowsocks_GUI_designed_for_OS_X_10-7+&quot;&gt;&lt;a href=&quot;https://shadowsocks.com/client.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Shadowsocks客户端&lt;/a&gt;,Mac端推荐：Shadowsocks for Mac - Shadowsocks GUI designed for OS X 10.7+&lt;/h3&gt;&lt;p&gt;装好之后按照终端的输出配置好即可&lt;br&gt;&lt;img src=&quot;step1.png&quot; alt=&quot;Shadowssocks客户端配置&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;然后就可以愉快的删掉Goagent愉快的查个资料了，心累！&quot;&gt;然后就可以愉快的删掉Goagent愉快的查个资料了，心累！&lt;/h1&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;很久没写博客了，最近学了一些Bootstrap，网页切图，设计心理学的知识，还有微信运营的东西，很杂&lt;/p&gt;
+&lt;h1 id=&quot;Goagent的完美替代者Shadowsocks&quot;&gt;Goagent的完美替代者&lt;a href=&quot;https://shadowsocks.com/&quot; 
+    
+    </summary>
+    
+    
+      <category term="MacOX" scheme="http://yangfan-onion.github.io/tags/MacOX/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Issue about AngularJS executing controller twice</title>
+    <link href="http://yangfan-onion.github.io/Issue-about-AngularJS-executing-controller-twice/"/>
+    <id>http://yangfan-onion.github.io/Issue-about-AngularJS-executing-controller-twice/</id>
+    <published>2015-05-31T07:46:55.000Z</published>
+    <updated>2016-04-08T11:27:22.000Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;&lt;p&gt;Note that you can also attach controllers to the DOM by declaring it in a route definition via the $route service. A common mistake is to declare the controller again using ng-controller in the template itself. This will cause the controller to be attached and executed twice.&lt;br&gt;When you use ngRoute with the ng-view directive, the controller gets attached to that dom element by default. So you will not need to attach it again in the template.&lt;/p&gt;
+&lt;footer&gt;&lt;strong&gt;AngularJS&lt;/strong&gt;&lt;cite&gt;&lt;a href=&quot;https://docs.angularjs.org/api/ng/directive/ngController&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AngularJS docs - ngController&lt;/a&gt;&lt;/cite&gt;&lt;/footer&gt;&lt;/blockquote&gt;
+&lt;p&gt;When you use ngRoute with the ng-view directive, the controller gets attached to that dom element by default. So you will not need to attach it again in the template.&lt;/p&gt;
+&lt;p&gt;今天做AngularJS路由的时候遇到了一个问题,controller里面的方法执行了两次,后来google时发现了原因,大意是: &lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//&amp;#36335;&amp;#30001;&amp;#37324;&amp;#38754;&amp;#24050;&amp;#32463;&amp;#32465;&amp;#23450;&amp;#20102;&amp;#19968;&amp;#27425;controller&amp;#10;.when(&amp;#39;/repo-top&amp;#39;, &amp;#123;&amp;#10;    templateUrl: &amp;#39;views/repo-top.html&amp;#39;,&amp;#10;    controller: &amp;#39;RepoTopCtrl&amp;#39;&amp;#10;&amp;#125;)&amp;#10;&amp;#10;//&amp;#22312;&amp;#27169;&amp;#26495;&amp;#19978;&amp;#38754;&amp;#19981;&amp;#38656;&amp;#35201;&amp;#20877;&amp;#27425;&amp;#32465;&amp;#23450;&amp;#20102;&amp;#10;//&amp;#60;div ng-controller=&amp;#34;RepoTopCtrl&amp;#34;&amp;#62;custom content&amp;#60;/div&amp;#62;&amp;#10;&amp;#60;div&amp;#62;custom content&amp;#60;/div&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;&lt;p&gt;Note that you can also attach controllers to the DOM by declaring it in a route definition via the $route service. A common m
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>install angular-bootstrap failed with bower</title>
+    <link href="http://yangfan-onion.github.io/install-angular-bootstrap-failed-with-bower/"/>
+    <id>http://yangfan-onion.github.io/install-angular-bootstrap-failed-with-bower/</id>
+    <published>2015-05-28T08:01:41.000Z</published>
+    <updated>2016-04-08T11:27:17.000Z</updated>
+    
+    <content type="html">&lt;p&gt;今天使用bower安装&lt;a href=&quot;https://github.com/angular-ui/bootstrap&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;angular-boostrap&lt;/a&gt;模块,安装完成之后, 往AngularJS应用里面注入模块的时候出错, 报错如下&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Uncaught Error: [$injector:modulerr] Failed to instantiate module wechatEnterpriseFrontApp due to:&amp;#10;Error: [$injector:modulerr] Failed to instantiate module ui.bootstrap due to:&amp;#10;Error: [$injector:nomod] Module &amp;#39;ui.bootstrap&amp;#39; is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.&amp;#10;http://errors.angularjs.org/1.4.0/$injector/nomod?p0=ui.bootstrap&amp;#10;    at REGEX_STRING_REGEXP (http://127.0.0.1:9000/bower_components/angular/angular.js:68:12)&amp;#10;    at http://127.0.0.1:9000/bower_components/angular/angular.js:1953:17&amp;#10;    at ensure (http://127.0.0.1:9000/bower_components/angular/angular.js:1877:38)&amp;#10;    at module (http://127.0.0.1:9000/bower_components/angular/angular.js:1951:14)&amp;#10;    at http://127.0.0.1:9000/bower_components/angular/angular.js:4338:22&amp;#10;    at forEach (http://127.0.0.1:9000/bower_components/angular/angular.js:336:20)&amp;#10;    at loadModules (http://127.0.0.1:9000/bower_components/angular/angular.js:4322:5)&amp;#10;    at http://127.0.0.1:9000/bower_components/angular/angular.js:4339:40&amp;#10;    at forEach (http://127.0.0.1:9000/bower_components/angular/angular.js:336:20)&amp;#10;    at loadModules (http://127.0.0.1:9000/bower_components/angular/angular.js:4322:5)&amp;#10;http://errors.angularjs.org/1.4.0/$injector/modulerr?p0=ui.bootstrap&amp;#38;p1=Err&amp;#8230;2F%2F127.0.0.1%3A9000%2Fbower_components%2Fangular%2Fangular.js%3A4322%3A5)&amp;#10;    at REGEX_STRING_REGEXP (http://127.0.0.1:9000/bower_components/angular/angular.js:68:12)&amp;#10;    at http://127.0.0.1:9000/bower_components/angular/angular.js:4361:15&amp;#10;    at forEach (http://127.0.0.1:9000/bower_components/angular/angular.js:336:20)&amp;#10;    at loadModules (http://127.0.0.1:9000/bower_components/angular/angular.js:4322:5)&amp;#10;    at http://127.0.0.1:9000/bower_components/angular/angular.js:4339:40&amp;#10;    at forEach (http://127.0.0.1:9000/bower_components/angular/angular.js:336:20)&amp;#10;    at loadModules (http://127.0.0.1:9000/bower_components/angular/angular.js:4322:5)&amp;#10;    at createInjector (http://127.0.0.1:9000/bower_components/angular/angular.js:4248:11)&amp;#10;    at doBootstrap (http://127.0.0.1:9000/bower_components/angular/angular.js:1625:20)&amp;#10;    at bootstrap (http://127.0.0.1:9000/bower_components/angular/angular.js:1646:12)&amp;#10;http://errors.angularjs.org/1.4.0/$injector/modulerr?p0=wechatEnterpriseFro&amp;#8230;F%2F127.0.0.1%3A9000%2Fbower_components%2Fangular%2Fangular.js%3A1646%3A12)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/angular-ui/bootstrap/issues/2246&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;解决方案&lt;/a&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//The problem seems to be occurring because of the concatenation.&amp;#10;&amp;#10;//In Index.html if you separate out ui-bootstrap-tpls.js&amp;#10;&amp;#10;    &amp;#60;!-- build:js(.) scripts/vendor2.js --&amp;#62;&amp;#10;    &amp;#60;script src=&amp;#34;bower_components/angular-bootstrap/ui-bootstrap-tpls.js&amp;#34;&amp;#62;&amp;#60;/script&amp;#62;&amp;#10;    &amp;#60;!-- endbuild --&amp;#62;&amp;#10;//And in your root bower.json add&amp;#10;&amp;#10;...&amp;#10;&amp;#34;overrides&amp;#34;: &amp;#123;&amp;#10;  &amp;#34;angular-bootstrap&amp;#34;: &amp;#123;&amp;#10;    &amp;#34;main&amp;#34;: []&amp;#10;  &amp;#125;&amp;#10;&amp;#125;&amp;#10;...&amp;#10;//Everything will work just fine and, for the most part, your files are uglified. Obviously this is just a workaround.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天使用bower安装&lt;a href=&quot;https://github.com/angular-ui/bootstrap&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;angular-boostrap&lt;/a&gt;模块,安装完成之后, 往AngularJS应用里面
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>

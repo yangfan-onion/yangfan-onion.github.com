@@ -23,7 +23,7 @@
             <header id="header">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars "></i>
     <h1 class="header-title">
-        <a class="header-title-link" href="http://127.0.0.1:4000">The Man Who Can&#39;t Be Moved!</a>
+        <a class="header-title-link" href="http://yangfan-onion.github.io">The Man Who Can&#39;t Be Moved!</a>
     </h1>
     
         <a class="header-picture-link" href="/#about">
@@ -47,7 +47,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/">
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/">
                     
                         <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                         <span class="sidebar-button-desc hide-md">Home</span>
@@ -56,7 +56,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-categories">
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/all-categories">
                     
                         <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                         <span class="sidebar-button-desc hide-md">Categories</span>
@@ -65,7 +65,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-tags">
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/all-tags">
                     
                         <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                         <span class="sidebar-button-desc hide-md">Tags</span>
@@ -74,7 +74,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/all-archives">
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/all-archives">
                     
                         <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                         <span class="sidebar-button-desc hide-md">Archives</span>
@@ -83,7 +83,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/#about">
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/#about">
                     
                         <i class="sidebar-button-icon fa fa-lg fa-question"></i>
                         <span class="sidebar-button-desc hide-md">About me</span>
@@ -114,7 +114,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000mailto:yangfan.onion@gmail.com">
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.iomailto:yangfan.onion@gmail.com">
                     
                         <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
                         <span class="sidebar-button-desc hide-md">Mail</span>
@@ -127,7 +127,7 @@
             
                 <li class="sidebar-button">
                     
-                        <a  class="sidebar-button-link" href="http://127.0.0.1:4000/atom.xml">
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/atom.xml">
                     
                         <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                         <span class="sidebar-button-desc hide-md">RSS</span>
@@ -154,13 +154,13 @@
 </div>
     
     <div class="post-content markdown main-content-wrap" itemprop="articleBody">
-        <h1 id="Elements">Elements</h1><ol>
+        <h3 id="Elements">Elements</h3><ol>
 <li>选择元素按H可以显示和隐藏当前元素，省去了手动添加(display:none;)操作</li>
 <li>为元素添加Subtree modification, Attribute modification, Node removal监听</li>
 <li>Event Listeners 可以查看当前选中元素有事件，可以绑定到祖先元素上的事件，并且可以查看事件的代码</li>
 <li>Toggle Element state可以查看当前元素的:active, :focus, :hover, :visited样式</li>
 </ol>
-<h4 id="Console">Console</h4><h4 id="Sources">Sources</h4><ol>
+<h3 id="Console">Console</h3><h3 id="Sources">Sources</h3><ol>
 <li>可以在代码中添加debugger; 程序在执行时会在此断点</li>
 <li>动态加载的JS代码调试， 代码头部加入 // @sourceURL=example.js 通知DevTools</li>
 <li>Ctrl + P可以查找任意文件</li>
@@ -172,19 +172,30 @@
 <li>添加表达式</li>
 <li>函数的调用栈</li>
 </ol>
-<h4 id="Network">Network</h4><ol>
+<h3 id="Network">Network</h3><ol>
 <li>Filter可以多选</li>
 <li>size/content可以进行优化判断 size:文件传输大小, content:实际大小;  size=Gzip(文件大小)+response header的大小</li>
 <li>非二进制文件的size等于content说明未开启Gzip, 需要优化</li>
 <li>size大于content, 一般是小图片，可能20B大小，size中还包含了response_headers的大小，所以切图的时候，可以把多个小图片做成一张雪碧图，一是减少网络请求，二是可以减少过多response header的传输浪费</li>
 <li>time/latency =&gt; 总时间/等待时间  开始时间到TTFB(首字节加载时间)就是等待时间</li>
-<li>initator 资源是由谁请求的， 解释器或者自定义的JS，</li>
+<li>initator 资源是由谁请求的， 解释器或者自定义的JS，由JS发起的会存在一些延迟</li>
 <li>HAR(HTTP Archive)前后台开发人员协作优化性能问题 <a href="http://ericduran.github.io/chromeHAR/" target="_blank" rel="external">http://ericduran.github.io/chromeHAR/</a></li>
 <li>DOMContent event Fire（解释完当前页面）蓝线， Load Event Fire（加载完所有资源）红线</li>
 </ol>
-<h6 id="Timeline">Timeline</h6><p>可以按照<br>1.Connection Setup连接建立<br>Queueing排队时间<br>7.65 ms<br>Stalled<br>1.54 ms<br>Proxy negotiation    代理协商<br>0.13 ms<br>Initial connection    初始化连接<br>686.23 ms<br>SSL             Secure Sockets Layer 安全套接层<br>413.59 ms</p>
-<p>2.Request/Response<br>Request sent    请求送达<br>0.12 ms<br>Waiting (TTFB)    Time To First Byte(首字节到达时间)<br>446.35 ms<br>Content Download    229.35 ms 文件下载时间</p>
-<p>Explanation     1.37 s 总时间<br>可以优化的点<br>TTFB 是一个可以优化的点，利用CDN, 让内容距离用户更近，分配更快的路由<br>Content Download 也是一个很重要的点，特别是在首次加载，TCP连接在开始是很慢的，window size是很小的，~14kb, 超过14kb的内容需要另外的TCP包进行传输，会增加一个round trip time(来回时间)，在来回时间很长的情况下，会拖慢首次加载的速度</p>
+<h6 id="浏览器并发请求数">浏览器并发请求数</h6><p>为了复用已存在在的连接，浏览器对同一域名的并发请求是有限的, 以下是各种浏览器的并发数量<br><img src="screenshot1.jpg" alt="浏览器请求并发数"></p>
+<h6 id="zhihu-com的网络请求截屏">zhihu.com的网络请求截屏</h6><p><img src="screenshot.jpg" alt="domain"></p>
+<p>如图，有的请求会持续很长时间，如果把 img, css, js… 都放到 <a href="http://zhihu.com" target="_blank" rel="external">http://zhihu.com</a> 一个域名下面，其他请求就迟迟无法完成，浏览者看来就是『卡住了』。而把图片放到 <a href="http://zhimg.com" target="_blank" rel="external">http://zhimg.com</a> 之后，css和图片就可以并发请求了。知乎使用了pic1.zhimg.com | pic2.zhimg.com | pic3.zhimg.com | pic3.zhimg.com<br>而且这4个域名是cookie free的</p>
+<p>可以参考下图<br><img src="cookie_free.png" alt="cookie free"><br><img src="cookie_free1.png" alt="cookie free"></p>
+<h6 id="Capture_Filmstrip_以订货宝官网为例">Capture Filmstrip 以订货宝官网为例</h6><p><img src="first-screen.png" alt="首屏优化"><br>844ms呈现出来的首屏，这时html+js+css下载完成<br>DOM+Javascript+CSSOM =&gt; Render Tree</p>
+<p><img src="first-screen-1.png" alt="首屏优化"><br>1.80s的首屏截图， 此时订货宝的Logo还未加载出来，为什么？？<br><img src="frist-screen-2.png" alt="首屏优化"><br>仔细看logo.png的网络请求， Queueing: 521ms，TTFB: 1.17s， Content Download: 32ms</p>
+<h6 id="如何优化Queueing，_Stalled">如何优化Queueing， Stalled</h6><ol>
+<li><em>资源优先级</em> 图片的优先级一般是低于html, css, js的，可以在Network的选项卡里调出优先级一列</li>
+<li><em>同一域名网络请求并发数</em> chrome 6个</li>
+</ol>
+<p>排队时间高就是因为并发的6个链接正在处理优先级高的资源，要等到优先级高的资源处理完了，在复用这些链接请求优先级更低的资源<br>这个时候我们将图片换到另外的域名下，在同一优先级的图片下面，logo.png是会优先排队的，这样就可以避免排队时间的过多的消耗，</p>
+<p>鱼与熊掌不可兼得，放到另外的域名下，DNS查询也是会增加消耗的，一般2～4个为宜</p>
+<h6 id="如何优化TTFB">如何优化TTFB</h6><p>TTFB 是一个可以优化的点，利用CDN, 让内容距离用户更近，更快的服务器响应</p>
+<h6 id="如何优化Content_Download">如何优化Content Download</h6><p>减小内容大小；<br>特别是在首次加载，TCP连接在开始是很慢的，window size是很小的，~14kb, 超过14kb的内容需要另外的TCP包进行传输，会增加一个round trip time(来回时间)，在来回时间很长的情况下，会拖慢首次加载的速度</p>
 <h4 id="Profiles">Profiles</h4><p>网页的性能问题，JS的性能问题</p>
 <h4 id="Resource">Resource</h4><p>资源，cookie, localstorage</p>
 <h4 id="Audits">Audits</h4><p>评审网站，cache file, remove unuse css</p>
@@ -219,17 +230,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -282,17 +293,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://127.0.0.1:4000/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
