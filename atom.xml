@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yangfan-onion.github.io/"/>
-  <updated>2016-04-09T09:40:48.000Z</updated>
+  <updated>2016-04-11T16:20:42.000Z</updated>
   <id>http://yangfan-onion.github.io/</id>
   
   <author>
@@ -20,15 +20,27 @@
     <link href="http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/"/>
     <id>http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/</id>
     <published>2016-04-07T13:00:05.000Z</published>
-    <updated>2016-04-09T09:40:48.000Z</updated>
+    <updated>2016-04-11T16:20:42.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;Elements&quot;&gt;Elements&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;选择元素按H可以显示和隐藏当前元素，省去了手动添加(display:none;)操作&lt;/li&gt;
 &lt;li&gt;为元素添加Subtree modification, Attribute modification, Node removal监听&lt;/li&gt;
 &lt;li&gt;Event Listeners 可以查看当前选中元素有事件，可以绑定到祖先元素上的事件，并且可以查看事件的代码&lt;/li&gt;
 &lt;li&gt;Toggle Element state可以查看当前元素的:active, :focus, :hover, :visited样式&lt;/li&gt;
+&lt;li&gt;Ctrl+F支持子节点查找 form input&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&quot;Console&quot;&gt;Console&lt;/h3&gt;&lt;h3 id=&quot;Sources&quot;&gt;Sources&lt;/h3&gt;&lt;ol&gt;
+&lt;h3 id=&quot;Console&quot;&gt;Console&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;$0 =&amp;gt; 选择当前选中的元素， 右键可以修改&lt;/li&gt;
+&lt;li&gt;$(‘img’) =&amp;gt; document.querySelector&lt;/li&gt;
+&lt;li&gt;$$(‘img’) ＝&amp;gt; document.querySelectorAll&lt;/li&gt;
+&lt;li&gt;console.table([{a:1, b:2, c:3}, {a:”foo”, b:false, c:undefined}]);&lt;/li&gt;
+&lt;li&gt;dir($0)&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;debug(functionName) &amp;amp;&amp;amp; undebug 控制台中打断点&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;profile(“My profile”) &amp;amp;&amp;amp; profileEnd(“My profile”) 用于比较耗费CPU的操作&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;Sources&quot;&gt;Sources&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;可以在代码中添加debugger; 程序在执行时会在此断点&lt;/li&gt;
 &lt;li&gt;动态加载的JS代码调试， 代码头部加入 // @sourceURL=example.js 通知DevTools&lt;/li&gt;
 &lt;li&gt;Ctrl + P可以查找任意文件&lt;/li&gt;
@@ -36,7 +48,7 @@
 &lt;li&gt;Ctrl+Shift+O可以跳转到任意方法&lt;/li&gt;
 &lt;li&gt;左下角的{}可以格式化压缩的JS,CSS方便查看代码调试&lt;/li&gt;
 &lt;li&gt;添加断点调试JS, 添加条件断点&lt;/li&gt;
-&lt;li&gt;单步跳过，进入，跳出方法&lt;/li&gt;
+&lt;li&gt;单步跳过，进入，跳出方法, black box, 跳过jquery, angular的源代码，只在我们自己写的代码中调试&lt;/li&gt;
 &lt;li&gt;添加表达式&lt;/li&gt;
 &lt;li&gt;函数的调用栈&lt;/li&gt;
 &lt;/ol&gt;
@@ -64,6 +76,9 @@
 &lt;p&gt;鱼与熊掌不可兼得，放到另外的域名下，DNS查询也是会增加消耗的，一般2～4个为宜&lt;/p&gt;
 &lt;h6 id=&quot;如何优化TTFB&quot;&gt;如何优化TTFB&lt;/h6&gt;&lt;p&gt;TTFB 是一个可以优化的点，利用CDN, 让内容距离用户更近，更快的服务器响应&lt;/p&gt;
 &lt;h6 id=&quot;如何优化Content_Download&quot;&gt;如何优化Content Download&lt;/h6&gt;&lt;p&gt;减小内容大小；&lt;br&gt;特别是在首次加载，TCP连接在开始是很慢的，window size是很小的，~14kb, 超过14kb的内容需要另外的TCP包进行传输，会增加一个round trip time(来回时间)，在来回时间很长的情况下，会拖慢首次加载的速度&lt;/p&gt;
+&lt;p&gt;throttling&lt;br&gt;切换网络限速&lt;br&gt;custom throttling&lt;br&gt;自定义网络限速&lt;/p&gt;
+&lt;p&gt;Chrome Canary: request block to diagnose which resources slowdown the first meaningful screen&lt;/p&gt;
+&lt;h4 id=&quot;Timeline&quot;&gt;Timeline&lt;/h4&gt;&lt;p&gt;蓝线表示DOMContentLoaded event&lt;br&gt;绿线表示首次绘制页面&lt;br&gt;红线表示load event.&lt;/p&gt;
 &lt;h4 id=&quot;Profiles&quot;&gt;Profiles&lt;/h4&gt;&lt;p&gt;网页的性能问题，JS的性能问题&lt;/p&gt;
 &lt;h4 id=&quot;Resource&quot;&gt;Resource&lt;/h4&gt;&lt;p&gt;资源，cookie, localstorage&lt;/p&gt;
 &lt;h4 id=&quot;Audits&quot;&gt;Audits&lt;/h4&gt;&lt;p&gt;评审网站，cache file, remove unuse css&lt;/p&gt;

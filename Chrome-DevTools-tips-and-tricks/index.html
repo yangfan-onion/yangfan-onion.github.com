@@ -159,8 +159,20 @@
 <li>为元素添加Subtree modification, Attribute modification, Node removal监听</li>
 <li>Event Listeners 可以查看当前选中元素有事件，可以绑定到祖先元素上的事件，并且可以查看事件的代码</li>
 <li>Toggle Element state可以查看当前元素的:active, :focus, :hover, :visited样式</li>
+<li>Ctrl+F支持子节点查找 form input</li>
 </ol>
-<h3 id="Console">Console</h3><h3 id="Sources">Sources</h3><ol>
+<h3 id="Console">Console</h3><ul>
+<li>$0 =&gt; 选择当前选中的元素， 右键可以修改</li>
+<li>$(‘img’) =&gt; document.querySelector</li>
+<li>$$(‘img’) ＝&gt; document.querySelectorAll</li>
+<li>console.table([{a:1, b:2, c:3}, {a:”foo”, b:false, c:undefined}]);</li>
+<li>dir($0)</li>
+<li><p>debug(functionName) &amp;&amp; undebug 控制台中打断点</p>
+</li>
+<li><p>profile(“My profile”) &amp;&amp; profileEnd(“My profile”) 用于比较耗费CPU的操作</p>
+</li>
+</ul>
+<h3 id="Sources">Sources</h3><ol>
 <li>可以在代码中添加debugger; 程序在执行时会在此断点</li>
 <li>动态加载的JS代码调试， 代码头部加入 // @sourceURL=example.js 通知DevTools</li>
 <li>Ctrl + P可以查找任意文件</li>
@@ -168,7 +180,7 @@
 <li>Ctrl+Shift+O可以跳转到任意方法</li>
 <li>左下角的{}可以格式化压缩的JS,CSS方便查看代码调试</li>
 <li>添加断点调试JS, 添加条件断点</li>
-<li>单步跳过，进入，跳出方法</li>
+<li>单步跳过，进入，跳出方法, black box, 跳过jquery, angular的源代码，只在我们自己写的代码中调试</li>
 <li>添加表达式</li>
 <li>函数的调用栈</li>
 </ol>
@@ -196,6 +208,9 @@
 <p>鱼与熊掌不可兼得，放到另外的域名下，DNS查询也是会增加消耗的，一般2～4个为宜</p>
 <h6 id="如何优化TTFB">如何优化TTFB</h6><p>TTFB 是一个可以优化的点，利用CDN, 让内容距离用户更近，更快的服务器响应</p>
 <h6 id="如何优化Content_Download">如何优化Content Download</h6><p>减小内容大小；<br>特别是在首次加载，TCP连接在开始是很慢的，window size是很小的，~14kb, 超过14kb的内容需要另外的TCP包进行传输，会增加一个round trip time(来回时间)，在来回时间很长的情况下，会拖慢首次加载的速度</p>
+<p>throttling<br>切换网络限速<br>custom throttling<br>自定义网络限速</p>
+<p>Chrome Canary: request block to diagnose which resources slowdown the first meaningful screen</p>
+<h4 id="Timeline">Timeline</h4><p>蓝线表示DOMContentLoaded event<br>绿线表示首次绘制页面<br>红线表示load event.</p>
 <h4 id="Profiles">Profiles</h4><p>网页的性能问题，JS的性能问题</p>
 <h4 id="Resource">Resource</h4><p>资源，cookie, localstorage</p>
 <h4 id="Audits">Audits</h4><p>评审网站，cache file, remove unuse css</p>
