@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yangfan-onion.github.io/"/>
-  <updated>2016-04-11T16:20:42.000Z</updated>
+  <updated>2016-04-11T16:34:49.000Z</updated>
   <id>http://yangfan-onion.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/"/>
     <id>http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/</id>
     <published>2016-04-07T13:00:05.000Z</published>
-    <updated>2016-04-11T16:20:42.000Z</updated>
+    <updated>2016-04-11T16:34:49.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;Elements&quot;&gt;Elements&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;选择元素按H可以显示和隐藏当前元素，省去了手动添加(display:none;)操作&lt;/li&gt;
@@ -66,7 +66,7 @@
 &lt;h6 id=&quot;zhihu-com的网络请求截屏&quot;&gt;zhihu.com的网络请求截屏&lt;/h6&gt;&lt;p&gt;&lt;img src=&quot;screenshot.jpg&quot; alt=&quot;domain&quot;&gt;&lt;/p&gt;
 &lt;p&gt;如图，有的请求会持续很长时间，如果把 img, css, js… 都放到 &lt;a href=&quot;http://zhihu.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://zhihu.com&lt;/a&gt; 一个域名下面，其他请求就迟迟无法完成，浏览者看来就是『卡住了』。而把图片放到 &lt;a href=&quot;http://zhimg.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://zhimg.com&lt;/a&gt; 之后，css和图片就可以并发请求了。知乎使用了pic1.zhimg.com | pic2.zhimg.com | pic3.zhimg.com | pic3.zhimg.com&lt;br&gt;而且这4个域名是cookie free的&lt;/p&gt;
 &lt;p&gt;可以参考下图&lt;br&gt;&lt;img src=&quot;cookie_free.png&quot; alt=&quot;cookie free&quot;&gt;&lt;br&gt;&lt;img src=&quot;cookie_free1.png&quot; alt=&quot;cookie free&quot;&gt;&lt;/p&gt;
-&lt;h6 id=&quot;Capture_Filmstrip_以订货宝官网为例&quot;&gt;Capture Filmstrip 以订货宝官网为例&lt;/h6&gt;&lt;p&gt;&lt;img src=&quot;first-screen.png&quot; alt=&quot;首屏优化&quot;&gt;&lt;br&gt;844ms呈现出来的首屏，这时html+js+css下载完成&lt;br&gt;DOM+Javascript+CSSOM =&amp;gt; Render Tree&lt;/p&gt;
+&lt;h6 id=&quot;Capture_Filmstrip_以订货宝官网为例&quot;&gt;Capture Filmstrip 以订货宝官网为例&lt;/h6&gt;&lt;p&gt;&lt;img src=&quot;first-screen.png&quot; alt=&quot;首屏优化&quot;&gt;&lt;br&gt;844ms呈现出来的无意义的首屏，这时html+js+css下载完成&lt;br&gt;DOM+Javascript+CSSOM =&amp;gt; Render Tree&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;first-screen-1.png&quot; alt=&quot;首屏优化&quot;&gt;&lt;br&gt;1.80s的首屏截图， 此时订货宝的Logo还未加载出来，为什么？？&lt;br&gt;&lt;img src=&quot;frist-screen-2.png&quot; alt=&quot;首屏优化&quot;&gt;&lt;br&gt;仔细看logo.png的网络请求， Queueing: 521ms，TTFB: 1.17s， Content Download: 32ms&lt;/p&gt;
 &lt;h6 id=&quot;如何优化Queueing，_Stalled&quot;&gt;如何优化Queueing， Stalled&lt;/h6&gt;&lt;ol&gt;
 &lt;li&gt;&lt;em&gt;资源优先级&lt;/em&gt; 图片的优先级一般是低于html, css, js的，可以在Network的选项卡里调出优先级一列&lt;/li&gt;
@@ -78,7 +78,11 @@
 &lt;h6 id=&quot;如何优化Content_Download&quot;&gt;如何优化Content Download&lt;/h6&gt;&lt;p&gt;减小内容大小；&lt;br&gt;特别是在首次加载，TCP连接在开始是很慢的，window size是很小的，~14kb, 超过14kb的内容需要另外的TCP包进行传输，会增加一个round trip time(来回时间)，在来回时间很长的情况下，会拖慢首次加载的速度&lt;/p&gt;
 &lt;p&gt;throttling&lt;br&gt;切换网络限速&lt;br&gt;custom throttling&lt;br&gt;自定义网络限速&lt;/p&gt;
 &lt;p&gt;Chrome Canary: request block to diagnose which resources slowdown the first meaningful screen&lt;/p&gt;
-&lt;h4 id=&quot;Timeline&quot;&gt;Timeline&lt;/h4&gt;&lt;p&gt;蓝线表示DOMContentLoaded event&lt;br&gt;绿线表示首次绘制页面&lt;br&gt;红线表示load event.&lt;/p&gt;
+&lt;h4 id=&quot;Timeline&quot;&gt;Timeline&lt;/h4&gt;&lt;p&gt;－ 蓝线表示DOMContentLoaded event&lt;br&gt;－ 绿线表示首次绘制页面&lt;br&gt;－ 红线表示load event.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;timeline.png&quot; alt=&quot;timeline&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;FPS &amp;amp; CPU &amp;amp; NET&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h4 id=&quot;Profiles&quot;&gt;Profiles&lt;/h4&gt;&lt;p&gt;网页的性能问题，JS的性能问题&lt;/p&gt;
 &lt;h4 id=&quot;Resource&quot;&gt;Resource&lt;/h4&gt;&lt;p&gt;资源，cookie, localstorage&lt;/p&gt;
 &lt;h4 id=&quot;Audits&quot;&gt;Audits&lt;/h4&gt;&lt;p&gt;评审网站，cache file, remove unuse css&lt;/p&gt;

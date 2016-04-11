@@ -198,7 +198,7 @@
 <h6 id="zhihu-com的网络请求截屏">zhihu.com的网络请求截屏</h6><p><img src="screenshot.jpg" alt="domain"></p>
 <p>如图，有的请求会持续很长时间，如果把 img, css, js… 都放到 <a href="http://zhihu.com" target="_blank" rel="external">http://zhihu.com</a> 一个域名下面，其他请求就迟迟无法完成，浏览者看来就是『卡住了』。而把图片放到 <a href="http://zhimg.com" target="_blank" rel="external">http://zhimg.com</a> 之后，css和图片就可以并发请求了。知乎使用了pic1.zhimg.com | pic2.zhimg.com | pic3.zhimg.com | pic3.zhimg.com<br>而且这4个域名是cookie free的</p>
 <p>可以参考下图<br><img src="cookie_free.png" alt="cookie free"><br><img src="cookie_free1.png" alt="cookie free"></p>
-<h6 id="Capture_Filmstrip_以订货宝官网为例">Capture Filmstrip 以订货宝官网为例</h6><p><img src="first-screen.png" alt="首屏优化"><br>844ms呈现出来的首屏，这时html+js+css下载完成<br>DOM+Javascript+CSSOM =&gt; Render Tree</p>
+<h6 id="Capture_Filmstrip_以订货宝官网为例">Capture Filmstrip 以订货宝官网为例</h6><p><img src="first-screen.png" alt="首屏优化"><br>844ms呈现出来的无意义的首屏，这时html+js+css下载完成<br>DOM+Javascript+CSSOM =&gt; Render Tree</p>
 <p><img src="first-screen-1.png" alt="首屏优化"><br>1.80s的首屏截图， 此时订货宝的Logo还未加载出来，为什么？？<br><img src="frist-screen-2.png" alt="首屏优化"><br>仔细看logo.png的网络请求， Queueing: 521ms，TTFB: 1.17s， Content Download: 32ms</p>
 <h6 id="如何优化Queueing，_Stalled">如何优化Queueing， Stalled</h6><ol>
 <li><em>资源优先级</em> 图片的优先级一般是低于html, css, js的，可以在Network的选项卡里调出优先级一列</li>
@@ -210,7 +210,11 @@
 <h6 id="如何优化Content_Download">如何优化Content Download</h6><p>减小内容大小；<br>特别是在首次加载，TCP连接在开始是很慢的，window size是很小的，~14kb, 超过14kb的内容需要另外的TCP包进行传输，会增加一个round trip time(来回时间)，在来回时间很长的情况下，会拖慢首次加载的速度</p>
 <p>throttling<br>切换网络限速<br>custom throttling<br>自定义网络限速</p>
 <p>Chrome Canary: request block to diagnose which resources slowdown the first meaningful screen</p>
-<h4 id="Timeline">Timeline</h4><p>蓝线表示DOMContentLoaded event<br>绿线表示首次绘制页面<br>红线表示load event.</p>
+<h4 id="Timeline">Timeline</h4><p>－ 蓝线表示DOMContentLoaded event<br>－ 绿线表示首次绘制页面<br>－ 红线表示load event.</p>
+<p><img src="timeline.png" alt="timeline"></p>
+<ul>
+<li>FPS &amp; CPU &amp; NET</li>
+</ul>
 <h4 id="Profiles">Profiles</h4><p>网页的性能问题，JS的性能问题</p>
 <h4 id="Resource">Resource</h4><p>资源，cookie, localstorage</p>
 <h4 id="Audits">Audits</h4><p>评审网站，cache file, remove unuse css</p>
