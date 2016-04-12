@@ -169,7 +169,7 @@
 <li>dir($0)</li>
 <li><p>debug(functionName) &amp;&amp; undebug 控制台中打断点</p>
 </li>
-<li><p>profile(“My profile”) &amp;&amp; profileEnd(“My profile”) 用于比较耗费CPU的操作</p>
+<li><p>profile(“My profile”) &amp;&amp; profileEnd(“My profile”) 用于统计性能消耗</p>
 </li>
 </ul>
 <h3 id="Sources">Sources</h3><ol>
@@ -212,9 +212,13 @@
 <p>Chrome Canary: request block to diagnose which resources slowdown the first meaningful screen</p>
 <h4 id="Timeline">Timeline</h4><p>－ 蓝线表示DOMContentLoaded event<br>－ 绿线表示首次绘制页面<br>－ 红线表示load event.</p>
 <p><img src="timeline.png" alt="timeline"></p>
-<ul>
-<li>FPS &amp; CPU &amp; NET</li>
-</ul>
+<ol>
+<li>这个时间区间，各种操作所占的比例</li>
+<li>比例所对应的图表</li>
+<li>FPS &amp; CPU &amp; NET 哪一个颜色越深，高度越高，表示这段时间的消耗越多</li>
+<li>红色的三角表示这个时间段 画面有卡顿，低于60FPS</li>
+<li>这个区间可用鼠标上下滚动查看，详细到每一个请求的完成，每一次方法的执行</li>
+</ol>
 <h4 id="Profiles">Profiles</h4><p>网页的性能问题，JS的性能问题</p>
 <h4 id="Resource">Resource</h4><p>资源，cookie, localstorage</p>
 <h4 id="Audits">Audits</h4><p>评审网站，cache file, remove unuse css</p>
