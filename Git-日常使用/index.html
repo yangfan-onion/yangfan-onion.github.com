@@ -203,9 +203,9 @@
 <hr>
 <h3 id="撤销最近一次提交">撤销最近一次提交</h3><p><img src="git-concept.png" alt="png"></p>
 <ol>
-<li>git reset –soft HEAD\^1 只是抹去了提交历史，需要重新commit</li>
-<li>git reset –mixed HEAD\^1 抹去了提交历史和缓存快照 ，需要重新add, 重新commit</li>
-<li>git reset –hard HEAD\^1 抹去了提交历史，缓存快照，工作空间（工作空间的修改全部消失，<strong>谨慎，再谨慎</strong>）</li>
+<li>git reset –soft HEAD^1 只是抹去了提交历史，需要重新commit</li>
+<li>git reset –mixed HEAD^1 抹去了提交历史和缓存快照 ，需要重新add, 重新commit</li>
+<li>git reset –hard HEAD^1 抹去了提交历史，缓存快照，工作空间（工作空间的修改全部消失，<strong>谨慎，再谨慎</strong>）</li>
 </ol>
 <h3 id="假定文件未修改">假定文件未修改</h3><ol>
 <li>git update-index –[no]assume-unchanged www/index.php</li>

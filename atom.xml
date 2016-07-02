@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yangfan-onion.github.io/"/>
-  <updated>2016-07-02T11:23:57.000Z</updated>
+  <updated>2016-07-02T11:24:42.000Z</updated>
   <id>http://yangfan-onion.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yangfan-onion.github.io/Git-%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/"/>
     <id>http://yangfan-onion.github.io/Git-日常使用/</id>
     <published>2016-07-02T11:15:27.000Z</published>
-    <updated>2016-07-02T11:23:57.000Z</updated>
+    <updated>2016-07-02T11:24:42.000Z</updated>
     
     <content type="html">&lt;h1 id=&quot;Git&quot;&gt;Git&lt;/h1&gt;&lt;h6 id=&quot;推荐一个Git教程&quot;&gt;推荐一个Git教程&lt;/h6&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://backlogtool.com/git-guide/cn/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://backlogtool.com/git-guide/cn/&lt;/a&gt;&lt;/li&gt;
@@ -65,9 +65,9 @@
 &lt;hr&gt;
 &lt;h3 id=&quot;撤销最近一次提交&quot;&gt;撤销最近一次提交&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;git-concept.png&quot; alt=&quot;png&quot;&gt;&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;git reset –soft HEAD\^1 只是抹去了提交历史，需要重新commit&lt;/li&gt;
-&lt;li&gt;git reset –mixed HEAD\^1 抹去了提交历史和缓存快照 ，需要重新add, 重新commit&lt;/li&gt;
-&lt;li&gt;git reset –hard HEAD\^1 抹去了提交历史，缓存快照，工作空间（工作空间的修改全部消失，&lt;strong&gt;谨慎，再谨慎&lt;/strong&gt;）&lt;/li&gt;
+&lt;li&gt;git reset –soft HEAD^1 只是抹去了提交历史，需要重新commit&lt;/li&gt;
+&lt;li&gt;git reset –mixed HEAD^1 抹去了提交历史和缓存快照 ，需要重新add, 重新commit&lt;/li&gt;
+&lt;li&gt;git reset –hard HEAD^1 抹去了提交历史，缓存快照，工作空间（工作空间的修改全部消失，&lt;strong&gt;谨慎，再谨慎&lt;/strong&gt;）&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&quot;假定文件未修改&quot;&gt;假定文件未修改&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;git update-index –[no]assume-unchanged www/index.php&lt;/li&gt;
