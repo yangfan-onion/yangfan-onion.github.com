@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
-    <title>The Man Who Can&#39;t Be Moved! - Chrome DevTools tips and tricks</title>
+    <title>The Man Who Can&#39;t Be Moved! - Gitlab webhook</title>
     <meta name="author" content="yangfan.onion">
     <meta name="description" content="The Man Who Can&#39;t Be Moved!">
     <link rel="icon" href="/assets/images/null">
@@ -143,88 +143,39 @@
     
         <div class="post-header main-content-wrap">
     
-        <h1 class="post-title" itemprop="headline">Chrome DevTools tips and tricks</h1>
+        <h1 class="post-title" itemprop="headline">Gitlab webhook</h1>
     
     <div class="post-meta">
-    <time  itemprop="datePublished" content="Thu Apr 07 2016 21:00:05 GMT+0800">
-        Apr 07, 2016
+    <time  itemprop="datePublished" content="Sat Jul 02 2016 18:15:39 GMT+0800">
+        Jul 02, 2016
     </time>
     
 </div>
 </div>
     
     <div class="post-content markdown main-content-wrap" itemprop="articleBody">
-        <h3 id="Elements">Elements</h3><ol>
-<li>选择元素按H可以显示和隐藏当前元素，省去了手动添加(display:none;)操作</li>
-<li>为元素添加Subtree modification, Attribute modification, Node removal监听</li>
-<li>Event Listeners 可以查看当前选中元素有事件，可以绑定到祖先元素上的事件，并且可以查看事件的代码</li>
-<li>Toggle Element state可以查看当前元素的:active, :focus, :hover, :visited样式</li>
-<li>Ctrl+F支持子节点查找 form input</li>
-</ol>
-<h3 id="Console">Console</h3><ul>
-<li>$0 =&gt; 选择当前选中的元素， 右键可以修改</li>
-<li>$(‘img’) =&gt; document.querySelector</li>
-<li>$$(‘img’) ＝&gt; document.querySelectorAll</li>
-<li>console.table([{a:1, b:2, c:3}, {a:”foo”, b:false, c:undefined}]);</li>
-<li>dir($0)</li>
-<li><p>debug(functionName) &amp;&amp; undebug 控制台中打断点</p>
-</li>
-<li><p>profile(“My profile”) &amp;&amp; profileEnd(“My profile”) 用于统计性能消耗</p>
-</li>
-</ul>
-<h3 id="Sources">Sources</h3><ol>
-<li>可以在代码中添加debugger; 程序在执行时会在此断点</li>
-<li>动态加载的JS代码调试， 代码头部加入 // @sourceURL=example.js 通知DevTools</li>
-<li>Ctrl + P可以查找任意文件</li>
-<li>Ctrl + P + : + 行号跳转到文件相应行</li>
-<li>Ctrl+Shift+O可以跳转到任意方法</li>
-<li>左下角的{}可以格式化压缩的JS,CSS方便查看代码调试</li>
-<li>添加断点调试JS, 添加条件断点</li>
-<li>单步跳过，进入，跳出方法, black box, 跳过jquery, angular的源代码，只在我们自己写的代码中调试</li>
-<li>添加表达式</li>
-<li>函数的调用栈</li>
-</ol>
-<h3 id="Network">Network</h3><ol>
-<li>Filter可以多选</li>
-<li>size/content可以进行优化判断 size:文件传输大小, content:实际大小;  size=Gzip(文件大小)+response header的大小</li>
-<li>非二进制文件的size等于content说明未开启Gzip, 需要优化</li>
-<li>size大于content, 一般是小图片，可能20B大小，size中还包含了response_headers的大小，所以切图的时候，可以把多个小图片做成一张雪碧图，一是减少网络请求，二是可以减少过多response header的传输浪费</li>
-<li>time/latency =&gt; 总时间/等待时间  开始时间到TTFB(首字节加载时间)就是等待时间</li>
-<li>initator 资源是由谁请求的， 解释器或者自定义的JS，由JS发起的会存在一些延迟</li>
-<li>HAR(HTTP Archive)前后台开发人员协作优化性能问题 <a href="http://ericduran.github.io/chromeHAR/" target="_blank" rel="external">http://ericduran.github.io/chromeHAR/</a></li>
-<li>DOMContent event Fire（解释完当前页面）蓝线， Load Event Fire（加载完所有资源）红线</li>
-</ol>
-<h6 id="浏览器并发请求数">浏览器并发请求数</h6><p>为了复用已存在在的连接，浏览器对同一域名的并发请求是有限的, 以下是各种浏览器的并发数量<br><img src="screenshot1.jpg" alt="浏览器请求并发数"></p>
-<h6 id="zhihu-com的网络请求截屏">zhihu.com的网络请求截屏</h6><p><img src="screenshot.jpg" alt="domain"></p>
-<p>如图，有的请求会持续很长时间，如果把 img, css, js… 都放到 <a href="http://zhihu.com" target="_blank" rel="external">http://zhihu.com</a> 一个域名下面，其他请求就迟迟无法完成，浏览者看来就是『卡住了』。而把图片放到 <a href="http://zhimg.com" target="_blank" rel="external">http://zhimg.com</a> 之后，css和图片就可以并发请求了。知乎使用了pic1.zhimg.com | pic2.zhimg.com | pic3.zhimg.com | pic3.zhimg.com<br>而且这4个域名是cookie free的</p>
-<p>可以参考下图<br><img src="cookie_free.png" alt="cookie free"><br><img src="cookie_free1.png" alt="cookie free"></p>
-<h6 id="Capture_Filmstrip_以订货宝官网为例">Capture Filmstrip 以订货宝官网为例</h6><p><img src="first-screen.png" alt="首屏优化"><br>844ms呈现出来的无意义的首屏，这时html+js+css下载完成<br>DOM+Javascript+CSSOM =&gt; Render Tree</p>
-<p><img src="first-screen-1.png" alt="首屏优化"><br>1.80s的首屏截图， 此时订货宝的Logo还未加载出来，为什么？？<br><img src="frist-screen-2.png" alt="首屏优化"><br>仔细看logo.png的网络请求， Queueing: 521ms，TTFB: 1.17s， Content Download: 32ms</p>
-<h6 id="如何优化Queueing，_Stalled">如何优化Queueing， Stalled</h6><ol>
-<li><em>资源优先级</em> 图片的优先级一般是低于html, css, js的，可以在Network的选项卡里调出优先级一列</li>
-<li><em>同一域名网络请求并发数</em> chrome 6个</li>
-</ol>
-<p>排队时间高就是因为并发的6个链接正在处理优先级高的资源，要等到优先级高的资源处理完了，在复用这些链接请求优先级更低的资源<br>这个时候我们将图片换到另外的域名下，在同一优先级的图片下面，logo.png是会优先排队的，这样就可以避免排队时间的过多的消耗，</p>
-<p>鱼与熊掌不可兼得，放到另外的域名下，DNS查询也是会增加消耗的，一般2～4个为宜</p>
-<h6 id="如何优化TTFB">如何优化TTFB</h6><p>TTFB 是一个可以优化的点，利用CDN, 让内容距离用户更近，更快的服务器响应</p>
-<h6 id="如何优化Content_Download">如何优化Content Download</h6><p>减小内容大小；<br>特别是在首次加载，TCP连接在开始是很慢的，window size是很小的，~14kb, 超过14kb的内容需要另外的TCP包进行传输，会增加一个round trip time(来回时间)，在来回时间很长的情况下，会拖慢首次加载的速度</p>
-<p>throttling<br>切换网络限速<br>custom throttling<br>自定义网络限速</p>
-<p>Chrome Canary: request block to diagnose which resources slowdown the first meaningful screen</p>
-<h4 id="Timeline">Timeline</h4><p>－ 蓝线表示DOMContentLoaded event<br>－ 绿线表示首次绘制页面<br>－ 红线表示load event.</p>
-<p><img src="timeline.png" alt="timeline"></p>
+        <h1 id="Git&amp;Gitlab">Git&amp;Gitlab</h1><p>这段时间公司从SVN切换到Git, 本来想选择Github，无奈Github企业版价格太高，转而自己搭建了Gitlab的社区版。</p>
+<h1 id="自动化部署">自动化部署</h1><p><a href="https://gitlab.com/" target="_blank" rel="external">Gitlab</a>支持<a href="https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/web_hooks/web_hooks.md" target="_blank" rel="external">Webhook</a>，支持通知的类型：</p>
 <ol>
-<li>这个时间区间，各种操作所占的比例</li>
-<li>比例所对应的图表</li>
-<li>FPS &amp; CPU &amp; NET 哪一个颜色越深，高度越高，表示这段时间的消耗越多</li>
-<li>红色的三角表示这个时间段 画面有卡顿，低于60FPS</li>
-<li>这个区间可用鼠标上下滚动查看，详细到每一个请求的完成，每一次方法的执行</li>
+<li>push events</li>
+<li>tag events</li>
+<li>issue events</li>
+<li>comment events</li>
+<li>comment on merge request</li>
+<li>comment on issue</li>
+<li>comment on code snippet</li>
+<li>merge request events</li>
 </ol>
-<h4 id="Profiles">Profiles</h4><p>网页的性能问题，JS的性能问题</p>
-<h4 id="Resource">Resource</h4><p>资源，cookie, localstorage</p>
-<h4 id="Audits">Audits</h4><p>评审网站，cache file, remove unuse css</p>
-<h4 id="pagespeed_extension">pagespeed extension</h4><p><a href="https://chrome.google.com/webstore/detail/pagespeed-insights-by-goo/gplegfbjlmmehdoakndmohflojccocli" target="_blank" rel="external">https://chrome.google.com/webstore/detail/pagespeed-insights-by-goo/gplegfbjlmmehdoakndmohflojccocli</a><br>optimize image</p>
-<h4 id="pagespeed_的nginx和Apache扩展">pagespeed 的nginx和Apache扩展</h4><p>前面提到的TCP slow start的问题<br>我们应该优化关键帧，保证关键帧首先呈现给用户，关键的css, js应该使用内敛的方式放在html中</p>
-
+<p>可以根据自己的需要进行监听，我们需要代码发布自动化。我选择了push events</p>
+<h3 id="实施方法">实施方法</h3><ol>
+<li>在后台建立php版本的webhook: <a href="http://www.example.com/webhook.php" target="_blank" rel="external">http://www.example.com/webhook.php</a></li>
+<li>webhook.phpn内容如下</li>
+<li>执行exec(‘whoami’), 查看PHP脚本的拥有者，我这里是apache</li>
+<li>chown -R apache:apache /web/project_directory //网站目录owner:group调整为apache</li>
+<li>chown -R apache:apache /var/www/.ssh //私钥的目录owner:group调整为apache</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//webhook.php&#10;&#60;?php&#10;&#9;$client_token = $_SERVER[&#39;HTTP_X_GITLAB_TOKEN&#39;];&#10;&#9;$event = $_SERVER[&#39;HTTP_X_GITLAB_EVENT&#39;];&#10;&#9;$client_ip = $_SERVER[&#39;REMOTE_ADDR&#39;];&#10;&#9;$access_ip = array(&#39;xxx.xxx.xxx.xxx&#39;);&#10;&#9;&#10;&#9;//file_put_contents(&#39;gitlab-deploy.log&#39;, $client_token . &#34;\n&#34;, FILE_APPEND);&#10;&#10;&#9;if($client_token != &#39;your-token&#39;)&#123;&#10;&#9;    echo &#34;error 403&#34;;&#10;&#9;    fwrite($fs, &#34;Invalid token [&#123;$client_token&#125;]&#34;.PHP_EOL);&#10;&#9;    exit(0);&#10;&#9;&#125;&#10;&#10;&#9;// access ip&#10;&#9;if (!in_array($client_ip, $access_ip))&#123;&#10;&#9;    echo &#34;error 503&#34;;&#10;&#9;    fwrite($fs, &#34;Invalid ip [&#123;$client_ip&#125;]&#34;.PHP_EOL);&#10;&#9;    exit(0);&#10;&#9;&#125;&#10;&#10;&#9;if($event == &#39;Push Hook&#39;)&#123;&#10;&#9;    // get json data&#10;&#9;    $input = file_get_contents(&#34;php://input&#34;);&#10;&#9;    $json  = json_decode($input, true);&#10;&#10;&#9;    //file_put_contents(&#39;gitlab-deploy.log&#39;, json_encode($_SERVER) . &#34;\n&#34;, FILE_APPEND);&#10;&#9;    if($json[&#39;project&#39;][&#39;name&#39;] != &#39;pc-dhb168&#39;)&#123;&#10;&#9;        exit(0);&#10;&#9;    &#125;&#10;&#10;&#9;    $branch = $json[&#39;ref&#39;];&#10;&#9;    switch($branch)&#123;&#10;&#9;        case &#39;refs/heads/stage&#39;:&#10;&#9;            exec(&#34;cd /web/project/;/usr/bin/git pull origin stage 2&#62;&#38;1&#34;, $output, $result);&#10;&#9;            break;&#10;&#9;        case &#39;refs/heads/api&#39;:&#10;&#9;            exec(&#34;cd /web/project_api/;/usr/bin/git pull origin api 2&#62;&#38;1&#34;, $output, $result);&#10;&#9;            break;&#10;&#9;        case &#39;refs/heads/platform&#39;:&#10;&#9;            exec(&#34;cd /web/project_platform/;/usr/bin/git pull origin platform 2&#62;&#38;1&#34;, $output, $result);&#10;&#9;            break;&#10;&#9;        default:&#10;&#9;            break;&#10;&#9;    &#125;&#10;&#9;&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="exec调试">exec调试</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//&#26597;&#30475;exec&#30340;&#25191;&#34892;&#32467;&#26524;&#10;exec(&#34;cd /web/project/;/usr/bin/git pull origin stage 2&#62;&#38;1&#34;, $output);&#10;var_dump($output)</span><br></pre></td></tr></table></figure>
         
             
         
@@ -236,7 +187,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Gitlab-webhook/"  data-tooltip="Gitlab webhook">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -244,7 +195,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/高性能MySQL读书笔记/" data-tooltip="高性能MySQL读书笔记">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Chrome-DevTools-tips-and-tricks/" data-tooltip="Chrome DevTools tips and tricks">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -254,17 +205,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Gitlab-webhook/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Gitlab-webhook/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Gitlab-webhook/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -299,7 +250,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Gitlab-webhook/"  data-tooltip="Gitlab webhook">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -307,7 +258,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/高性能MySQL读书笔记/" data-tooltip="高性能MySQL读书笔记">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Chrome-DevTools-tips-and-tricks/" data-tooltip="Chrome DevTools tips and tricks">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -317,17 +268,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Gitlab-webhook/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Gitlab-webhook/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Chrome-DevTools-tips-and-tricks/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Gitlab-webhook/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>

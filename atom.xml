@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yangfan-onion.github.io/"/>
-  <updated>2016-04-12T15:39:49.000Z</updated>
+  <updated>2016-07-02T10:47:26.000Z</updated>
   <id>http://yangfan-onion.github.io/</id>
   
   <author>
@@ -14,6 +14,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Gitlab webhook</title>
+    <link href="http://yangfan-onion.github.io/Gitlab-webhook/"/>
+    <id>http://yangfan-onion.github.io/Gitlab-webhook/</id>
+    <published>2016-07-02T10:15:39.000Z</published>
+    <updated>2016-07-02T10:47:26.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Git&amp;amp;Gitlab&quot;&gt;Git&amp;amp;Gitlab&lt;/h1&gt;&lt;p&gt;这段时间公司从SVN切换到Git, 本来想选择Github，无奈Github企业版价格太高，转而自己搭建了Gitlab的社区版。&lt;/p&gt;
+&lt;h1 id=&quot;自动化部署&quot;&gt;自动化部署&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://gitlab.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Gitlab&lt;/a&gt;支持&lt;a href=&quot;https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/web_hooks/web_hooks.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Webhook&lt;/a&gt;，支持通知的类型：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;push events&lt;/li&gt;
+&lt;li&gt;tag events&lt;/li&gt;
+&lt;li&gt;issue events&lt;/li&gt;
+&lt;li&gt;comment events&lt;/li&gt;
+&lt;li&gt;comment on merge request&lt;/li&gt;
+&lt;li&gt;comment on issue&lt;/li&gt;
+&lt;li&gt;comment on code snippet&lt;/li&gt;
+&lt;li&gt;merge request events&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;可以根据自己的需要进行监听，我们需要代码发布自动化。我选择了push events&lt;/p&gt;
+&lt;h3 id=&quot;实施方法&quot;&gt;实施方法&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;在后台建立php版本的webhook: &lt;a href=&quot;http://www.example.com/webhook.php&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.example.com/webhook.php&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;webhook.phpn内容如下&lt;/li&gt;
+&lt;li&gt;执行exec(‘whoami’), 查看PHP脚本的拥有者，我这里是apache&lt;/li&gt;
+&lt;li&gt;chown -R apache:apache /web/project_directory //网站目录owner:group调整为apache&lt;/li&gt;
+&lt;li&gt;chown -R apache:apache /var/www/.ssh //私钥的目录owner:group调整为apache&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//webhook.php&amp;#10;&amp;#60;?php&amp;#10;&amp;#9;$client_token = $_SERVER[&amp;#39;HTTP_X_GITLAB_TOKEN&amp;#39;];&amp;#10;&amp;#9;$event = $_SERVER[&amp;#39;HTTP_X_GITLAB_EVENT&amp;#39;];&amp;#10;&amp;#9;$client_ip = $_SERVER[&amp;#39;REMOTE_ADDR&amp;#39;];&amp;#10;&amp;#9;$access_ip = array(&amp;#39;xxx.xxx.xxx.xxx&amp;#39;);&amp;#10;&amp;#9;&amp;#10;&amp;#9;//file_put_contents(&amp;#39;gitlab-deploy.log&amp;#39;, $client_token . &amp;#34;\n&amp;#34;, FILE_APPEND);&amp;#10;&amp;#10;&amp;#9;if($client_token != &amp;#39;your-token&amp;#39;)&amp;#123;&amp;#10;&amp;#9;    echo &amp;#34;error 403&amp;#34;;&amp;#10;&amp;#9;    fwrite($fs, &amp;#34;Invalid token [&amp;#123;$client_token&amp;#125;]&amp;#34;.PHP_EOL);&amp;#10;&amp;#9;    exit(0);&amp;#10;&amp;#9;&amp;#125;&amp;#10;&amp;#10;&amp;#9;// access ip&amp;#10;&amp;#9;if (!in_array($client_ip, $access_ip))&amp;#123;&amp;#10;&amp;#9;    echo &amp;#34;error 503&amp;#34;;&amp;#10;&amp;#9;    fwrite($fs, &amp;#34;Invalid ip [&amp;#123;$client_ip&amp;#125;]&amp;#34;.PHP_EOL);&amp;#10;&amp;#9;    exit(0);&amp;#10;&amp;#9;&amp;#125;&amp;#10;&amp;#10;&amp;#9;if($event == &amp;#39;Push Hook&amp;#39;)&amp;#123;&amp;#10;&amp;#9;    // get json data&amp;#10;&amp;#9;    $input = file_get_contents(&amp;#34;php://input&amp;#34;);&amp;#10;&amp;#9;    $json  = json_decode($input, true);&amp;#10;&amp;#10;&amp;#9;    //file_put_contents(&amp;#39;gitlab-deploy.log&amp;#39;, json_encode($_SERVER) . &amp;#34;\n&amp;#34;, FILE_APPEND);&amp;#10;&amp;#9;    if($json[&amp;#39;project&amp;#39;][&amp;#39;name&amp;#39;] != &amp;#39;pc-dhb168&amp;#39;)&amp;#123;&amp;#10;&amp;#9;        exit(0);&amp;#10;&amp;#9;    &amp;#125;&amp;#10;&amp;#10;&amp;#9;    $branch = $json[&amp;#39;ref&amp;#39;];&amp;#10;&amp;#9;    switch($branch)&amp;#123;&amp;#10;&amp;#9;        case &amp;#39;refs/heads/stage&amp;#39;:&amp;#10;&amp;#9;            exec(&amp;#34;cd /web/project/;/usr/bin/git pull origin stage 2&amp;#62;&amp;#38;1&amp;#34;, $output, $result);&amp;#10;&amp;#9;            break;&amp;#10;&amp;#9;        case &amp;#39;refs/heads/api&amp;#39;:&amp;#10;&amp;#9;            exec(&amp;#34;cd /web/project_api/;/usr/bin/git pull origin api 2&amp;#62;&amp;#38;1&amp;#34;, $output, $result);&amp;#10;&amp;#9;            break;&amp;#10;&amp;#9;        case &amp;#39;refs/heads/platform&amp;#39;:&amp;#10;&amp;#9;            exec(&amp;#34;cd /web/project_platform/;/usr/bin/git pull origin platform 2&amp;#62;&amp;#38;1&amp;#34;, $output, $result);&amp;#10;&amp;#9;            break;&amp;#10;&amp;#9;        default:&amp;#10;&amp;#9;            break;&amp;#10;&amp;#9;    &amp;#125;&amp;#10;&amp;#9;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;exec调试&quot;&gt;exec调试&lt;/h1&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//&amp;#26597;&amp;#30475;exec&amp;#30340;&amp;#25191;&amp;#34892;&amp;#32467;&amp;#26524;&amp;#10;exec(&amp;#34;cd /web/project/;/usr/bin/git pull origin stage 2&amp;#62;&amp;#38;1&amp;#34;, $output);&amp;#10;var_dump($output)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Git&amp;amp;Gitlab&quot;&gt;Git&amp;amp;Gitlab&lt;/h1&gt;&lt;p&gt;这段时间公司从SVN切换到Git, 本来想选择Github，无奈Github企业版价格太高，转而自己搭建了Gitlab的社区版。&lt;/p&gt;
+&lt;h1 id=&quot;自动化部署&quot;&gt;自动化部署&lt;/h1&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Chrome DevTools tips and tricks</title>
@@ -994,26 +1034,6 @@
     <summary type="html">
     
       &lt;blockquote&gt;&lt;p&gt;Note that you can also attach controllers to the DOM by declaring it in a route definition via the $route service. A common m
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>install angular-bootstrap failed with bower</title>
-    <link href="http://yangfan-onion.github.io/install-angular-bootstrap-failed-with-bower/"/>
-    <id>http://yangfan-onion.github.io/install-angular-bootstrap-failed-with-bower/</id>
-    <published>2015-05-28T08:01:41.000Z</published>
-    <updated>2016-04-08T11:27:17.000Z</updated>
-    
-    <content type="html">&lt;p&gt;今天使用bower安装&lt;a href=&quot;https://github.com/angular-ui/bootstrap&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;angular-boostrap&lt;/a&gt;模块,安装完成之后, 往AngularJS应用里面注入模块的时候出错, 报错如下&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Uncaught Error: [$injector:modulerr] Failed to instantiate module wechatEnterpriseFrontApp due to:&amp;#10;Error: [$injector:modulerr] Failed to instantiate module ui.bootstrap due to:&amp;#10;Error: [$injector:nomod] Module &amp;#39;ui.bootstrap&amp;#39; is not available! You either misspelled the module name or forgot to load it. If registering a module ensure that you specify the dependencies as the second argument.&amp;#10;http://errors.angularjs.org/1.4.0/$injector/nomod?p0=ui.bootstrap&amp;#10;    at REGEX_STRING_REGEXP (http://127.0.0.1:9000/bower_components/angular/angular.js:68:12)&amp;#10;    at http://127.0.0.1:9000/bower_components/angular/angular.js:1953:17&amp;#10;    at ensure (http://127.0.0.1:9000/bower_components/angular/angular.js:1877:38)&amp;#10;    at module (http://127.0.0.1:9000/bower_components/angular/angular.js:1951:14)&amp;#10;    at http://127.0.0.1:9000/bower_components/angular/angular.js:4338:22&amp;#10;    at forEach (http://127.0.0.1:9000/bower_components/angular/angular.js:336:20)&amp;#10;    at loadModules (http://127.0.0.1:9000/bower_components/angular/angular.js:4322:5)&amp;#10;    at http://127.0.0.1:9000/bower_components/angular/angular.js:4339:40&amp;#10;    at forEach (http://127.0.0.1:9000/bower_components/angular/angular.js:336:20)&amp;#10;    at loadModules (http://127.0.0.1:9000/bower_components/angular/angular.js:4322:5)&amp;#10;http://errors.angularjs.org/1.4.0/$injector/modulerr?p0=ui.bootstrap&amp;#38;p1=Err&amp;#8230;2F%2F127.0.0.1%3A9000%2Fbower_components%2Fangular%2Fangular.js%3A4322%3A5)&amp;#10;    at REGEX_STRING_REGEXP (http://127.0.0.1:9000/bower_components/angular/angular.js:68:12)&amp;#10;    at http://127.0.0.1:9000/bower_components/angular/angular.js:4361:15&amp;#10;    at forEach (http://127.0.0.1:9000/bower_components/angular/angular.js:336:20)&amp;#10;    at loadModules (http://127.0.0.1:9000/bower_components/angular/angular.js:4322:5)&amp;#10;    at http://127.0.0.1:9000/bower_components/angular/angular.js:4339:40&amp;#10;    at forEach (http://127.0.0.1:9000/bower_components/angular/angular.js:336:20)&amp;#10;    at loadModules (http://127.0.0.1:9000/bower_components/angular/angular.js:4322:5)&amp;#10;    at createInjector (http://127.0.0.1:9000/bower_components/angular/angular.js:4248:11)&amp;#10;    at doBootstrap (http://127.0.0.1:9000/bower_components/angular/angular.js:1625:20)&amp;#10;    at bootstrap (http://127.0.0.1:9000/bower_components/angular/angular.js:1646:12)&amp;#10;http://errors.angularjs.org/1.4.0/$injector/modulerr?p0=wechatEnterpriseFro&amp;#8230;F%2F127.0.0.1%3A9000%2Fbower_components%2Fangular%2Fangular.js%3A1646%3A12)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/angular-ui/bootstrap/issues/2246&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;解决方案&lt;/a&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//The problem seems to be occurring because of the concatenation.&amp;#10;&amp;#10;//In Index.html if you separate out ui-bootstrap-tpls.js&amp;#10;&amp;#10;    &amp;#60;!-- build:js(.) scripts/vendor2.js --&amp;#62;&amp;#10;    &amp;#60;script src=&amp;#34;bower_components/angular-bootstrap/ui-bootstrap-tpls.js&amp;#34;&amp;#62;&amp;#60;/script&amp;#62;&amp;#10;    &amp;#60;!-- endbuild --&amp;#62;&amp;#10;//And in your root bower.json add&amp;#10;&amp;#10;...&amp;#10;&amp;#34;overrides&amp;#34;: &amp;#123;&amp;#10;  &amp;#34;angular-bootstrap&amp;#34;: &amp;#123;&amp;#10;    &amp;#34;main&amp;#34;: []&amp;#10;  &amp;#125;&amp;#10;&amp;#125;&amp;#10;...&amp;#10;//Everything will work just fine and, for the most part, your files are uglified. Obviously this is just a workaround.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天使用bower安装&lt;a href=&quot;https://github.com/angular-ui/bootstrap&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;angular-boostrap&lt;/a&gt;模块,安装完成之后, 往AngularJS应用里面
     
     </summary>
     
