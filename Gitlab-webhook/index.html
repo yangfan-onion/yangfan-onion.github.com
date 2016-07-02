@@ -161,6 +161,8 @@
     
     <div class="post-content markdown main-content-wrap" itemprop="articleBody">
         <h1 id="Git&amp;Gitlab">Git&amp;Gitlab</h1><p>这段时间公司从SVN切换到Git, 本来想选择Github，无奈Github企业版价格太高，转而自己搭建了Gitlab的社区版。</p>
+<h1 id="Gitlab的坑">Gitlab的坑</h1><p>2G RAM + 1G swap;可以支持100个User。之前我搭建的时候忘记设立swap</p>
+<p>解决办法参考<a href="http://stackoverflow.com/questions/26777690/gitlab-500-error-when-adding-removing-ssh-key" target="_blank" rel="external">Stackoverflow</a></p>
 <h1 id="自动化部署">自动化部署</h1><p><a href="https://gitlab.com/" target="_blank" rel="external">Gitlab</a>支持<a href="https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/web_hooks/web_hooks.md" target="_blank" rel="external">Webhook</a>，支持通知的类型：</p>
 <ol>
 <li>push events</li>
