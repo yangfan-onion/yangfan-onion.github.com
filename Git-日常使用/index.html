@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
-    <title>The Man Who Can&#39;t Be Moved! - Gitlab webhook</title>
+    <title>The Man Who Can&#39;t Be Moved! - Git 日常使用</title>
     <meta name="author" content="yangfan.onion">
     <meta name="description" content="The Man Who Can&#39;t Be Moved!">
     <link rel="icon" href="/assets/images/null">
@@ -143,10 +143,10 @@
     
         <div class="post-header main-content-wrap">
     
-        <h1 class="post-title" itemprop="headline">Gitlab webhook</h1>
+        <h1 class="post-title" itemprop="headline">Git 日常使用</h1>
     
     <div class="post-meta">
-    <time  itemprop="datePublished" content="Sat Jul 02 2016 18:15:39 GMT+0800">
+    <time  itemprop="datePublished" content="Sat Jul 02 2016 19:15:27 GMT+0800">
         Jul 02, 2016
     </time>
     
@@ -160,28 +160,58 @@
 </div>
     
     <div class="post-content markdown main-content-wrap" itemprop="articleBody">
-        <h1 id="Git&amp;Gitlab">Git&amp;Gitlab</h1><p>这段时间公司从SVN切换到Git, 本来想选择Github，无奈Github企业版价格太高，转而自己搭建了Gitlab的社区版。</p>
-<h1 id="自动化部署">自动化部署</h1><p><a href="https://gitlab.com/" target="_blank" rel="external">Gitlab</a>支持<a href="https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/web_hooks/web_hooks.md" target="_blank" rel="external">Webhook</a>，支持通知的类型：</p>
+        <h1 id="Git">Git</h1><h6 id="推荐一个Git教程">推荐一个Git教程</h6><ul>
+<li><a href="http://backlogtool.com/git-guide/cn/" target="_blank" rel="external">http://backlogtool.com/git-guide/cn/</a></li>
+</ul>
+<h6 id="推荐一本书">推荐一本书</h6><ul>
+<li>Pro Git</li>
+</ul>
+<h1 id="Git常用命令">Git常用命令</h1><h3 id="配置提交用户名和邮箱">配置提交用户名和邮箱</h3><p>git config –global user.name “John Doe”</p>
+<p>git config –global user.email johndoe@example.com</p>
+<hr>
+<h3 id="-gitignore">.gitignore</h3><p>需要忽略的文件，我们需要将自己的IDE生成的文件，编译文件，缓存文件等加入忽略列表</p>
+<p>例如：</p>
+<p>Runtime/ 忽略整个Runtime文件夹</p>
+<p>.project 忽略IDE生成的临时文件</p>
+<hr>
+<h3 id="-gitattributes">.gitattributes</h3><p>可以添加合并的策略 配合使用：git config –global merge.ours.driver true</p>
+<p>/Project/Common/Conf/dbconn.php merge=ours 合并分支时，使用当前分支的这个文件</p>
+<hr>
+<h3 id="日常操作">日常操作</h3><ol>
+<li>git status 查看工作空间的状态</li>
+<li>git pull origin develop 拉取远程指定分支代码, 建议开发时，每两个小时执行一次</li>
+<li>git add . 将当前目录下所有修改加入提交队列 或者 git add /folder/sub-folder/example.txt 将某个具体文件加入提交队列</li>
+<li>git commit -m ‘提交注释’ 提交代码（到本地队列）</li>
+<li>git push origin develop 推送提交的代码到远程服务器</li>
+</ol>
+<hr>
+<h3 id="保存工作空间（需要临时切换分支进行紧急修复，但是当前工作空间有文件修改）">保存工作空间（需要临时切换分支进行紧急修复，但是当前工作空间有文件修改）</h3><ol>
+<li>git stash</li>
+<li>git stash pop</li>
+<li>git stash list</li>
+</ol>
+<hr>
+<h3 id="合并分支操作">合并分支操作</h3><p>以合并develop到stage为例，合并之前保持分支无任何文件需要提交，且为最新代码(git pull更新)</p>
 <ol>
-<li>push events</li>
-<li>tag events</li>
-<li>issue events</li>
-<li>comment events</li>
-<li>comment on merge request</li>
-<li>comment on issue</li>
-<li>comment on code snippet</li>
-<li>merge request events</li>
+<li>git merge develop 或者 git merge 99daed2(develop分支的某一次提交的版本号)</li>
 </ol>
-<p>可以根据自己的需要进行监听，我们需要代码发布自动化。我选择了push events</p>
-<h3 id="实施方法">实施方法</h3><ol>
-<li>在后台建立php版本的webhook: <a href="http://www.example.com/webhook.php" target="_blank" rel="external">http://www.example.com/webhook.php</a></li>
-<li>webhook.phpn内容如下</li>
-<li>执行exec(‘whoami’), 查看PHP脚本的拥有者，我这里是apache</li>
-<li>chown -R apache:apache /web/project_directory //网站目录owner:group调整为apache</li>
-<li>chown -R apache:apache /var/www/.ssh //私钥的目录owner:group调整为apache</li>
+<hr>
+<h3 id="合并指定的某一次提交到指定分支">合并指定的某一次提交到指定分支</h3><p>以合并develop的某一次提交到stage为例</p>
+<ol>
+<li>git cherry-pick 99daed2(develop分支的某一次提交的版本号)</li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//webhook.php&#10;&#60;?php&#10;&#9;$client_token = $_SERVER[&#39;HTTP_X_GITLAB_TOKEN&#39;];&#10;&#9;$event = $_SERVER[&#39;HTTP_X_GITLAB_EVENT&#39;];&#10;&#9;$client_ip = $_SERVER[&#39;REMOTE_ADDR&#39;];&#10;&#9;$access_ip = array(&#39;xxx.xxx.xxx.xxx&#39;);&#10;&#9;&#10;&#9;//file_put_contents(&#39;gitlab-deploy.log&#39;, $client_token . &#34;\n&#34;, FILE_APPEND);&#10;&#10;&#9;if($client_token != &#39;your-token&#39;)&#123;&#10;&#9;    echo &#34;error 403&#34;;&#10;&#9;    fwrite($fs, &#34;Invalid token [&#123;$client_token&#125;]&#34;.PHP_EOL);&#10;&#9;    exit(0);&#10;&#9;&#125;&#10;&#10;&#9;// access ip&#10;&#9;if (!in_array($client_ip, $access_ip))&#123;&#10;&#9;    echo &#34;error 503&#34;;&#10;&#9;    fwrite($fs, &#34;Invalid ip [&#123;$client_ip&#125;]&#34;.PHP_EOL);&#10;&#9;    exit(0);&#10;&#9;&#125;&#10;&#10;&#9;if($event == &#39;Push Hook&#39;)&#123;&#10;&#9;    // get json data&#10;&#9;    $input = file_get_contents(&#34;php://input&#34;);&#10;&#9;    $json  = json_decode($input, true);&#10;&#10;&#9;    //file_put_contents(&#39;gitlab-deploy.log&#39;, json_encode($_SERVER) . &#34;\n&#34;, FILE_APPEND);&#10;&#9;    if($json[&#39;project&#39;][&#39;name&#39;] != &#39;pc-dhb168&#39;)&#123;&#10;&#9;        exit(0);&#10;&#9;    &#125;&#10;&#10;&#9;    $branch = $json[&#39;ref&#39;];&#10;&#9;    switch($branch)&#123;&#10;&#9;        case &#39;refs/heads/stage&#39;:&#10;&#9;            exec(&#34;cd /web/project/;/usr/bin/git pull origin stage 2&#62;&#38;1&#34;, $output, $result);&#10;&#9;            break;&#10;&#9;        case &#39;refs/heads/api&#39;:&#10;&#9;            exec(&#34;cd /web/project_api/;/usr/bin/git pull origin api 2&#62;&#38;1&#34;, $output, $result);&#10;&#9;            break;&#10;&#9;        case &#39;refs/heads/platform&#39;:&#10;&#9;            exec(&#34;cd /web/project_platform/;/usr/bin/git pull origin platform 2&#62;&#38;1&#34;, $output, $result);&#10;&#9;            break;&#10;&#9;        default:&#10;&#9;            break;&#10;&#9;    &#125;&#10;&#9;&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="exec调试">exec调试</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//&#26597;&#30475;exec&#30340;&#25191;&#34892;&#32467;&#26524;&#10;exec(&#34;cd /web/project/;/usr/bin/git pull origin stage 2&#62;&#38;1&#34;, $output);&#10;var_dump($output)</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="撤销最近一次提交">撤销最近一次提交</h3><p><img src="git-concept.png" alt="png"></p>
+<ol>
+<li>git reset –soft HEAD\^1 只是抹去了提交历史，需要重新commit</li>
+<li>git reset –mixed HEAD\^1 抹去了提交历史和缓存快照 ，需要重新add, 重新commit</li>
+<li>git reset –hard HEAD\^1 抹去了提交历史，缓存快照，工作空间（工作空间的修改全部消失，<strong>谨慎，再谨慎</strong>）</li>
+</ol>
+<h3 id="假定文件未修改">假定文件未修改</h3><ol>
+<li>git update-index –[no]assume-unchanged www/index.php</li>
+<li>git update-index –[no]skip-worktree www/index.php</li>
+</ol>
+
         
             
         
@@ -200,7 +230,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Git-日常使用/"  data-tooltip="Git 日常使用">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -208,7 +238,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Chrome-DevTools-tips-and-tricks/" data-tooltip="Chrome DevTools tips and tricks">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Gitlab-webhook/" data-tooltip="Gitlab webhook">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -218,17 +248,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Gitlab-webhook/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Git-日常使用/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Gitlab-webhook/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Git-日常使用/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Gitlab-webhook/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Git-日常使用/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -263,7 +293,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Git-日常使用/"  data-tooltip="Git 日常使用">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -271,7 +301,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Chrome-DevTools-tips-and-tricks/" data-tooltip="Chrome DevTools tips and tricks">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Gitlab-webhook/" data-tooltip="Gitlab webhook">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -281,17 +311,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Gitlab-webhook/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Git-日常使用/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Gitlab-webhook/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Git-日常使用/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Gitlab-webhook/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Git-日常使用/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>

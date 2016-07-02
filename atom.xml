@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yangfan-onion.github.io/"/>
-  <updated>2016-07-02T10:49:24.000Z</updated>
+  <updated>2016-07-02T11:21:52.000Z</updated>
   <id>http://yangfan-onion.github.io/</id>
   
   <author>
@@ -16,11 +16,85 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Git 日常使用</title>
+    <link href="http://yangfan-onion.github.io/Git-%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yangfan-onion.github.io/Git-日常使用/</id>
+    <published>2016-07-02T11:15:27.000Z</published>
+    <updated>2016-07-02T11:21:52.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Git&quot;&gt;Git&lt;/h1&gt;&lt;h6 id=&quot;推荐一个Git教程&quot;&gt;推荐一个Git教程&lt;/h6&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://backlogtool.com/git-guide/cn/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://backlogtool.com/git-guide/cn/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6 id=&quot;推荐一本书&quot;&gt;推荐一本书&lt;/h6&gt;&lt;ul&gt;
+&lt;li&gt;Pro Git&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;Git常用命令&quot;&gt;Git常用命令&lt;/h1&gt;&lt;h3 id=&quot;配置提交用户名和邮箱&quot;&gt;配置提交用户名和邮箱&lt;/h3&gt;&lt;p&gt;git config –global user.name “John Doe”&lt;/p&gt;
+&lt;p&gt;git config –global user.email johndoe@example.com&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;-gitignore&quot;&gt;.gitignore&lt;/h3&gt;&lt;p&gt;需要忽略的文件，我们需要将自己的IDE生成的文件，编译文件，缓存文件等加入忽略列表&lt;/p&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;p&gt;Runtime/ 忽略整个Runtime文件夹&lt;/p&gt;
+&lt;p&gt;.project 忽略IDE生成的临时文件&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;-gitattributes&quot;&gt;.gitattributes&lt;/h3&gt;&lt;p&gt;可以添加合并的策略 配合使用：git config –global merge.ours.driver true&lt;/p&gt;
+&lt;p&gt;/Project/Common/Conf/dbconn.php merge=ours 合并分支时，使用当前分支的这个文件&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;日常操作&quot;&gt;日常操作&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;git status 查看工作空间的状态&lt;/li&gt;
+&lt;li&gt;git pull origin develop 拉取远程指定分支代码, 建议开发时，每两个小时执行一次&lt;/li&gt;
+&lt;li&gt;git add . 将当前目录下所有修改加入提交队列 或者 git add /folder/sub-folder/example.txt 将某个具体文件加入提交队列&lt;/li&gt;
+&lt;li&gt;git commit -m ‘提交注释’ 提交代码（到本地队列）&lt;/li&gt;
+&lt;li&gt;git push origin develop 推送提交的代码到远程服务器&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;保存工作空间（需要临时切换分支进行紧急修复，但是当前工作空间有文件修改）&quot;&gt;保存工作空间（需要临时切换分支进行紧急修复，但是当前工作空间有文件修改）&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;git stash&lt;/li&gt;
+&lt;li&gt;git stash pop&lt;/li&gt;
+&lt;li&gt;git stash list&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;合并分支操作&quot;&gt;合并分支操作&lt;/h3&gt;&lt;p&gt;以合并develop到stage为例，合并之前保持分支无任何文件需要提交，且为最新代码(git pull更新)&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;git merge develop 或者 git merge 99daed2(develop分支的某一次提交的版本号)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;合并指定的某一次提交到指定分支&quot;&gt;合并指定的某一次提交到指定分支&lt;/h3&gt;&lt;p&gt;以合并develop的某一次提交到stage为例&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;git cherry-pick 99daed2(develop分支的某一次提交的版本号)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h3 id=&quot;撤销最近一次提交&quot;&gt;撤销最近一次提交&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;git-concept.png&quot; alt=&quot;png&quot;&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;git reset –soft HEAD\^1 只是抹去了提交历史，需要重新commit&lt;/li&gt;
+&lt;li&gt;git reset –mixed HEAD\^1 抹去了提交历史和缓存快照 ，需要重新add, 重新commit&lt;/li&gt;
+&lt;li&gt;git reset –hard HEAD\^1 抹去了提交历史，缓存快照，工作空间（工作空间的修改全部消失，&lt;strong&gt;谨慎，再谨慎&lt;/strong&gt;）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;假定文件未修改&quot;&gt;假定文件未修改&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;git update-index –[no]assume-unchanged www/index.php&lt;/li&gt;
+&lt;li&gt;git update-index –[no]skip-worktree www/index.php&lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Git&quot;&gt;Git&lt;/h1&gt;&lt;h6 id=&quot;推荐一个Git教程&quot;&gt;推荐一个Git教程&lt;/h6&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://backlogtool.com/git-guide/cn/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="Git" scheme="http://yangfan-onion.github.io/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Gitlab webhook</title>
     <link href="http://yangfan-onion.github.io/Gitlab-webhook/"/>
     <id>http://yangfan-onion.github.io/Gitlab-webhook/</id>
     <published>2016-07-02T10:15:39.000Z</published>
-    <updated>2016-07-02T10:49:24.000Z</updated>
+    <updated>2016-07-02T10:51:28.000Z</updated>
     
     <content type="html">&lt;h1 id=&quot;Git&amp;amp;Gitlab&quot;&gt;Git&amp;amp;Gitlab&lt;/h1&gt;&lt;p&gt;这段时间公司从SVN切换到Git, 本来想选择Github，无奈Github企业版价格太高，转而自己搭建了Gitlab的社区版。&lt;/p&gt;
 &lt;h1 id=&quot;自动化部署&quot;&gt;自动化部署&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://gitlab.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Gitlab&lt;/a&gt;支持&lt;a href=&quot;https://gitlab.com/gitlab-org/gitlab-ce/blob/master/doc/web_hooks/web_hooks.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Webhook&lt;/a&gt;，支持通知的类型：&lt;/p&gt;
@@ -1018,29 +1092,6 @@
     
     
       <category term="MacOX" scheme="http://yangfan-onion.github.io/tags/MacOX/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Issue about AngularJS executing controller twice</title>
-    <link href="http://yangfan-onion.github.io/Issue-about-AngularJS-executing-controller-twice/"/>
-    <id>http://yangfan-onion.github.io/Issue-about-AngularJS-executing-controller-twice/</id>
-    <published>2015-05-31T07:46:55.000Z</published>
-    <updated>2016-04-08T11:27:22.000Z</updated>
-    
-    <content type="html">&lt;blockquote&gt;&lt;p&gt;Note that you can also attach controllers to the DOM by declaring it in a route definition via the $route service. A common mistake is to declare the controller again using ng-controller in the template itself. This will cause the controller to be attached and executed twice.&lt;br&gt;When you use ngRoute with the ng-view directive, the controller gets attached to that dom element by default. So you will not need to attach it again in the template.&lt;/p&gt;
-&lt;footer&gt;&lt;strong&gt;AngularJS&lt;/strong&gt;&lt;cite&gt;&lt;a href=&quot;https://docs.angularjs.org/api/ng/directive/ngController&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;AngularJS docs - ngController&lt;/a&gt;&lt;/cite&gt;&lt;/footer&gt;&lt;/blockquote&gt;
-&lt;p&gt;When you use ngRoute with the ng-view directive, the controller gets attached to that dom element by default. So you will not need to attach it again in the template.&lt;/p&gt;
-&lt;p&gt;今天做AngularJS路由的时候遇到了一个问题,controller里面的方法执行了两次,后来google时发现了原因,大意是: &lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//&amp;#36335;&amp;#30001;&amp;#37324;&amp;#38754;&amp;#24050;&amp;#32463;&amp;#32465;&amp;#23450;&amp;#20102;&amp;#19968;&amp;#27425;controller&amp;#10;.when(&amp;#39;/repo-top&amp;#39;, &amp;#123;&amp;#10;    templateUrl: &amp;#39;views/repo-top.html&amp;#39;,&amp;#10;    controller: &amp;#39;RepoTopCtrl&amp;#39;&amp;#10;&amp;#125;)&amp;#10;&amp;#10;//&amp;#22312;&amp;#27169;&amp;#26495;&amp;#19978;&amp;#38754;&amp;#19981;&amp;#38656;&amp;#35201;&amp;#20877;&amp;#27425;&amp;#32465;&amp;#23450;&amp;#20102;&amp;#10;//&amp;#60;div ng-controller=&amp;#34;RepoTopCtrl&amp;#34;&amp;#62;custom content&amp;#60;/div&amp;#62;&amp;#10;&amp;#60;div&amp;#62;custom content&amp;#60;/div&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;&lt;p&gt;Note that you can also attach controllers to the DOM by declaring it in a route definition via the $route service. A common m
-    
-    </summary>
-    
     
   </entry>
   
