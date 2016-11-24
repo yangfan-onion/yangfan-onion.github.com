@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yangfan-onion.github.io/"/>
-  <updated>2016-07-02T11:24:42.000Z</updated>
+  <updated>2016-11-24T15:47:55.000Z</updated>
   <id>http://yangfan-onion.github.io/</id>
   
   <author>
@@ -14,6 +14,75 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>写给大家的设计书［读书笔记］</title>
+    <link href="http://yangfan-onion.github.io/%E5%86%99%E7%BB%99%E5%A4%A7%E5%AE%B6%E7%9A%84%E8%AE%BE%E8%AE%A1%E4%B9%A6%EF%BC%BB%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%EF%BC%BD/"/>
+    <id>http://yangfan-onion.github.io/写给大家的设计书［读书笔记］/</id>
+    <published>2016-11-24T13:40:33.000Z</published>
+    <updated>2016-11-24T15:47:55.000Z</updated>
+    
+    <content type="html">&lt;p&gt;前年朋友推荐，买了一本《写给大家的设计书》这本书，前前后后反复看了三遍，看完后觉得很不错。纠正了之前的审美，以及知道了一些排版，室内设计等为什么美，学会了在生活中利用设计原则，规范自己的排版，应该算是居家必备，对大家日常生活工作都是有帮助的好书。&lt;/p&gt;
+&lt;h3 id=&quot;好的设计的四个重要的原则：&quot;&gt;好的设计的四个重要的原则：&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;亲密性&lt;/li&gt;
+&lt;li&gt;对齐&lt;/li&gt;
+&lt;li&gt;重复&lt;/li&gt;
+&lt;li&gt;对比&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&quot;亲密性&quot;&gt;亲密性&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;亲密性是指：讲相关的项组织在一起，移动这些项，使它们的物理位置相互靠近，这样以来，相关的项将被看作凝聚力一体的一个组，而不再是一堆彼此无关的片段。&lt;/p&gt;
+&lt;p&gt;物理位置接近就意味着存在关联（实际生活中也是如此，比如我们PC组的组员的坐在一起）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5 id=&quot;第一组对比图：&quot;&gt;第一组对比图：&lt;/h5&gt;&lt;p&gt;&lt;img src=&quot;sample1.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;br&gt;&lt;img src=&quot;sample2.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;br&gt;&lt;img src=&quot;sample3.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;第一张&lt;/code&gt;，&lt;code&gt;第二张&lt;/code&gt;，Mermaid Tavern［店名：美人鱼客栈］ Ralph Roister Doister［人名：拉尔夫］（717）555－1212［联系电话］等等，杂乱无章的摆放在一起，容易分散人的注意力&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;第三张&lt;/code&gt;：上面是店名和人名加粗，字号加大，靠在一起，说明它们才是这张名片的主体， 下面的联系电话，地址，城市是附属信息，用来说明主体。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h5 id=&quot;第二组对比图：&quot;&gt;第二组对比图：&lt;/h5&gt;&lt;p&gt;&lt;img src=&quot;sample4.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;/p&gt;
+&lt;p&gt;左边的图&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;一级分类和二级分类标题之间没有明显区别 ＝&amp;gt; 不清楚谁是一级分类&lt;/li&gt;
+&lt;li&gt;一级分类之间没有明显间隔 ＝&amp;gt; 不清楚这个分类是属于上一级分类，还是下一级&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;右边的图&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;一级分类和二级分类字体的粗细和大小都有明显区分 ＝&amp;gt; 一眼就能看清楚谁是几级分类&lt;/li&gt;
+&lt;li&gt;父分类和子分类的亲密性跟好，和上级分类更加疏远 ＝&amp;gt; 一眼就能看清楚谁是谁的子类&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h1 id=&quot;对齐&quot;&gt;对齐&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;｀任何元素都不能在页面上随意安放， 每一项都应担与页面上的某个内容存在某种视觉上的联系｀。对齐原则要求特别小心，再不能像从前那样，只要页面上刚好有空间就把元素随意的“扔”到那里&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5 id=&quot;第一组对比图：-1&quot;&gt;第一组对比图：&lt;/h5&gt;&lt;p&gt;&lt;img src=&quot;sample1.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;br&gt;&lt;img src=&quot;sample5.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;/p&gt;
+&lt;p&gt;第一张图，中间的文字，是没有明显的对齐，这就违背了对齐的原则［每一项都应担与页面上的某个内容存在某种视觉上的联系］&lt;br&gt;第二张图，居中对齐［相对来说最保守的对齐方式］&lt;br&gt;第三张图，右对齐，形成视觉上的联系&lt;/p&gt;
+&lt;hr&gt;
+&lt;h5 id=&quot;第二组对比图：-1&quot;&gt;第二组对比图：&lt;/h5&gt;&lt;p&gt;&lt;img src=&quot;sample6.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;br&gt;&lt;img src=&quot;sample7.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h5 id=&quot;第三组对比图：&quot;&gt;第三组对比图：&lt;/h5&gt;&lt;p&gt;&lt;img src=&quot;sample8.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;br&gt;&lt;img src=&quot;sample9.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;重复&quot;&gt;重复&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;“设计的某些方面需要在整个作品中重复” 重复元素可能是一种粗字体，一条粗线，某个项目符号／颜色／设计要素，某种格式，空间关系等。读者能看到的任何方面都可以作为重复元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;sample10.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;br&gt;&lt;img src=&quot;sample11.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;对比&quot;&gt;对比&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;对比是为了让页面增加视觉效果的最有效的途径之一，对比需要强烈，千万不要畏畏缩缩。 如果两个元素不同，就会产生对比，，倘若两个元素存在某种不同，但是差别不是很大，那么就做出的效果并不是｀对比｀，而是｀冲突｀。这就是关键，如果两个项目不完全相同，就应当使之不同，而且应当使截然不同&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5 id=&quot;第一组对比图：-2&quot;&gt;第一组对比图：&lt;/h5&gt;&lt;p&gt;&lt;img src=&quot;sample12.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;br&gt;&lt;img src=&quot;sample13.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h5 id=&quot;第二组对比图：-2&quot;&gt;第二组对比图：&lt;/h5&gt;&lt;p&gt;&lt;img src=&quot;sample14.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;br&gt;&lt;img src=&quot;sample15.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;/p&gt;
+&lt;p&gt;－ 去掉居中对齐&lt;br&gt;－ 重要的东西加以强调［头像］&lt;br&gt;－ 找出可以重复的元素［hugs］&lt;br&gt;－ 对比［黑白对比］［灰度对比］［字体大小对比］［字体对比］&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;最后我觉得可以上一张IKEA的厨房图，我觉得它对设计原则把握的很好，请大家参照图片，指出哪些地方利用了哪些设计原则&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;sample.jpg&quot; alt=&quot;xxx&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;前年朋友推荐，买了一本《写给大家的设计书》这本书，前前后后反复看了三遍，看完后觉得很不错。纠正了之前的审美，以及知道了一些排版，室内设计等为什么美，学会了在生活中利用设计原则，规范自己的排版，应该算是居家必备，对大家日常生活工作都是有帮助的好书。&lt;/p&gt;
+&lt;h3 id=&quot;好
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Git 日常使用</title>
@@ -1069,31 +1138,6 @@
       <category term="Grunt" scheme="http://yangfan-onion.github.io/tags/Grunt/"/>
     
       <category term="npm ^ and ~" scheme="http://yangfan-onion.github.io/tags/npm-and/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>安装Shadowsocks</title>
-    <link href="http://yangfan-onion.github.io/%E5%AE%89%E8%A3%85Shadowsocks/"/>
-    <id>http://yangfan-onion.github.io/安装Shadowsocks/</id>
-    <published>2015-07-21T11:55:08.000Z</published>
-    <updated>2016-04-08T13:03:28.000Z</updated>
-    
-    <content type="html">&lt;p&gt;很久没写博客了，最近学了一些Bootstrap，网页切图，设计心理学的知识，还有微信运营的东西，很杂&lt;/p&gt;
-&lt;h1 id=&quot;Goagent的完美替代者Shadowsocks&quot;&gt;Goagent的完美替代者&lt;a href=&quot;https://shadowsocks.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Shadowsocks&lt;/a&gt;&lt;/h1&gt;&lt;h3 id=&quot;然后去网上找了一个一键安装包：CentOS下shadowsocks-libev一键安装脚本；在vps上面一步搞定服务端的部署&quot;&gt;然后去网上找了一个一键安装包：&lt;a href=&quot;http://teddysun.com/357.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CentOS下shadowsocks-libev一键安装脚本&lt;/a&gt;；在vps上面一步搞定服务端的部署&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;result.png&quot; alt=&quot;安装结果&quot;&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;//&amp;#26597;&amp;#30475;shadowsocks&amp;#36816;&amp;#34892;&amp;#29366;&amp;#24577;&amp;#10;ps -ef | grep ss-server | grep -v ps | grep -v grep&amp;#10;//&amp;#20351;&amp;#29992;&amp;#21629;&amp;#20196;&amp;#65306;&amp;#10;&amp;#21551;&amp;#21160;&amp;#65306;/etc/init.d/shadowsocks start&amp;#10;&amp;#20572;&amp;#27490;&amp;#65306;/etc/init.d/shadowsocks stop&amp;#10;&amp;#37325;&amp;#21551;&amp;#65306;/etc/init.d/shadowsocks restart&amp;#10;&amp;#26597;&amp;#30475;&amp;#29366;&amp;#24577;&amp;#65306;/etc/init.d/shadowsocks status&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;Shadowsocks客户端,Mac端推荐：Shadowsocks_for_Mac_-_Shadowsocks_GUI_designed_for_OS_X_10-7+&quot;&gt;&lt;a href=&quot;https://shadowsocks.com/client.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Shadowsocks客户端&lt;/a&gt;,Mac端推荐：Shadowsocks for Mac - Shadowsocks GUI designed for OS X 10.7+&lt;/h3&gt;&lt;p&gt;装好之后按照终端的输出配置好即可&lt;br&gt;&lt;img src=&quot;step1.png&quot; alt=&quot;Shadowssocks客户端配置&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;然后就可以愉快的删掉Goagent愉快的查个资料了，心累！&quot;&gt;然后就可以愉快的删掉Goagent愉快的查个资料了，心累！&lt;/h1&gt;</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;很久没写博客了，最近学了一些Bootstrap，网页切图，设计心理学的知识，还有微信运营的东西，很杂&lt;/p&gt;
-&lt;h1 id=&quot;Goagent的完美替代者Shadowsocks&quot;&gt;Goagent的完美替代者&lt;a href=&quot;https://shadowsocks.com/&quot; 
-    
-    </summary>
-    
-    
-      <category term="MacOX" scheme="http://yangfan-onion.github.io/tags/MacOX/"/>
     
   </entry>
   

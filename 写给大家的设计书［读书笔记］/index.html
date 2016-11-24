@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
-    <title>The Man Who Can&#39;t Be Moved! - Git 日常使用</title>
+    <title>The Man Who Can&#39;t Be Moved! - 写给大家的设计书［读书笔记］</title>
     <meta name="author" content="yangfan.onion">
     <meta name="description" content="The Man Who Can&#39;t Be Moved!">
     <link rel="icon" href="/assets/images/null">
@@ -143,74 +143,67 @@
     
         <div class="post-header main-content-wrap">
     
-        <h1 class="post-title" itemprop="headline">Git 日常使用</h1>
+        <h1 class="post-title" itemprop="headline">写给大家的设计书［读书笔记］</h1>
     
     <div class="post-meta">
-    <time  itemprop="datePublished" content="Sat Jul 02 2016 19:15:27 GMT+0800">
-        Jul 02, 2016
+    <time  itemprop="datePublished" content="Thu Nov 24 2016 21:40:33 GMT+0800">
+        Nov 24, 2016
     </time>
-    
-        <span>in </span>
-        
-    <a class="category-link" href="/categories/Code/">Code</a>
-
-
     
 </div>
 </div>
     
     <div class="post-content markdown main-content-wrap" itemprop="articleBody">
-        <h1 id="Git">Git</h1><h6 id="推荐一个Git教程">推荐一个Git教程</h6><ul>
-<li><a href="http://backlogtool.com/git-guide/cn/" target="_blank" rel="external">http://backlogtool.com/git-guide/cn/</a></li>
-</ul>
-<h6 id="推荐一本书">推荐一本书</h6><ul>
-<li>Pro Git</li>
-</ul>
-<h1 id="Git常用命令">Git常用命令</h1><h3 id="配置提交用户名和邮箱">配置提交用户名和邮箱</h3><p>git config –global user.name “John Doe”</p>
-<p>git config –global user.email johndoe@example.com</p>
-<hr>
-<h3 id="-gitignore">.gitignore</h3><p>需要忽略的文件，我们需要将自己的IDE生成的文件，编译文件，缓存文件等加入忽略列表</p>
-<p>例如：</p>
-<p>Runtime/ 忽略整个Runtime文件夹</p>
-<p>.project 忽略IDE生成的临时文件</p>
-<hr>
-<h3 id="-gitattributes">.gitattributes</h3><p>可以添加合并的策略 配合使用：git config –global merge.ours.driver true</p>
-<p>/Project/Common/Conf/dbconn.php merge=ours 合并分支时，使用当前分支的这个文件</p>
-<hr>
-<h3 id="日常操作">日常操作</h3><ol>
-<li>git status 查看工作空间的状态</li>
-<li>git pull origin develop 拉取远程指定分支代码, 建议开发时，每两个小时执行一次</li>
-<li>git add . 将当前目录下所有修改加入提交队列 或者 git add /folder/sub-folder/example.txt 将某个具体文件加入提交队列</li>
-<li>git commit -m ‘提交注释’ 提交代码（到本地队列）</li>
-<li>git push origin develop 推送提交的代码到远程服务器</li>
+        <p>前年朋友推荐，买了一本《写给大家的设计书》这本书，前前后后反复看了三遍，看完后觉得很不错。纠正了之前的审美，以及知道了一些排版，室内设计等为什么美，学会了在生活中利用设计原则，规范自己的排版，应该算是居家必备，对大家日常生活工作都是有帮助的好书。</p>
+<h3 id="好的设计的四个重要的原则：">好的设计的四个重要的原则：</h3><ol>
+<li>亲密性</li>
+<li>对齐</li>
+<li>重复</li>
+<li>对比</li>
 </ol>
+<h1 id="亲密性">亲密性</h1><blockquote>
+<p>亲密性是指：讲相关的项组织在一起，移动这些项，使它们的物理位置相互靠近，这样以来，相关的项将被看作凝聚力一体的一个组，而不再是一堆彼此无关的片段。</p>
+<p>物理位置接近就意味着存在关联（实际生活中也是如此，比如我们PC组的组员的坐在一起）</p>
+</blockquote>
+<h5 id="第一组对比图：">第一组对比图：</h5><p><img src="sample1.jpg" alt="xxx"><br><img src="sample2.jpg" alt="xxx"><br><img src="sample3.jpg" alt="xxx"></p>
+<p><code>第一张</code>，<code>第二张</code>，Mermaid Tavern［店名：美人鱼客栈］ Ralph Roister Doister［人名：拉尔夫］（717）555－1212［联系电话］等等，杂乱无章的摆放在一起，容易分散人的注意力</p>
+<p><code>第三张</code>：上面是店名和人名加粗，字号加大，靠在一起，说明它们才是这张名片的主体， 下面的联系电话，地址，城市是附属信息，用来说明主体。</p>
 <hr>
-<h3 id="保存工作空间（需要临时切换分支进行紧急修复，但是当前工作空间有文件修改）">保存工作空间（需要临时切换分支进行紧急修复，但是当前工作空间有文件修改）</h3><ol>
-<li>git stash</li>
-<li>git stash pop</li>
-<li>git stash list</li>
-</ol>
-<hr>
-<h3 id="合并分支操作">合并分支操作</h3><p>以合并develop到stage为例，合并之前保持分支无任何文件需要提交，且为最新代码(git pull更新)</p>
+<h5 id="第二组对比图：">第二组对比图：</h5><p><img src="sample4.jpg" alt="xxx"></p>
+<p>左边的图</p>
 <ol>
-<li>git merge develop 或者 git merge 99daed2(develop分支的某一次提交的版本号)</li>
+<li>一级分类和二级分类标题之间没有明显区别 ＝&gt; 不清楚谁是一级分类</li>
+<li>一级分类之间没有明显间隔 ＝&gt; 不清楚这个分类是属于上一级分类，还是下一级</li>
+</ol>
+<p>右边的图</p>
+<ol>
+<li>一级分类和二级分类字体的粗细和大小都有明显区分 ＝&gt; 一眼就能看清楚谁是几级分类</li>
+<li>父分类和子分类的亲密性跟好，和上级分类更加疏远 ＝&gt; 一眼就能看清楚谁是谁的子类</li>
 </ol>
 <hr>
-<h3 id="合并指定的某一次提交到指定分支">合并指定的某一次提交到指定分支</h3><p>以合并develop的某一次提交到stage为例</p>
-<ol>
-<li>git cherry-pick 99daed2(develop分支的某一次提交的版本号)</li>
-</ol>
+<h1 id="对齐">对齐</h1><blockquote>
+<p>｀任何元素都不能在页面上随意安放， 每一项都应担与页面上的某个内容存在某种视觉上的联系｀。对齐原则要求特别小心，再不能像从前那样，只要页面上刚好有空间就把元素随意的“扔”到那里</p>
+</blockquote>
+<h5 id="第一组对比图：-1">第一组对比图：</h5><p><img src="sample1.jpg" alt="xxx"><br><img src="sample5.jpg" alt="xxx"></p>
+<p>第一张图，中间的文字，是没有明显的对齐，这就违背了对齐的原则［每一项都应担与页面上的某个内容存在某种视觉上的联系］<br>第二张图，居中对齐［相对来说最保守的对齐方式］<br>第三张图，右对齐，形成视觉上的联系</p>
 <hr>
-<h3 id="撤销最近一次提交">撤销最近一次提交</h3><p><img src="git-concept.png" alt="png"></p>
-<ol>
-<li>git reset –soft HEAD^1 只是抹去了提交历史，需要重新commit</li>
-<li>git reset –mixed HEAD^1 抹去了提交历史和缓存快照 ，需要重新add, 重新commit</li>
-<li>git reset –hard HEAD^1 抹去了提交历史，缓存快照，工作空间（工作空间的修改全部消失，<strong>谨慎，再谨慎</strong>）</li>
-</ol>
-<h3 id="假定文件未修改">假定文件未修改</h3><ol>
-<li>git update-index –[no]assume-unchanged www/index.php</li>
-<li>git update-index –[no]skip-worktree www/index.php</li>
-</ol>
+<h5 id="第二组对比图：-1">第二组对比图：</h5><p><img src="sample6.jpg" alt="xxx"><br><img src="sample7.jpg" alt="xxx"></p>
+<hr>
+<h5 id="第三组对比图：">第三组对比图：</h5><p><img src="sample8.jpg" alt="xxx"><br><img src="sample9.jpg" alt="xxx"></p>
+<h1 id="重复">重复</h1><blockquote>
+<p>“设计的某些方面需要在整个作品中重复” 重复元素可能是一种粗字体，一条粗线，某个项目符号／颜色／设计要素，某种格式，空间关系等。读者能看到的任何方面都可以作为重复元素。</p>
+</blockquote>
+<p><img src="sample10.jpg" alt="xxx"><br><img src="sample11.jpg" alt="xxx"></p>
+<h1 id="对比">对比</h1><blockquote>
+<p>对比是为了让页面增加视觉效果的最有效的途径之一，对比需要强烈，千万不要畏畏缩缩。 如果两个元素不同，就会产生对比，，倘若两个元素存在某种不同，但是差别不是很大，那么就做出的效果并不是｀对比｀，而是｀冲突｀。这就是关键，如果两个项目不完全相同，就应当使之不同，而且应当使截然不同</p>
+</blockquote>
+<h5 id="第一组对比图：-2">第一组对比图：</h5><p><img src="sample12.jpg" alt="xxx"><br><img src="sample13.jpg" alt="xxx"></p>
+<hr>
+<h5 id="第二组对比图：-2">第二组对比图：</h5><p><img src="sample14.jpg" alt="xxx"><br><img src="sample15.jpg" alt="xxx"></p>
+<p>－ 去掉居中对齐<br>－ 重要的东西加以强调［头像］<br>－ 找出可以重复的元素［hugs］<br>－ 对比［黑白对比］［灰度对比］［字体大小对比］［字体对比］</p>
+<hr>
+<p>最后我觉得可以上一张IKEA的厨房图，我觉得它对设计原则把握的很好，请大家参照图片，指出哪些地方利用了哪些设计原则</p>
+<p><img src="sample.jpg" alt="xxx"></p>
 
         
             
@@ -218,19 +211,12 @@
     </div>
     <div class="post-footer main-content-wrap">
         
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
-                
-    <a class="tag tag--primary tag--small t-link" href="/tags/Git/">Git</a>
-
-            </div>
-        
         <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/写给大家的设计书［读书笔记］/"  data-tooltip="写给大家的设计书［读书笔记］">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -238,7 +224,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Gitlab-webhook/" data-tooltip="Gitlab webhook">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Git-日常使用/" data-tooltip="Git 日常使用">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -248,17 +234,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Git-日常使用/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/写给大家的设计书［读书笔记］/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Git-日常使用/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/写给大家的设计书［读书笔记］/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Git-日常使用/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/写给大家的设计书［读书笔记］/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -293,7 +279,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/写给大家的设计书［读书笔记］/"  data-tooltip="写给大家的设计书［读书笔记］">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -301,7 +287,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Gitlab-webhook/" data-tooltip="Gitlab webhook">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Git-日常使用/" data-tooltip="Git 日常使用">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -311,17 +297,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Git-日常使用/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/写给大家的设计书［读书笔记］/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Git-日常使用/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/写给大家的设计书［读书笔记］/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Git-日常使用/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/写给大家的设计书［读书笔记］/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
