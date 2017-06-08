@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yangfan-onion.github.io/"/>
-  <updated>2017-06-08T16:03:57.000Z</updated>
+  <updated>2017-06-08T16:23:38.000Z</updated>
   <id>http://yangfan-onion.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yangfan-onion.github.io/Laravel%E3%80%8C2.0-Migrations%E3%80%8D/"/>
     <id>http://yangfan-onion.github.io/Laravel「2.0-Migrations」/</id>
     <published>2017-06-08T15:59:49.000Z</published>
-    <updated>2017-06-08T16:03:57.000Z</updated>
+    <updated>2017-06-08T16:23:38.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;背景&quot;&gt;背景&lt;/h3&gt;&lt;p&gt;现在我们的开发 -&amp;gt; 测试 -&amp;gt; 线上 环境的SQL脚本，都是通过手动拷贝SQL，然后交由DBA手动执行；&lt;/p&gt;
 &lt;p&gt;这样会存在一些问题&lt;/p&gt;
