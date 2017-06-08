@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
+    <title>The Man Who Can&#39;t Be Moved! - Laravel「2.0-Migrations」</title>
+    <meta name="author" content="yangfan.onion">
+    <meta name="description" content="The Man Who Can&#39;t Be Moved!">
+    <link rel="icon" href="/assets/images/null">
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="atom.xml">
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <header id="header">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars "></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="http://yangfan-onion.github.io">The Man Who Can&#39;t Be Moved!</a>
+    </h1>
+    
+        <a class="header-picture-link" href="/#about">
+            <img class="header-picture" src="/assets/images/avatar.jpg"/>
+        </a>
+    
+</header>
+            <nav id="sidebar">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg"/>
+                
+            </a>
+            <span class="sidebar-profile-name hide-md">yangfan.onion</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc hide-md">Home</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/all-categories">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc hide-md">Categories</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/all-tags">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc hide-md">Tags</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/all-archives">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc hide-md">Archives</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/#about">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc hide-md">About me</span>
+                    </a>
+                </li>
+            
+        </ul>
+    
+        <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="https://github.com/yangfan-onion" target="_blank">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc hide-md">GitHub</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="https://www.facebook.com/onionloveorange" target="_blank">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-facebook"></i>
+                        <span class="sidebar-button-desc hide-md">Facebook</span>
+                    </a>
+                </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.iomailto:yangfan.onion@gmail.com">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc hide-md">Mail</span>
+                    </a>
+                </li>
+            
+        </ul>
+    
+        <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link" href="http://yangfan-onion.github.io/atom.xml">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc hide-md">RSS</span>
+                    </a>
+                </li>
+            
+        </ul>
+    
+</nav>
+            <div id="main">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+        <div class="post-header main-content-wrap">
+    
+        <h1 class="post-title" itemprop="headline">Laravel「2.0-Migrations」</h1>
+    
+    <div class="post-meta">
+    <time  itemprop="datePublished" content="Thu Jun 08 2017 23:59:49 GMT+0800">
+        Jun 08, 2017
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Code/">Code</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown main-content-wrap" itemprop="articleBody">
+        <h3 id="背景">背景</h3><p>现在我们的开发 -&gt; 测试 -&gt; 线上 环境的SQL脚本，都是通过手动拷贝SQL，然后交由DBA手动执行；</p>
+<p>这样会存在一些问题</p>
+<ol>
+<li>我们忘记记录SQL，上线直接报错</li>
+<li>DBA不在，我们不能执行SQL</li>
+<li>执行之后，SQL不能回滚</li>
+<li>新成员加入，不能直接生成表结构和初始化数据</li>
+</ol>
+<h3 id="Laravel解决方案:Migrations">Laravel解决方案:Migrations</h3><p>用PHP生成表结构，统一入口，生成表的变动记录，方便回滚</p>
+<h5 id="步骤1:">步骤1:</h5><pre><code><span class="comment">//新增表结构</span>
+php artisan <span class="built_in">make</span>:migration create_users_table --create=users
+<span class="comment">//修改表结构</span>
+php artisan <span class="built_in">make</span>:migration add_votes_to_users_table --table=users
+</code></pre><h5 id="步骤2:">步骤2:</h5><pre><code><span class="comment">//create_users_table.php</span>
+<span class="preprocessor">&lt;?php</span>
+
+    <span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Schema</span>;
+    <span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Schema</span>\<span class="title">Blueprint</span>;
+    <span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Migrations</span>\<span class="title">Migration</span>;
+
+    <span class="class"><span class="keyword">class</span> <span class="title">CreateUsersTable</span> <span class="keyword">extends</span> <span class="title">Migration</span>
+    </span>{
+        <span class="comment">/**
+         * Run the migrations.
+         *
+         * <span class="doctag">@return</span> void
+         */</span>
+        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">up</span><span class="params">()</span>
+        </span>{
+            Schema::create(<span class="string">'users'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(Blueprint <span class="variable">$table</span>)</span> </span>{
+                <span class="variable">$table</span>-&gt;increments(<span class="string">'id'</span>);
+                <span class="variable">$table</span>-&gt;string(<span class="string">'name'</span>);
+                <span class="variable">$table</span>-&gt;string(<span class="string">'email'</span>)-&gt;unique();
+                <span class="variable">$table</span>-&gt;string(<span class="string">'password'</span>);
+                <span class="variable">$table</span>-&gt;rememberToken();
+                <span class="variable">$table</span>-&gt;timestamps();
+            });
+        }
+
+        <span class="comment">/**
+         * Reverse the migrations.
+         *
+         * <span class="doctag">@return</span> void
+         */</span>
+        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">down</span><span class="params">()</span>
+        </span>{
+            Schema::dropIfExists(<span class="string">'users'</span>);
+        }
+    }
+</code></pre><h5 id="步骤3:">步骤3:</h5><pre><code><span class="comment">//配置.env文件的mysql配置</span>
+php artisan migrate 
+<span class="comment">//1.新成员直接一句命令，数据库就已经生成好了； </span>
+<span class="comment">//2.上线不用手动执行SQL，脚本更新完代码之后自动执行命令，生成表结构</span>
+</code></pre><p><img src="table-schema.png" alt="表结构"></p>
+<h5 id="步骤4:">步骤4:</h5><pre><code><span class="comment">//回滚上一次的数据库操作</span>
+php aritsan migrate:rollback --step=<span class="number">1</span>
+</code></pre><p>More Documents: <a href="https://laravel.com/docs/5.4/migrations" target="_blank" rel="external">https://laravel.com/docs/5.4/migrations</a></p>
+
+        
+            
+        
+    </div>
+    <div class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Laravel/">Laravel</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「1.0-RESTful-API」/" data-tooltip="Laravel「1.0-RESTful-API」">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                <i class="fa fa-comment-o"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'yangfan-onion';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        
+    </div>
+    <div class="post-bottom-bar">
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「1.0-RESTful-API」/" data-tooltip="Laravel「1.0-RESTful-API」">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                <i class="fa fa-comment-o"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 yangfan.onion. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+        </div>
+        <div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.jpg"/>
+        
+            <h4 id="about-card-name">yangfan.onion</h4>
+        
+            <h5 id="about-card-bio">人生太短, 只爱脚本语言, orz..</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                编程, 吃东西
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                四川-成都
+            </h5>
+        
+    </div>
+</div>
+        <div id="cover" style="background-image:url('/assets/images/cover.png');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'yangfan-onion';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+</html>
