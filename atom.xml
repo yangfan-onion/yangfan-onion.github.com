@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yangfan-onion.github.io/"/>
-  <updated>2017-06-08T16:23:38.000Z</updated>
+  <updated>2017-06-16T11:36:16.000Z</updated>
   <id>http://yangfan-onion.github.io/</id>
   
   <author>
@@ -14,6 +14,128 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Laravel「4.0-Artisan Console」</title>
+    <link href="http://yangfan-onion.github.io/Laravel%E3%80%8C4-0-Artisan-Console%E3%80%8D/"/>
+    <id>http://yangfan-onion.github.io/Laravel「4-0-Artisan-Console」/</id>
+    <published>2017-06-16T11:34:56.000Z</published>
+    <updated>2017-06-16T11:36:16.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;Artisan_Console&quot;&gt;Artisan Console&lt;/h1&gt;&lt;p&gt;第二章介绍过Migrations, 当时我们只是介绍了，它可以帮助我们生成数据库表结构，但是当时只是在一个库里面生成的，结合到DHB3.0。&lt;/p&gt;
+&lt;p&gt;我们有&lt;strong&gt;业务很多库&lt;/strong&gt;，所以需要在多个业务库生成表结构。&lt;/p&gt;
+&lt;h3 id=&quot;创建一个指令&quot;&gt;创建一个指令&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;php artisan make:command DHBMigrate
+
+//注册指令
+//app/Console/Kernel.php的&lt;span class=&quot;variable&quot;&gt;$commands&lt;/span&gt;里面添加DHBMigrate指令
+
+protected &lt;span class=&quot;variable&quot;&gt;$commands&lt;/span&gt; = [
+    Commands\DHBMigrate::class
+];
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;指令的执行方法&quot;&gt;指令的执行方法&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;//调用已存在的指令migrate
+
+public &lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; handle()
+{
+    &lt;span class=&quot;variable&quot;&gt;$common&lt;/span&gt;_database_list = [&lt;span class=&quot;string&quot;&gt;&#39;common&#39;&lt;/span&gt;];
+    &lt;span class=&quot;variable&quot;&gt;$business&lt;/span&gt;_database_list = [&lt;span class=&quot;string&quot;&gt;&#39;data_1&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;data_2&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;data_3&#39;&lt;/span&gt;];
+
+    foreach (&lt;span class=&quot;variable&quot;&gt;$common&lt;/span&gt;_database_list as &lt;span class=&quot;variable&quot;&gt;$database&lt;/span&gt;) {
+        &lt;span class=&quot;variable&quot;&gt;$this-&lt;/span&gt;&amp;gt;call(&lt;span class=&quot;string&quot;&gt;&#39;migrate&#39;&lt;/span&gt;, [
+            &lt;span class=&quot;string&quot;&gt;&#39;--database&#39;&lt;/span&gt; =&amp;gt; &lt;span class=&quot;variable&quot;&gt;$database&lt;/span&gt;,
+            &lt;span class=&quot;string&quot;&gt;&#39;--path&#39;&lt;/span&gt; =&amp;gt; &lt;span class=&quot;string&quot;&gt;&#39;database/migrations/common&#39;&lt;/span&gt;
+        ]);
+    }
+
+    foreach (&lt;span class=&quot;variable&quot;&gt;$business&lt;/span&gt;_database_list as &lt;span class=&quot;variable&quot;&gt;$database&lt;/span&gt;) {
+        &lt;span class=&quot;variable&quot;&gt;$this-&lt;/span&gt;&amp;gt;call(&lt;span class=&quot;string&quot;&gt;&#39;migrate&#39;&lt;/span&gt;, [
+            &lt;span class=&quot;string&quot;&gt;&#39;--database&#39;&lt;/span&gt; =&amp;gt; &lt;span class=&quot;variable&quot;&gt;$database&lt;/span&gt;,
+            &lt;span class=&quot;string&quot;&gt;&#39;--path&#39;&lt;/span&gt; =&amp;gt; &lt;span class=&quot;string&quot;&gt;&#39;database/migrations/data&#39;&lt;/span&gt;
+        ]);
+    }
+
+    &lt;span class=&quot;variable&quot;&gt;$this-&lt;/span&gt;&amp;gt;info(&lt;span class=&quot;string&quot;&gt;&#39;DHB SQL Migrate works well!&#39;&lt;/span&gt;);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样我们的表结构就生成好了，指令&amp;amp;&amp;amp;跨库&amp;amp;&amp;amp;自动化&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;DHBMigrate.png&quot; alt=&quot;DHBMigrate&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Artisan_Console&quot;&gt;Artisan Console&lt;/h1&gt;&lt;p&gt;第二章介绍过Migrations, 当时我们只是介绍了，它可以帮助我们生成数据库表结构，但是当时只是在一个库里面生成的，结合到DHB3.0。&lt;/p&gt;
+&lt;p&gt;我们有&lt;strong&gt;业务很
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="Laravel" scheme="http://yangfan-onion.github.io/tags/Laravel/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Laravel「3.0-MiddleWare」</title>
+    <link href="http://yangfan-onion.github.io/Laravel%E3%80%8C3-0-MiddleWare%E3%80%8D/"/>
+    <id>http://yangfan-onion.github.io/Laravel「3-0-MiddleWare」/</id>
+    <published>2017-06-16T11:28:51.000Z</published>
+    <updated>2017-06-16T11:33:30.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;什么是Middleware？&quot;&gt;什么是Middleware？&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;Filter.gif&quot; alt=&quot;filter&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Laravel里面很多设置模式的概念，DI[Dependency Injection]， Intercepting Filter &lt;a href=&quot;http://www.oracle.com/technetwork/java/interceptingfilter-142169.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;参考J2EE的责任链&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;用中间件有什么好处&quot;&gt;用中间件有什么好处&lt;/h3&gt;&lt;p&gt;可以帮我们很清晰的分离代码，简化关键逻辑&lt;/p&gt;
+&lt;h3 id=&quot;定义中间件&quot;&gt;定义中间件&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;php artisan make:middleware CheckAge
+
+
+&amp;lt;?php
+
+&lt;span class=&quot;keyword&quot;&gt;namespace&lt;/span&gt; App\Http\Middleware;
+
+use Closure;
+
+class CheckAge
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  &lt;span class=&quot;variable&quot;&gt;$request&lt;/span&gt;
+     * @param  \Closure  &lt;span class=&quot;variable&quot;&gt;$next&lt;/span&gt;
+     * @return mixed
+     */
+    public function handle(&lt;span class=&quot;variable&quot;&gt;$request&lt;/span&gt;, Closure &lt;span class=&quot;variable&quot;&gt;$next&lt;/span&gt;)
+    {
+        if (&lt;span class=&quot;variable&quot;&gt;$request-&lt;/span&gt;&amp;gt;age &amp;gt; &lt;span class=&quot;number&quot;&gt;200&lt;/span&gt;) {
+            return response(null, &lt;span class=&quot;number&quot;&gt;400&lt;/span&gt;)-&amp;gt;header(&lt;span class=&quot;string&quot;&gt;&#39;Content-Type&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;text/json&#39;&lt;/span&gt;);
+        }
+
+        return &lt;span class=&quot;variable&quot;&gt;$next&lt;/span&gt;(&lt;span class=&quot;variable&quot;&gt;$request&lt;/span&gt;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;注册中间件&quot;&gt;注册中间件&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;//app/Http/Kernel.php最后添加 &lt;span class=&quot;variable&quot;&gt;$routeMiddleware&lt;/span&gt;
+
+&lt;span class=&quot;string&quot;&gt;&#39;check.age&#39;&lt;/span&gt; =&amp;gt; \App\Http\Middleware\CheckAge::class,
+
+Route::middleware(&lt;span class=&quot;string&quot;&gt;&#39;check.age&#39;&lt;/span&gt;)-&amp;gt;post(&lt;span class=&quot;string&quot;&gt;&#39;/user&#39;&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (Request &lt;span class=&quot;variable&quot;&gt;$request&lt;/span&gt;) {
+    return &lt;span class=&quot;string&quot;&gt;&#39;user created successful!&#39;&lt;/span&gt;;
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&quot;post-data.png&quot; alt=&quot;bad request:response 400&quot;&gt;&lt;/p&gt;
+&lt;h5 id=&quot;讲一个内置的中间件_throttle&quot;&gt;讲一个内置的中间件 throttle&lt;/h5&gt;&lt;p&gt;用来限制API请求的次数，回内置RESTful API要求的一些 response header&lt;/p&gt;
+&lt;p&gt;修改app/Http/Kernel.php api =&amp;gt; throttle:1,1 每分钟访问1次，超过1次就会报错 「429 Too Many Requests」&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;too-many-request.png&quot; alt=&quot;too many request&quot;&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;什么是Middleware？&quot;&gt;什么是Middleware？&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;Filter.gif&quot; alt=&quot;filter&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Laravel里面很多设置模式的概念，DI[Dependency Injection]， Interc
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="Laravel" scheme="http://yangfan-onion.github.io/tags/Laravel/"/>
+    
+  </entry>
   
   <entry>
     <title>Laravel「2.0-Migrations」</title>
@@ -1008,117 +1130,6 @@ php aritsan migrate:rollback --step=&lt;span class=&quot;number&quot;&gt;1&lt;/s
       <category term="wordpress" scheme="http://yangfan-onion.github.io/tags/wordpress/"/>
     
       <category term="wordpress仿站" scheme="http://yangfan-onion.github.io/tags/wordpress%E4%BB%BF%E7%AB%99/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>wordpress主题文件结构</title>
-    <link href="http://yangfan-onion.github.io/wordpress%E4%B8%BB%E9%A2%98%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/"/>
-    <id>http://yangfan-onion.github.io/wordpress主题文件结构/</id>
-    <published>2015-08-03T14:20:48.000Z</published>
-    <updated>2016-04-08T13:06:27.000Z</updated>
-    
-    <content type="html">&lt;p&gt;今天复习了一下wordpress主题的制作，结合Bootstrap，做一个总结&lt;/p&gt;
-&lt;p&gt;#首先是bootstrap主题的文件结构&lt;/p&gt;
-&lt;p&gt;a. style.css主题的css&lt;code&gt;必要文件&lt;/code&gt;&lt;br&gt;b. index.php主题的必要的php文件&lt;code&gt;必要文件&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&quot;主页:&quot;&gt;主页:&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;home.php&lt;/li&gt;
-&lt;li&gt;index.php&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;文章页：&quot;&gt;文章页：&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;single-{post_type}.php – 如果文章类型是videos（即视频），WordPress就会去查找single-videos.php（WordPress 3.0及以上版本支持）&lt;/li&gt;
-&lt;li&gt;single.php&lt;/li&gt;
-&lt;li&gt;index.php&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;页面:&quot;&gt;页面:&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;自定义模板 – 在WordPress后台创建页面的地方，右侧边栏可以选择页面的自定义模板&lt;/li&gt;
-&lt;li&gt;page-{slug}.php – 如果页面的缩略名是news，WordPress将会查找 page-news.php（WordPress 2.9及以上版本支持）&lt;/li&gt;
-&lt;li&gt;page-{id}.php – 如果页面ID是6，WordPress将会查找page-6.php&lt;/li&gt;
-&lt;li&gt;还可以指定special-page.php模板，就是新建一个page的模板，添加page时可以选择这个special-page.php&lt;/li&gt;
-&lt;li&gt;page.php&lt;/li&gt;
-&lt;li&gt;index.php&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/*&amp;#10;Template Name: Special Layout&amp;#10;*/&amp;#10;&amp;#60;?php get_header(); ?&amp;#62;&amp;#10;&amp;#60;div class=&amp;#34;container&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#60;?php&amp;#10;&amp;#9;&amp;#9;//&amp;#26597;&amp;#35810;&amp;#26465;&amp;#20214;&amp;#10;&amp;#9;&amp;#9;query_posts(&amp;#39;posts_per_page=1&amp;#39;);&amp;#10;&amp;#9;?&amp;#62;&amp;#10;&amp;#10;&amp;#9;&amp;#60;?php while(have_posts()):the_post();?&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;div class=&amp;#34;jumbotron&amp;#34;&amp;#62;&amp;#10;&amp;#9;&amp;#9;  &amp;#60;h1&amp;#62;&amp;#60;?php the_title();?&amp;#62;&amp;#60;/h1&amp;#62;&amp;#10;&amp;#9;&amp;#9;  &amp;#60;p&amp;#62;&amp;#60;?php the_excerpt();?&amp;#62;&amp;#60;/p&amp;#62;&amp;#10;&amp;#9;&amp;#9;  &amp;#60;p&amp;#62;&amp;#60;a class=&amp;#34;btn btn-primary btn-lg&amp;#34; href=&amp;#34;#&amp;#34; role=&amp;#34;button&amp;#34;&amp;#62;Learn more&amp;#60;/a&amp;#62;&amp;#60;/p&amp;#62;&amp;#10;&amp;#9;&amp;#9;&amp;#60;/div&amp;#62;&amp;#10;&amp;#9;&amp;#60;?php endwhile; wp_reset_query();?&amp;#62;&amp;#10;&amp;#60;/div&amp;#62;&amp;#10;&amp;#60;?php get_footer(); ?&amp;#62;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;分类：&quot;&gt;分类：&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;category-{slug}.php – 如果分类的缩略名为news，WordPress将会查找category-news.php(WordPress 2.9及以上版本支持)&lt;/li&gt;
-&lt;li&gt;category-{id}.php -如果分类ID为6，WordPress将会查找category-6.php&lt;/li&gt;
-&lt;li&gt;category.php&lt;/li&gt;
-&lt;li&gt;archive.php&lt;/li&gt;
-&lt;li&gt;index.php&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;标签&quot;&gt;标签&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;tag-{slug}.php – 如果标签缩略名为sometag，WordPress将会查找tag-sometag.php&lt;/li&gt;
-&lt;li&gt;tag-{id}.php – 如果标签ID为6，WordPress将会查找tag-6.php（WordPress 2.9及以上版本支持）&lt;/li&gt;
-&lt;li&gt;tag.php&lt;/li&gt;
-&lt;li&gt;archive.php&lt;/li&gt;
-&lt;li&gt;index.php&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;作者：&quot;&gt;作者：&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;author-{nicename}.php – 如果作者的昵称为rami，WordPress将会查找author-rami.php（WordPress 3.0及以上版本支持）&lt;/li&gt;
-&lt;li&gt;author-{id}.php – 如果作者ID为6，WordPress将会查找author-6.php（WordPress 3.0及以上版本支持）&lt;/li&gt;
-&lt;li&gt;author.php&lt;/li&gt;
-&lt;li&gt;archive.php&lt;/li&gt;
-&lt;li&gt;index.php&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;日期页面：&quot;&gt;日期页面：&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;date.php&lt;/li&gt;
-&lt;li&gt;archive.php&lt;/li&gt;
-&lt;li&gt;index.php&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;搜索结果&quot;&gt;搜索结果&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;search.php&lt;/li&gt;
-&lt;li&gt;index.php&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;(未找到)页面&quot;&gt;(未找到)页面&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;404.php&lt;/li&gt;
-&lt;li&gt;index.php&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&quot;附件页面&quot;&gt;附件页面&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;MIME_type.php – 可以是任何MIME类型 (image.php, video.php, audio.php, application.php 或者其他).&lt;/li&gt;
-&lt;li&gt;attachment.php&lt;/li&gt;
-&lt;li&gt;single.php&lt;/li&gt;
-&lt;li&gt;index.php&lt;/li&gt;
-&lt;/ol&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天复习了一下wordpress主题的制作，结合Bootstrap，做一个总结&lt;/p&gt;
-&lt;p&gt;#首先是bootstrap主题的文件结构&lt;/p&gt;
-&lt;p&gt;a. style.css主题的css&lt;code&gt;必要文件&lt;/code&gt;&lt;br&gt;b. index.php主题的必要的php文件
-    
-    </summary>
-    
-      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
-    
-    
-      <category term="wordpress" scheme="http://yangfan-onion.github.io/tags/wordpress/"/>
-    
-      <category term="wordpress仿站" scheme="http://yangfan-onion.github.io/tags/wordpress%E4%BB%BF%E7%AB%99/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>卧槽，无意间发现的新大陆</title>
-    <link href="http://yangfan-onion.github.io/%E5%8D%A7%E6%A7%BD%EF%BC%8C%E6%97%A0%E6%84%8F%E9%97%B4%E5%8F%91%E7%8E%B0%E7%9A%84%E6%96%B0%E5%A4%A7%E9%99%86/"/>
-    <id>http://yangfan-onion.github.io/卧槽，无意间发现的新大陆/</id>
-    <published>2015-07-29T06:57:55.000Z</published>
-    <updated>2016-04-08T11:26:48.000Z</updated>
-    
-    <content type="html">&lt;p&gt;今天公司网络有问题后，打了一会儿盹. 半醒的状态下按了一下空格，发现了Chrome里面的小恐龙居然动起来了，卧槽，仔细看了一下，差点被感动哭了。&lt;/p&gt;
-&lt;!-- 按方向键下，还可以做点什么。Google真算是良心企业啊！ --&gt;
-&lt;p&gt;&lt;img src=&quot;start.png&quot; alt=&quot;start&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;end.png&quot; alt=&quot;end&quot;&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天公司网络有问题后，打了一会儿盹. 半醒的状态下按了一下空格，发现了Chrome里面的小恐龙居然动起来了，卧槽，仔细看了一下，差点被感动哭了。&lt;/p&gt;
-&lt;!-- 按方向键下，还可以做点什么。Google真算是良心企业啊！ --&gt;
-&lt;p&gt;&lt;img src=&quot;start.pn
-    
-    </summary>
-    
     
   </entry>
   

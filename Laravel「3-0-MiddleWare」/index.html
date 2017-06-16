@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
-    <title>The Man Who Can&#39;t Be Moved! - Laravel「2.0-Migrations」</title>
+    <title>The Man Who Can&#39;t Be Moved! - Laravel「3.0-MiddleWare」</title>
     <meta name="author" content="yangfan.onion">
     <meta name="description" content="The Man Who Can&#39;t Be Moved!">
     <link rel="icon" href="/assets/images/null">
@@ -143,11 +143,11 @@
     
         <div class="post-header main-content-wrap">
     
-        <h1 class="post-title" itemprop="headline">Laravel「2.0-Migrations」</h1>
+        <h1 class="post-title" itemprop="headline">Laravel「3.0-MiddleWare」</h1>
     
     <div class="post-meta">
-    <time  itemprop="datePublished" content="Thu Jun 08 2017 23:59:49 GMT+0800">
-        Jun 08, 2017
+    <time  itemprop="datePublished" content="Fri Jun 16 2017 19:28:51 GMT+0800">
+        Jun 16, 2017
     </time>
     
         <span>in </span>
@@ -160,63 +160,47 @@
 </div>
     
     <div class="post-content markdown main-content-wrap" itemprop="articleBody">
-        <h3 id="背景">背景</h3><p>现在我们的开发 -&gt; 测试 -&gt; 线上 环境的SQL脚本，都是通过手动拷贝SQL，然后交由DBA手动执行；</p>
-<p>这样会存在一些问题</p>
-<ol>
-<li>我们忘记记录SQL，上线直接报错</li>
-<li>DBA不在，我们不能执行SQL</li>
-<li>执行之后，SQL不能回滚</li>
-<li>新成员加入，不能直接生成表结构和初始化数据</li>
-</ol>
-<h3 id="Laravel解决方案:Migrations">Laravel解决方案:Migrations</h3><p>用PHP生成表结构，统一入口，生成表的变动记录，方便回滚</p>
-<h5 id="步骤1:">步骤1:</h5><pre><code><span class="comment">//新增表结构</span>
-php artisan <span class="built_in">make</span>:migration create_users_table --create=users
-<span class="comment">//修改表结构</span>
-php artisan <span class="built_in">make</span>:migration add_votes_to_users_table --table=users
-</code></pre><h5 id="步骤2:">步骤2:</h5><pre><code><span class="comment">//create_users_table.php</span>
-<span class="preprocessor">&lt;?php</span>
+        <h3 id="什么是Middleware？">什么是Middleware？</h3><p><img src="Filter.gif" alt="filter"></p>
+<p>Laravel里面很多设置模式的概念，DI[Dependency Injection]， Intercepting Filter <a href="http://www.oracle.com/technetwork/java/interceptingfilter-142169.html" target="_blank" rel="external">参考J2EE的责任链</a></p>
+<h3 id="用中间件有什么好处">用中间件有什么好处</h3><p>可以帮我们很清晰的分离代码，简化关键逻辑</p>
+<h3 id="定义中间件">定义中间件</h3><pre><code>php artisan make:middleware CheckAge
 
-    <span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Schema</span>;
-    <span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Schema</span>\<span class="title">Blueprint</span>;
-    <span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Migrations</span>\<span class="title">Migration</span>;
 
-    <span class="class"><span class="keyword">class</span> <span class="title">CreateUsersTable</span> <span class="keyword">extends</span> <span class="title">Migration</span>
-    </span>{
-        <span class="comment">/**
-         * Run the migrations.
-         *
-         * <span class="doctag">@return</span> void
-         */</span>
-        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">up</span><span class="params">()</span>
-        </span>{
-            Schema::create(<span class="string">'users'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(Blueprint <span class="variable">$table</span>)</span> </span>{
-                <span class="variable">$table</span>-&gt;increments(<span class="string">'id'</span>);
-                <span class="variable">$table</span>-&gt;string(<span class="string">'name'</span>);
-                <span class="variable">$table</span>-&gt;string(<span class="string">'email'</span>)-&gt;unique();
-                <span class="variable">$table</span>-&gt;string(<span class="string">'password'</span>);
-                <span class="variable">$table</span>-&gt;rememberToken();
-                <span class="variable">$table</span>-&gt;timestamps();
-            });
+&lt;?php
+
+<span class="keyword">namespace</span> App\Http\Middleware;
+
+use Closure;
+
+class CheckAge
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  <span class="variable">$request</span>
+     * @param  \Closure  <span class="variable">$next</span>
+     * @return mixed
+     */
+    public function handle(<span class="variable">$request</span>, Closure <span class="variable">$next</span>)
+    {
+        if (<span class="variable">$request-</span>&gt;age &gt; <span class="number">200</span>) {
+            return response(null, <span class="number">400</span>)-&gt;header(<span class="string">'Content-Type'</span>, <span class="string">'text/json'</span>);
         }
 
-        <span class="comment">/**
-         * Reverse the migrations.
-         *
-         * <span class="doctag">@return</span> void
-         */</span>
-        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">down</span><span class="params">()</span>
-        </span>{
-            Schema::dropIfExists(<span class="string">'users'</span>);
-        }
+        return <span class="variable">$next</span>(<span class="variable">$request</span>);
     }
-</code></pre><h5 id="步骤3:">步骤3:</h5><pre><code><span class="comment">//配置.env文件的mysql配置</span>
-php artisan migrate 
-<span class="comment">//1.新成员直接一句命令，数据库就已经生成好了； </span>
-<span class="comment">//2.上线不用手动执行SQL，脚本更新完代码之后自动执行命令，生成表结构</span>
-</code></pre><p><img src="table-schema.png" alt="表结构"></p>
-<h5 id="步骤4:">步骤4:</h5><pre><code><span class="comment">//回滚上一次的数据库操作</span>
-php aritsan migrate:rollback --step=<span class="number">1</span>
-</code></pre><p>More Documents: <a href="https://laravel.com/docs/5.4/migrations" target="_blank" rel="external">https://laravel.com/docs/5.4/migrations</a></p>
+}
+</code></pre><h3 id="注册中间件">注册中间件</h3><pre><code>//app/Http/Kernel.php最后添加 <span class="variable">$routeMiddleware</span>
+
+<span class="string">'check.age'</span> =&gt; \App\Http\Middleware\CheckAge::class,
+
+Route::middleware(<span class="string">'check.age'</span>)-&gt;post(<span class="string">'/user'</span>, <span class="keyword">function</span> (Request <span class="variable">$request</span>) {
+    return <span class="string">'user created successful!'</span>;
+});
+</code></pre><p><img src="post-data.png" alt="bad request:response 400"></p>
+<h5 id="讲一个内置的中间件_throttle">讲一个内置的中间件 throttle</h5><p>用来限制API请求的次数，回内置RESTful API要求的一些 response header</p>
+<p>修改app/Http/Kernel.php api =&gt; throttle:1,1 每分钟访问1次，超过1次就会报错 「429 Too Many Requests」</p>
+<p><img src="too-many-request.png" alt="too many request"></p>
 
         
             
@@ -236,7 +220,7 @@ php aritsan migrate:rollback --step=<span class="number">1</span>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「3-0-MiddleWare」/"  data-tooltip="Laravel「3.0-MiddleWare」">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「4-0-Artisan-Console」/"  data-tooltip="Laravel「4.0-Artisan Console」">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -244,7 +228,7 @@ php aritsan migrate:rollback --step=<span class="number">1</span>
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「1.0-RESTful-API」/" data-tooltip="Laravel「1.0-RESTful-API」">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「2.0-Migrations」/" data-tooltip="Laravel「2.0-Migrations」">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -254,17 +238,17 @@ php aritsan migrate:rollback --step=<span class="number">1</span>
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Laravel「3-0-MiddleWare」/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Laravel「3-0-MiddleWare」/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Laravel「3-0-MiddleWare」/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -299,7 +283,7 @@ php aritsan migrate:rollback --step=<span class="number">1</span>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「3-0-MiddleWare」/"  data-tooltip="Laravel「3.0-MiddleWare」">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「4-0-Artisan-Console」/"  data-tooltip="Laravel「4.0-Artisan Console」">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -307,7 +291,7 @@ php aritsan migrate:rollback --step=<span class="number">1</span>
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「1.0-RESTful-API」/" data-tooltip="Laravel「1.0-RESTful-API」">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「2.0-Migrations」/" data-tooltip="Laravel「2.0-Migrations」">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -317,17 +301,17 @@ php aritsan migrate:rollback --step=<span class="number">1</span>
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Laravel「3-0-MiddleWare」/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Laravel「3-0-MiddleWare」/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Laravel「2.0-Migrations」/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Laravel「3-0-MiddleWare」/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
