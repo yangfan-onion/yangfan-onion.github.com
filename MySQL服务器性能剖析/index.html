@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
-    <title>The Man Who Can&#39;t Be Moved! - Markdown相关</title>
+    <title>The Man Who Can&#39;t Be Moved! - MySQL服务器性能剖析</title>
     <meta name="author" content="yangfan.onion">
     <meta name="description" content="The Man Who Can&#39;t Be Moved!">
     <link rel="icon" href="/assets/images/null">
@@ -143,32 +143,24 @@
     
         <div class="post-header main-content-wrap">
     
-        <h1 class="post-title" itemprop="headline">Markdown相关</h1>
+        <h1 class="post-title" itemprop="headline">MySQL服务器性能剖析</h1>
     
     <div class="post-meta">
-    <time  itemprop="datePublished" content="Sat Oct 24 2015 20:53:43 GMT+0800">
-        Oct 24, 2015
+    <time  itemprop="datePublished" content="Mon Jul 10 2017 00:36:57 GMT+0800">
+        Jul 10, 2017
     </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Code/">Code</a>
+
+
     
 </div>
 </div>
     
     <div class="post-content markdown main-content-wrap" itemprop="articleBody">
-        <p>#Markdown的应用场景</p>
-<h3 id="什么是Markdown:_https://zh-wikipedia-org/wiki/Markdown">什么是Markdown: <a href="https://zh.wikipedia.org/wiki/Markdown" target="_blank" rel="external">https://zh.wikipedia.org/wiki/Markdown</a></h3><h3 id="Markdown可以用来干什么:">Markdown可以用来干什么:</h3><ol>
-<li>博客写作， <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>，</li>
-<li>文档写作， GitHub README.md, API document</li>
-<li>笔记记录， 结合印象笔记的<a href="https://maxiang.io/" target="_blank" rel="external">马克飞象</a></li>
-</ol>
-<h3 id="博客写作">博客写作</h3><p>Hexo是一个使用NodeJS的静态文本生成器，比较Geek，Github提供了静态文件托管的功能，Git Page应运而生。我们可以将Hexo生成的静态文件托管到Github，搭建一个属于自己的博客，<a href="https://hexo.io/docs/" target="_blank" rel="external">教程链接戳我</a></p>
-<h3 id="文档写作">文档写作</h3><p>Github对*.md有自己的<a href="https://gist.github.com/tuzz/3331384" target="_blank" rel="external">解析样式</a>,可以参考一下。Github将Markdown解析成对应的Html,然后用前面的样式进行渲染，我们也可以在此基础上面进行二次开发，例如增加对代码片段的不同语言的语法支持，Javascript, Java, CSS等等</p>
-<p>我们团队开发API的时候也可以用到Markdown<br>先分目录，WEB-API, APP-API<br>再分别写API目录， web-api-summary.md, app-api-summary.md，这两个markdown文件里面全是对子markdown的链接，方便查找<br>最后再写API详情， F0010.md， F0020.md， F0030.md，每个文档之间留够10个空隙，以备日后新增API</p>
-<p>这样项目开发人员可以通过GitHub在线共享开发文档，可以很直观的进行编辑。Markdown的语法对于程序员们来说应该是很亲切的了。</p>
-<h3 id="笔记记录">笔记记录</h3><p>印象笔记唯一不爽的我觉得是对Markdown的支持，其他的简直完美无缺。有了马克飞象，对于程序员们来说真的就是飞了起来的感觉。</p>
-<h3 id="Markdown_plugin_&amp;_Markdown_App">Markdown plugin &amp; Markdown App</h3><ol>
-<li>宇宙最好编辑器Sublime Text 的<a href="https://github.com/revolunet/sublimetext-markdown-preview" target="_blank" rel="external">sublimetext-markdown-preview插件</a></li>
-<li><a href="http://25.io/mou/" target="_blank" rel="external">Mou</a></li>
-</ol>
+        <p>Handler_read_rnd_next: 表示“在数据文件中读下一行的请求数。如果你正进行大量的表扫描，该值较高。通常说明你的表索引不正确或写入的查询没有利用索引。</p>
 
         
             
@@ -179,7 +171,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Markdown/">Markdown</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/MySQL/">MySQL</a>
 
             </div>
         
@@ -188,7 +180,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/高性能MySQL读书笔记/"  data-tooltip="MySQL存储引擎">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/程序员的理-养-财-老-计划/"  data-tooltip="程序员的理财（养老）计划">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -196,7 +188,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Redis-Mass-Insertion/" data-tooltip="Redis Mass Insertion">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「4-0-Artisan-Console」/" data-tooltip="Laravel「4.0-Artisan Console」">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -206,17 +198,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Markdown相关/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/MySQL服务器性能剖析/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Markdown相关/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/MySQL服务器性能剖析/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Markdown相关/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/MySQL服务器性能剖析/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -251,7 +243,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/高性能MySQL读书笔记/"  data-tooltip="MySQL存储引擎">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/程序员的理-养-财-老-计划/"  data-tooltip="程序员的理财（养老）计划">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -259,7 +251,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Redis-Mass-Insertion/" data-tooltip="Redis Mass Insertion">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Laravel「4-0-Artisan-Console」/" data-tooltip="Laravel「4.0-Artisan Console」">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -269,17 +261,17 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Markdown相关/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/MySQL服务器性能剖析/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Markdown相关/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/MySQL服务器性能剖析/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Markdown相关/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/MySQL服务器性能剖析/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
