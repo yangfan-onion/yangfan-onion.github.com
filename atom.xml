@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yangfan-onion.github.io/"/>
-  <updated>2017-10-26T02:55:52.000Z</updated>
+  <updated>2018-01-11T08:46:19.463Z</updated>
   <id>http://yangfan-onion.github.io/</id>
   
   <author>
@@ -16,11 +16,195 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>编写可读代码的艺术</title>
+    <link href="http://yangfan-onion.github.io/%E7%BC%96%E5%86%99%E5%8F%AF%E8%AF%BB%E4%BB%A3%E7%A0%81%E7%9A%84%E8%89%BA%E6%9C%AF/"/>
+    <id>http://yangfan-onion.github.io/编写可读代码的艺术/</id>
+    <published>2018-01-11T07:56:09.000Z</published>
+    <updated>2018-01-11T08:46:19.463Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;一、表面层次的改进&quot;&gt;一、表面层次的改进&lt;/h2&gt;&lt;h4 id=&quot;1-_把信息装到名字里&quot;&gt;1. 把信息装到名字里&lt;/h4&gt;&lt;h5 id=&quot;（1）选择专业的词&quot;&gt;（1）选择专业的词&lt;/h5&gt;&lt;p&gt;清晰和精确比装可爱好。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;单词&lt;/th&gt;
+&lt;th&gt;更多选择&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Get&lt;/td&gt;
+&lt;td&gt;Fetch, Download&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Stop&lt;/td&gt;
+&lt;td&gt;Kill, Pause&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Send&lt;/td&gt;
+&lt;td&gt;Deliver, Dispatch, Announce, Distribute, Route&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Find&lt;/td&gt;
+&lt;td&gt;Search, Extract, Locate, Recover&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Start&lt;/td&gt;
+&lt;td&gt;Launch, Create, Begin, Open&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Make&lt;/td&gt;
+&lt;td&gt;Create, SetUp, Build, Generate, Compose, Add, New&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5 id=&quot;（2）避免使用像tmp和retval这样泛泛的名字&quot;&gt;（2）避免使用像tmp和retval这样泛泛的名字&lt;/h5&gt;&lt;p&gt;retval这个名字没有包含很多信息，用一个描述该变量的值的名字来代替它。&lt;br&gt;tmp这个名字只应用于短期存在且临时性为其主要存在因素的变量。&lt;br&gt;如果你要使用像tmp、it或者retval这样空泛的名字，那么你要有个好的理由。&lt;/p&gt;
+&lt;p&gt;我们的返回值经常有 $result, $data这样的值&lt;/p&gt;
+&lt;h5 id=&quot;（3）用具体的名字代替抽象的名字&quot;&gt;（3）用具体的名字代替抽象的名字&lt;/h5&gt;&lt;p&gt;在给变量、函数或者其他元素命名时，要把它描述得更具体而不是更抽象。&lt;/p&gt;
+&lt;h5 id=&quot;（4）为名字附带更多信息&quot;&gt;（4）为名字附带更多信息&lt;/h5&gt;&lt;p&gt;如果你的变量是一个度量的话（如时间长度或者字节数），那么最好把名字带上它的单位。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;函数参数&lt;/th&gt;
+&lt;th&gt;带单位的参数&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Start(int delay)&lt;/td&gt;
+&lt;td&gt;delay -&amp;gt; delay_secs&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CreateCache(int size)&lt;/td&gt;
+&lt;td&gt;size -&amp;gt; size_mb&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ThrottleDownload(float limit)&lt;/td&gt;
+&lt;td&gt;limit -&amp;gt; max_kbps&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Rotate(float angle)&lt;/td&gt;
+&lt;td&gt;angle -&amp;gt; degrees_cw&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;在对于这个变量存在危险或者意外的任何时候你也该采用它。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;情形&lt;/th&gt;
+&lt;th&gt;变量名&lt;/th&gt;
+&lt;th&gt;更好的名字&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;一个“纯文本”格式的密码，需要加密后才能进一步使用&lt;/td&gt;
+&lt;td&gt;password&lt;/td&gt;
+&lt;td&gt;plaintext_password&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;一条用户提供的注释，需要转义之后才能用于显示&lt;/td&gt;
+&lt;td&gt;comment&lt;/td&gt;
+&lt;td&gt;unescaped_comment&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;已转化为UTF-8格式的html字节&lt;/td&gt;
+&lt;td&gt;html&lt;/td&gt;
+&lt;td&gt;html_utf8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;以“url方式编码”的输入数据&lt;/td&gt;
+&lt;td&gt;data&lt;/td&gt;
+&lt;td&gt;data_urlenc&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5 id=&quot;（5）名字应该有多长&quot;&gt;（5）名字应该有多长&lt;/h5&gt;&lt;p&gt;在小的作用域里可以使用短的名字，如果一个标识符有较大的作用域，那么它的名字就要包含足够的信息以便含义更清楚。对于首字母缩略词和缩写，使用项目所特有的缩写词非常糟糕。&lt;br&gt;经验原则是：团队的新成员是否能理解这个名字的含义。&lt;br&gt;丢掉没用的词：有时名字中的某些单词可以拿掉而不会损失任何信息。&lt;/p&gt;
+&lt;p&gt;我们的变量命名最典型的是 _ __ ,硬盘没有那么值钱，所以把变量名写全。&lt;/p&gt;
+&lt;h5 id=&quot;（6）利用名字的格式来传递含义&quot;&gt;（6）利用名字的格式来传递含义&lt;/h5&gt;&lt;p&gt;项目中使用一致的命名规范，使得对于下划线、连字符和大小写的使用方式也可以把更多的信息装到名字中。&lt;/p&gt;
+&lt;h4 id=&quot;2-_不会误解的名字&quot;&gt;2. 不会误解的名字&lt;/h4&gt;&lt;p&gt;要多问自己几遍：“这个名字会被别人解读成其他的意义吗？”&lt;br&gt;与使用者的期望相匹配&lt;br&gt;用min和max来表示（包含）极限&lt;br&gt;用first和last来表示包含的范围&lt;br&gt;用begin和end来表示包含/排除范围&lt;br&gt;使用is和has这样的词来明确表示它是布尔值，避免使用反义的词&lt;/p&gt;
+&lt;p&gt;我们的变量名：$booRollback; 根据这个值，不能清楚判断是否需要回滚&lt;br&gt;我们的方法名：hide_menu_show() 又是hide,又是show, 完全不知道啥意思； getGoodsALl()以为这个方法是获取商品信息，拿到返回值，结果这是一个set&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;1.png&quot; alt=&quot;1.png&quot;&gt;&lt;/p&gt;
+&lt;h4 id=&quot;3-_审美&quot;&gt;3. 审美&lt;/h4&gt;&lt;h5 id=&quot;（1）三条原则&quot;&gt;（1）三条原则&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;使用一致的布局，让读者很快就习惯这种风格&lt;/li&gt;
+&lt;li&gt;让相似的代码看上去相似&lt;/li&gt;
+&lt;li&gt;把相关的代码行分组，形成代码块&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&quot;（2）方法&quot;&gt;（2）方法&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;在需要时使用列对齐&lt;/li&gt;
+&lt;li&gt;把代码分成“段落”&lt;/li&gt;
+&lt;li&gt;一致的风格比“正确”的风格更重要&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;二、简化循环和逻辑&quot;&gt;二、简化循环和逻辑&lt;/h2&gt;&lt;h4 id=&quot;(1)-_把控制流变得易读&quot;&gt;(1). 把控制流变得易读&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;默认情况下都用if/else，三目运算符?:只有在最简单的情况下使用。&lt;/li&gt;
+&lt;li&gt;从函数中提前返回&lt;/li&gt;
+&lt;li&gt;最小化嵌套&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(&lt;span class=&quot;variable&quot;&gt;$foo&lt;/span&gt; == &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;){
+    xxxx
+    xxxx
+    xxxx
+    xxxx
+}&lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;{
+    return &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;
+}
+yyyyyyy
+yyyyyyy
+
+
+
+&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(&lt;span class=&quot;variable&quot;&gt;$foo&lt;/span&gt; != &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;){
+    return &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;;
+}
+
+xxxx
+xxxx
+xxxx
+
+yyyyyyy
+yyyyyyy
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;2-_拆分超长的表达式&quot;&gt;2. 拆分超长的表达式&lt;/h4&gt;&lt;h5 id=&quot;（1）用作解释的变量&quot;&gt;（1）用作解释的变量&lt;/h5&gt;&lt;p&gt;拆分表达式最简单的方法就是引入一个额外的变量，让它来表示一个小一点的子表达式：&lt;/p&gt;
+&lt;h4 id=&quot;3-_变量与可读性&quot;&gt;3. 变量与可读性&lt;/h4&gt;&lt;h5 id=&quot;（1）缩小变量的作用域&quot;&gt;（1）缩小变量的作用域&lt;/h5&gt;&lt;p&gt;让你的代码对尽量少的代码行可见&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把大的类拆分成小一些的类，并且这些类之间相互独立&lt;/li&gt;
+&lt;li&gt;大文件拆分成小文件，大函数拆分成小函数&lt;/li&gt;
+&lt;li&gt;“尽量使方法变成静态的”，静态方法是让读者知道“这几行代码与那些变量无关”的好办法&lt;/li&gt;
+&lt;li&gt;把定义向下移，把每个定义移到它的使用之前&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们的方法2K多行，一个变量可能是在最开始申明的&lt;/p&gt;
+&lt;h5 id=&quot;（2）只写一次的变量更好&quot;&gt;（2）只写一次的变量更好&lt;/h5&gt;&lt;p&gt;操作一个变量的地方越多，越难确定它的当前值&lt;/p&gt;
+&lt;p&gt;2K多行的方法，我们的$arrMap变量还从头用到尾,不断赋值，不断unset&lt;/p&gt;
+&lt;h2 id=&quot;三、重新组织代码&quot;&gt;三、重新组织代码&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;抽取不相关的子问题&lt;/li&gt;
+&lt;li&gt;一次只做一件事&lt;/li&gt;
+&lt;li&gt;把想法变成代码&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;一、表面层次的改进&quot;&gt;一、表面层次的改进&lt;/h2&gt;&lt;h4 id=&quot;1-_把信息装到名字里&quot;&gt;1. 把信息装到名字里&lt;/h4&gt;&lt;h5 id=&quot;（1）选择专业的词&quot;&gt;（1）选择专业的词&lt;/h5&gt;&lt;p&gt;清晰和精确比装可爱好。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;t
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="clean code" scheme="http://yangfan-onion.github.io/tags/clean-code/"/>
+    
+      <category term="variable name principle" scheme="http://yangfan-onion.github.io/tags/variable-name-principle/"/>
+    
+  </entry>
+  
+  <entry>
     <title>程序员的理财（养老）计划</title>
     <link href="http://yangfan-onion.github.io/%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E7%90%86-%E5%85%BB-%E8%B4%A2-%E8%80%81-%E8%AE%A1%E5%88%92/"/>
     <id>http://yangfan-onion.github.io/程序员的理-养-财-老-计划/</id>
     <published>2017-10-11T14:06:57.000Z</published>
-    <updated>2017-10-26T02:55:52.000Z</updated>
+    <updated>2017-10-26T03:13:18.000Z</updated>
     
     <content type="html">&lt;h3 id=&quot;个人理财的背景&quot;&gt;个人理财的背景&lt;/h3&gt;&lt;p&gt;2013年底，在爸妈资助下，在成都软件园旁贷款买房，当时刚毕业，贷款50万，也没想过以后的还贷压力，就觉得现在还还完贷，还能剩下一些钱，随着工资上涨，生活应该会越来越好。&lt;/p&gt;
 &lt;p&gt;现在2017年8月，陪同事去看房，发现软件园周围翻了一倍以上，还在持续上涨。想起当时刚毕业的自己，想要靠自己，慢慢挣钱全款买房，现在想想也挺有意思的。&lt;/p&gt;
@@ -1067,48 +1251,6 @@ php aritsan migrate:rollback --step=&lt;span class=&quot;number&quot;&gt;1&lt;/s
     
     
       <category term="PHP" scheme="http://yangfan-onion.github.io/tags/PHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>wordpress add_filter,apply_filters,add_action,do_action用法和区别</title>
-    <link href="http://yangfan-onion.github.io/wordpress-add-filter-apply-filters-add-action-do-action%E7%94%A8%E6%B3%95%E5%92%8C%E5%8C%BA%E5%88%AB/"/>
-    <id>http://yangfan-onion.github.io/wordpress-add-filter-apply-filters-add-action-do-action用法和区别/</id>
-    <published>2015-08-09T15:04:53.000Z</published>
-    <updated>2016-04-08T13:07:03.000Z</updated>
-    
-    <content type="html">&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;add_filter&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;apply_filter&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;add_action&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;do_action&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;add_filter&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;apply_filter&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;add_action&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;do_action&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-
-    
-    </summary>
-    
-      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
-    
-    
-      <category term="wp hook" scheme="http://yangfan-onion.github.io/tags/wp-hook/"/>
     
   </entry>
   
