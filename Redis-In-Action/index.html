@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
-    <title>The Man Who Can&#39;t Be Moved! - 编写可读代码的艺术</title>
+    <title>The Man Who Can&#39;t Be Moved! - Redis In Action</title>
     <meta name="author" content="yangfan.onion">
     <meta name="description" content="The Man Who Can&#39;t Be Moved!">
     <link rel="icon" href="/assets/images/null">
@@ -143,11 +143,11 @@
     
         <div class="post-header main-content-wrap">
     
-        <h1 class="post-title" itemprop="headline">编写可读代码的艺术</h1>
+        <h1 class="post-title" itemprop="headline">Redis In Action</h1>
     
     <div class="post-meta">
-    <time  itemprop="datePublished" content="Thu Jan 11 2018 15:56:09 GMT+0800">
-        Jan 11, 2018
+    <time  itemprop="datePublished" content="Sat Mar 17 2018 16:06:19 GMT+0800">
+        Mar 17, 2018
     </time>
     
         <span>in </span>
@@ -160,164 +160,30 @@
 </div>
     
     <div class="post-content markdown main-content-wrap" itemprop="articleBody">
-        <h2 id="一、表面层次的改进">一、表面层次的改进</h2><h4 id="1-_把信息装到名字里">1. 把信息装到名字里</h4><h5 id="（1）选择专业的词">（1）选择专业的词</h5><p>清晰和精确比装可爱好。</p>
-<table>
-<thead>
-<tr>
-<th>单词</th>
-<th>更多选择</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Get</td>
-<td>Fetch, Download</td>
-</tr>
-<tr>
-<td>Stop</td>
-<td>Kill, Pause</td>
-</tr>
-<tr>
-<td>Send</td>
-<td>Deliver, Dispatch, Announce, Distribute, Route</td>
-</tr>
-<tr>
-<td>Find</td>
-<td>Search, Extract, Locate, Recover</td>
-</tr>
-<tr>
-<td>Start</td>
-<td>Launch, Create, Begin, Open</td>
-</tr>
-<tr>
-<td>Make</td>
-<td>Create, SetUp, Build, Generate, Compose, Add, New</td>
-</tr>
-</tbody>
-</table>
-<h5 id="（2）避免使用像tmp和retval这样泛泛的名字">（2）避免使用像tmp和retval这样泛泛的名字</h5><p>retval这个名字没有包含很多信息，用一个描述该变量的值的名字来代替它。<br>tmp这个名字只应用于短期存在且临时性为其主要存在因素的变量。<br>如果你要使用像tmp、it或者retval这样空泛的名字，那么你要有个好的理由。</p>
-<p>我们的返回值经常有 $result, $data这样的值</p>
-<h5 id="（3）用具体的名字代替抽象的名字">（3）用具体的名字代替抽象的名字</h5><p>在给变量、函数或者其他元素命名时，要把它描述得更具体而不是更抽象。</p>
-<h5 id="（4）为名字附带更多信息">（4）为名字附带更多信息</h5><p>如果你的变量是一个度量的话（如时间长度或者字节数），那么最好把名字带上它的单位。</p>
-<table>
-<thead>
-<tr>
-<th>函数参数</th>
-<th>带单位的参数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Start(int delay)</td>
-<td>delay -&gt; delay_secs</td>
-</tr>
-<tr>
-<td>CreateCache(int size)</td>
-<td>size -&gt; size_mb</td>
-</tr>
-<tr>
-<td>ThrottleDownload(float limit)</td>
-<td>limit -&gt; max_kbps</td>
-</tr>
-<tr>
-<td>Rotate(float angle)</td>
-<td>angle -&gt; degrees_cw</td>
-</tr>
-</tbody>
-</table>
-<p>在对于这个变量存在危险或者意外的任何时候你也该采用它。</p>
-<table>
-<thead>
-<tr>
-<th>情形</th>
-<th>变量名</th>
-<th>更好的名字</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一个“纯文本”格式的密码，需要加密后才能进一步使用</td>
-<td>password</td>
-<td>plaintext_password</td>
-</tr>
-<tr>
-<td>一条用户提供的注释，需要转义之后才能用于显示</td>
-<td>comment</td>
-<td>unescaped_comment</td>
-</tr>
-<tr>
-<td>已转化为UTF-8格式的html字节</td>
-<td>html</td>
-<td>html_utf8</td>
-</tr>
-<tr>
-<td>以“url方式编码”的输入数据</td>
-<td>data</td>
-<td>data_urlenc</td>
-</tr>
-</tbody>
-</table>
-<h5 id="（5）名字应该有多长">（5）名字应该有多长</h5><p>在小的作用域里可以使用短的名字，如果一个标识符有较大的作用域，那么它的名字就要包含足够的信息以便含义更清楚。对于首字母缩略词和缩写，使用项目所特有的缩写词非常糟糕。<br>经验原则是：团队的新成员是否能理解这个名字的含义。<br>丢掉没用的词：有时名字中的某些单词可以拿掉而不会损失任何信息。</p>
-<p>我们的变量命名最典型的是 _ __ ,硬盘没有那么值钱，所以把变量名写全。</p>
-<h5 id="（6）利用名字的格式来传递含义">（6）利用名字的格式来传递含义</h5><p>项目中使用一致的命名规范，使得对于下划线、连字符和大小写的使用方式也可以把更多的信息装到名字中。</p>
-<h4 id="2-_不会误解的名字">2. 不会误解的名字</h4><p>要多问自己几遍：“这个名字会被别人解读成其他的意义吗？”<br>与使用者的期望相匹配<br>用min和max来表示（包含）极限<br>用first和last来表示包含的范围<br>用begin和end来表示包含/排除范围<br>使用is和has这样的词来明确表示它是布尔值，避免使用反义的词</p>
-<p>我们的变量名：$booRollback; 根据这个值，不能清楚判断是否需要回滚<br>我们的方法名：hide_menu_show() 又是hide,又是show, 完全不知道啥意思； getGoodsALl()以为这个方法是获取商品信息，拿到返回值，结果这是一个set</p>
-<p><img src="1.png" alt="1.png"></p>
-<h4 id="3-_审美">3. 审美</h4><h5 id="（1）三条原则">（1）三条原则</h5><ul>
-<li>使用一致的布局，让读者很快就习惯这种风格</li>
-<li>让相似的代码看上去相似</li>
-<li>把相关的代码行分组，形成代码块</li>
+        <h3 id="持久化两种方式">持久化两种方式</h3><ul>
+<li>snapshotting</li>
+<li>append-only file 「AOF」</li>
 </ul>
-<h5 id="（2）方法">（2）方法</h5><ul>
-<li>在需要时使用列对齐</li>
-<li>把代码分成“段落”</li>
-<li>一致的风格比“正确”的风格更重要</li>
-</ul>
-<h2 id="二、简化循环和逻辑">二、简化循环和逻辑</h2><h4 id="(1)-_把控制流变得易读">(1). 把控制流变得易读</h4><ul>
-<li>默认情况下都用if/else，三目运算符?:只有在最简单的情况下使用。</li>
-<li>从函数中提前返回</li>
-<li>最小化嵌套</li>
-</ul>
-<pre><code><span class="keyword">if</span>(<span class="variable">$foo</span> == <span class="number">1</span>){
-    xxxx
-    xxxx
-    xxxx
-    xxxx
-}<span class="keyword">else</span>{
-    return <span class="number">1</span>;
-}
-yyyyyyy
-yyyyyyy
-
-
-
-<span class="keyword">if</span>(<span class="variable">$foo</span> != <span class="number">1</span>){
-    return <span class="number">1</span>;
-}
-
-xxxx
-xxxx
-xxxx
-
-yyyyyyy
-yyyyyyy
-</code></pre><h4 id="2-_拆分超长的表达式">2. 拆分超长的表达式</h4><h5 id="（1）用作解释的变量">（1）用作解释的变量</h5><p>拆分表达式最简单的方法就是引入一个额外的变量，让它来表示一个小一点的子表达式：</p>
-<h4 id="3-_变量与可读性">3. 变量与可读性</h4><h5 id="（1）缩小变量的作用域">（1）缩小变量的作用域</h5><p>让你的代码对尽量少的代码行可见</p>
+<h5 id="snapshooting">snapshooting</h5><p>BGSAVE后台备份，会启动一个子进程来备份，当Redis内存很大时，比较消耗时间，建议手动使用SAVE命令保存</p>
+<h5 id="AOF">AOF</h5><p>appendonly yes</p>
+<p>[appendfsync always]每次写入都刷新到硬盘上<br>[appendfsync everysec]每秒钟同步一次到硬盘<br>[appendfsync no]不做显式操作，由操作系统决定</p>
+<p>BGREWRITEAOF 重写/压缩AOF文件</p>
+<p>auto-aof-rewrite-perentage 100 当AOF文件比上次重写之后提及大了一倍（100%）以上时自动重写<br>auto-aof-rewrite-min-size 64mb 当AOF文件体积大于64mb时自动重写</p>
+<p>————————</p>
+<h3 id="复制">复制</h3><p>支持主从复制，不支持主主相互复制</p>
+<p><strong>SLAVEOF host port</strong></p>
+<p>通过执行 SLAVEOF host port 命令，可以将当前服务器转变为指定服务器的从属服务器(slave server)。</p>
+<p>如果当前服务器已经是某个主服务器(master server)的从属服务器，那么执行 SLAVEOF host port 将使当前服务器停止对旧主服务器的同步，丢弃旧数据集，转而开始对新主服务器进行同步。</p>
+<p>另外，对一个从属服务器执行命令 SLAVEOF NO ONE 将使得这个从属服务器关闭复制功能，并从从属服务器转变回主服务器，原来同步所得的数据集不会被丢弃。</p>
+<p>利用『 SLAVEOF NO ONE 不会丢弃同步所得数据集』这个特性，可以在主服务器失败的时候，将从属服务器用作新的主服务器，从而实现无间断运行。</p>
+<h3 id="INFO命令提供了大量与Redis服务器当前状态有关的信息"><strong>INFO</strong>命令提供了大量与Redis服务器当前状态有关的信息</h3><p>Ex:</p>
 <ul>
-<li>把大的类拆分成小一些的类，并且这些类之间相互独立</li>
-<li>大文件拆分成小文件，大函数拆分成小函数</li>
-<li>“尽量使方法变成静态的”，静态方法是让读者知道“这几行代码与那些变量无关”的好办法</li>
-<li>把定义向下移，把每个定义移到它的使用之前</li>
+<li>内存占用量</li>
+<li>客户端连接数</li>
+<li>每个数据库包含的键的数量</li>
+<li>上一次创建快照文件之后执行的命令数量等等</li>
 </ul>
-<p>我们的方法2K多行，一个变量可能是在最开始申明的</p>
-<h5 id="（2）只写一次的变量更好">（2）只写一次的变量更好</h5><p>操作一个变量的地方越多，越难确定它的当前值</p>
-<p>2K多行的方法，我们的$arrMap变量还从头用到尾,不断赋值，不断unset</p>
-<h2 id="三、重新组织代码">三、重新组织代码</h2><ul>
-<li>抽取不相关的子问题</li>
-<li>一次只做一件事</li>
-<li>把想法变成代码</li>
-</ul>
-
+<h3 id="redis-benchmark_可以展示Redis在当前服务器上面的性能">redis-benchmark 可以展示Redis在当前服务器上面的性能</h3>
         
             
         
@@ -327,7 +193,7 @@ yyyyyyy
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/clean-code/">clean code</a> <a class="tag tag--primary tag--small t-link" href="/tags/variable-name-principle/">variable name principle</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/Redis/">Redis</a>
 
             </div>
         
@@ -336,7 +202,7 @@ yyyyyyy
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Redis-In-Action/"  data-tooltip="Redis In Action">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -344,7 +210,7 @@ yyyyyyy
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/程序员的理-养-财-老-计划/" data-tooltip="程序员的理财（养老）计划">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/编写可读代码的艺术/" data-tooltip="编写可读代码的艺术">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -354,17 +220,17 @@ yyyyyyy
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/编写可读代码的艺术/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Redis-In-Action/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/编写可读代码的艺术/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Redis-In-Action/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/编写可读代码的艺术/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Redis-In-Action/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -399,7 +265,7 @@ yyyyyyy
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/Redis-In-Action/"  data-tooltip="Redis In Action">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -407,7 +273,7 @@ yyyyyyy
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/程序员的理-养-财-老-计划/" data-tooltip="程序员的理财（养老）计划">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/编写可读代码的艺术/" data-tooltip="编写可读代码的艺术">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -417,17 +283,17 @@ yyyyyyy
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/编写可读代码的艺术/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yangfan-onion.github.io/Redis-In-Action/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/编写可读代码的艺术/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yangfan-onion.github.io/Redis-In-Action/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/编写可读代码的艺术/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yangfan-onion.github.io/Redis-In-Action/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>

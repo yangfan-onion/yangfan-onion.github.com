@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yangfan-onion.github.io/"/>
-  <updated>2018-01-11T08:52:18.258Z</updated>
+  <updated>2018-03-17T14:38:39.122Z</updated>
   <id>http://yangfan-onion.github.io/</id>
   
   <author>
@@ -14,6 +14,55 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Redis In Action</title>
+    <link href="http://yangfan-onion.github.io/Redis-In-Action/"/>
+    <id>http://yangfan-onion.github.io/Redis-In-Action/</id>
+    <published>2018-03-17T08:06:19.000Z</published>
+    <updated>2018-03-17T14:38:39.122Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;持久化两种方式&quot;&gt;持久化两种方式&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;snapshotting&lt;/li&gt;
+&lt;li&gt;append-only file 「AOF」&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&quot;snapshooting&quot;&gt;snapshooting&lt;/h5&gt;&lt;p&gt;BGSAVE后台备份，会启动一个子进程来备份，当Redis内存很大时，比较消耗时间，建议手动使用SAVE命令保存&lt;/p&gt;
+&lt;h5 id=&quot;AOF&quot;&gt;AOF&lt;/h5&gt;&lt;p&gt;appendonly yes&lt;/p&gt;
+&lt;p&gt;[appendfsync always]每次写入都刷新到硬盘上&lt;br&gt;[appendfsync everysec]每秒钟同步一次到硬盘&lt;br&gt;[appendfsync no]不做显式操作，由操作系统决定&lt;/p&gt;
+&lt;p&gt;BGREWRITEAOF 重写/压缩AOF文件&lt;/p&gt;
+&lt;p&gt;auto-aof-rewrite-perentage 100 当AOF文件比上次重写之后提及大了一倍（100%）以上时自动重写&lt;br&gt;auto-aof-rewrite-min-size 64mb 当AOF文件体积大于64mb时自动重写&lt;/p&gt;
+&lt;p&gt;————————&lt;/p&gt;
+&lt;h3 id=&quot;复制&quot;&gt;复制&lt;/h3&gt;&lt;p&gt;支持主从复制，不支持主主相互复制&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;SLAVEOF host port&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;通过执行 SLAVEOF host port 命令，可以将当前服务器转变为指定服务器的从属服务器(slave server)。&lt;/p&gt;
+&lt;p&gt;如果当前服务器已经是某个主服务器(master server)的从属服务器，那么执行 SLAVEOF host port 将使当前服务器停止对旧主服务器的同步，丢弃旧数据集，转而开始对新主服务器进行同步。&lt;/p&gt;
+&lt;p&gt;另外，对一个从属服务器执行命令 SLAVEOF NO ONE 将使得这个从属服务器关闭复制功能，并从从属服务器转变回主服务器，原来同步所得的数据集不会被丢弃。&lt;/p&gt;
+&lt;p&gt;利用『 SLAVEOF NO ONE 不会丢弃同步所得数据集』这个特性，可以在主服务器失败的时候，将从属服务器用作新的主服务器，从而实现无间断运行。&lt;/p&gt;
+&lt;h3 id=&quot;INFO命令提供了大量与Redis服务器当前状态有关的信息&quot;&gt;&lt;strong&gt;INFO&lt;/strong&gt;命令提供了大量与Redis服务器当前状态有关的信息&lt;/h3&gt;&lt;p&gt;Ex:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;内存占用量&lt;/li&gt;
+&lt;li&gt;客户端连接数&lt;/li&gt;
+&lt;li&gt;每个数据库包含的键的数量&lt;/li&gt;
+&lt;li&gt;上一次创建快照文件之后执行的命令数量等等&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;redis-benchmark_可以展示Redis在当前服务器上面的性能&quot;&gt;redis-benchmark 可以展示Redis在当前服务器上面的性能&lt;/h3&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;持久化两种方式&quot;&gt;持久化两种方式&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;snapshotting&lt;/li&gt;
+&lt;li&gt;append-only file 「AOF」&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5 id=&quot;snapshooting&quot;&gt;snapshooting&lt;/h5&gt;&lt;p&gt;BGSA
+    
+    </summary>
+    
+      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
+    
+    
+      <category term="Redis" scheme="http://yangfan-onion.github.io/tags/Redis/"/>
+    
+  </entry>
   
   <entry>
     <title>编写可读代码的艺术</title>
@@ -1227,30 +1276,6 @@ php aritsan migrate:rollback --step=&lt;span class=&quot;number&quot;&gt;1&lt;/s
     
       <category term="篮球" scheme="http://yangfan-onion.github.io/categories/%E7%AF%AE%E7%90%83/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>PHP sprintf</title>
-    <link href="http://yangfan-onion.github.io/PHP-sprintf/"/>
-    <id>http://yangfan-onion.github.io/PHP-sprintf/</id>
-    <published>2015-08-13T03:16:22.000Z</published>
-    <updated>2015-10-22T09:07:13.000Z</updated>
-    
-    <content type="html">&lt;p&gt;&lt;img src=&quot;sample.png&quot; alt=&quot;PHP sprintf&quot;&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;sample.png&quot; alt=&quot;PHP sprintf&quot;&gt;&lt;/p&gt;
-
-    
-    </summary>
-    
-      <category term="Code" scheme="http://yangfan-onion.github.io/categories/Code/"/>
-    
-    
-      <category term="PHP" scheme="http://yangfan-onion.github.io/tags/PHP/"/>
     
   </entry>
   

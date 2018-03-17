@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="The Man Who Can&#39;t Be Moved!">
-    <title>The Man Who Can&#39;t Be Moved! - tag : redis</title>
+    <title>The Man Who Can&#39;t Be Moved! - tag : Redis</title>
     <meta name="author" content="yangfan.onion">
     <meta name="description" content="The Man Who Can&#39;t Be Moved!">
     <link rel="icon" href="/assets/images/null">
@@ -154,12 +154,12 @@
                 <div class="post-header">
                     <h1 class="post-title" itemprop="headline">
                         
-                                <a class="link-unstyled" href="http://yangfan-onion.github.io/Redis-Mass-Insertion/">Redis Mass Insertion</a>
+                                <a class="link-unstyled" href="http://yangfan-onion.github.io/Redis-In-Action/">Redis In Action</a>
                         
                     </h1>
                     <div class="post-meta">
-    <time  itemprop="datePublished" content="Thu Oct 22 2015 15:59:27 GMT+0800">
-        Oct 22, 2015
+    <time  itemprop="datePublished" content="Sat Mar 17 2018 16:06:19 GMT+0800">
+        Mar 17, 2018
     </time>
     
         <span>in </span>
@@ -173,11 +173,17 @@
                 <div class="post-excerpt" itemprop="articleBody">
                     
                         <p>
-                            Sometimes Redis instances needs to be loaded with big amount of preexisting or user generated data in a short amount of time, so that millions of keys will be created as fast as possible.This is calle<br>
+                            持久化两种方式
+snapshotting
+append-only file 「AOF」
+
+snapshootingBGSAVE后台备份，会启动一个子进程来备份，当Redis内存很大时，比较消耗时间，建议手动使用SAVE命令保存
+AOFappendonly yes
+[appendfsync always]每次写入都刷新到硬盘上[appendfsync everysec]每秒钟同步一次到硬盘[appe<br>
                     
                     
                         
-                            <a href="http://yangfan-onion.github.io/Redis-Mass-Insertion/" class="post-excerpt_link link ">Continue reading</a>
+                            <a href="http://yangfan-onion.github.io/Redis-In-Action/" class="post-excerpt_link link ">Continue reading</a>
                             
                         
                     
@@ -190,7 +196,7 @@
            
             
             <div class="post-thumbnailimg">
-                <img alt="" src="http://yangfan-onion.github.io/Redis-Mass-Insertion/feature.png"/>
+                <img alt="" src="http://yangfan-onion.github.io/Redis-In-Action/feature.png"/>
             </div>
             
         </article>
